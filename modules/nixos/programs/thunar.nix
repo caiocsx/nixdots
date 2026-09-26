@@ -1,0 +1,23 @@
+{ pkgs, ... }:
+{
+  programs = {
+    thunar = {
+      enable = true;
+      plugins = [
+        pkgs.thunar-archive-plugin
+        pkgs.thunar-volman
+      ];
+    };
+    xfconf.enable = true;
+  };
+
+  services = {
+    gvfs.enable = true;
+    tumbler.enable = true;
+  };
+
+  environment.systemPackages = [
+    pkgs.file-roller
+    pkgs.ffmpegthumbnailer
+  ];
+}
