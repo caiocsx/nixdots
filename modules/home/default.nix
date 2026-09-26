@@ -2,9 +2,9 @@
 {
   imports = [
     ./desktop
-    ./packages
     ./theme
     ./xdg
+    ./packages.nix
     ./programs/btop.nix
     ./programs/discord.nix
     ./programs/fastfetch.nix

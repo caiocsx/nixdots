@@ -160,7 +160,7 @@ in
       (bindOpts "XF86AudioNext" "Play next track" (dsp.exec "playerctl next") { locked = true; })
       (bindOpts "XF86AudioPrev" "Play previous track" (dsp.exec "playerctl previous") { locked = true; })
       (bindOpts "XF86AudioStop" "Stop media playback" (dsp.exec "playerctl stop") { locked = true; })
-      
+
       # --- Display Brightness ---
       (bindOpts "XF86MonBrightnessUp" "Raise display brightness" (dsp.exec "brightnessctl set +10%") {
         locked = true;
