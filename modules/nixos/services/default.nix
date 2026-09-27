@@ -5,7 +5,7 @@
     ./bluetooth.nix
     ./docker.nix
     ./flatpak.nix
-    ./greetd.nix
+    ./ly.nix
     ./network-manager.nix
     ./power-profiles.nix
   ];
