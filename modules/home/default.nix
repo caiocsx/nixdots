@@ -4,19 +4,7 @@
     ./desktop
     ./theme
     ./xdg
-    ./packages.nix
-    ./programs/btop.nix
-    ./programs/discord.nix
-    ./programs/fastfetch.nix
-    ./programs/git.nix
-    ./programs/imv.nix
-    ./programs/kitty.nix
-    ./programs/mpv.nix
-    ./programs/shell.nix
-    ./programs/spotify.nix
-    ./programs/vscodium.nix
-    ./programs/zen-browser.nix
-    ./programs/zsh.nix
+    ./programs
   ];
 
   home = {

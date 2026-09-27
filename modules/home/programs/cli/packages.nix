@@ -2,12 +2,11 @@
 {
   home.packages = with pkgs; [
     curl
-    jq
-    p7zip
-    playerctl
-    ripgrep
-    unzip
     wget
+    p7zip
+    unzip
     zip
+    jq
+    ripgrep
   ];
 }
