@@ -3,24 +3,33 @@
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
-      # Browser
+      "x-scheme-handler/terminal" = "kitty.desktop";
+
+      "inode/directory" = "thunar.desktop";
+      "application/x-directory" = "thunar.desktop";
+
+      "application/vnd.rar" = "org.gnome.FileRoller.desktop";
+      "application/x-rar" = "org.gnome.FileRoller.desktop";
+      "application/x-rar-compressed" = "org.gnome.FileRoller.desktop";
+      "application/zip" = "org.gnome.FileRoller.desktop";
+      "application/x-zip-compressed" = "org.gnome.FileRoller.desktop";
+      "application/x-7z-compressed" = "org.gnome.FileRoller.desktop";
+      "application/x-tar" = "org.gnome.FileRoller.desktop";
+      "application/x-gzip" = "org.gnome.FileRoller.desktop";
+      "application/x-bzip2" = "org.gnome.FileRoller.desktop";
+
       "application/pdf" = "zen-beta.desktop";
       "application/xhtml+xml" = "zen-beta.desktop";
       "x-scheme-handler/chrome" = "zen-beta.desktop";
       "x-scheme-handler/http" = "zen-beta.desktop";
       "x-scheme-handler/https" = "zen-beta.desktop";
 
-      # Chat
-      "x-scheme-handler/discord" = [ "vesktop.desktop" ];
-
-      # Editor
       "application/json" = "codium.desktop";
       "text/css" = "codium.desktop";
       "text/html" = "codium.desktop";
       "text/markdown" = "codium.desktop";
       "text/plain" = "codium.desktop";
 
-      # Images
       "image/bmp" = "imv-dir.desktop";
       "image/gif" = "imv-dir.desktop";
       "image/heif" = "imv-dir.desktop";
@@ -30,7 +39,6 @@
       "image/tiff" = "imv-dir.desktop";
       "image/webp" = "imv-dir.desktop";
 
-      # Media
       "audio/flac" = "mpv.desktop";
       "audio/mp4" = "mpv.desktop";
       "audio/mpeg" = "mpv.desktop";
@@ -47,8 +55,7 @@
       "video/x-ms-wmv" = "mpv.desktop";
       "video/x-msvideo" = "mpv.desktop";
 
-      # Terminal
-      "x-scheme-handler/terminal" = "kitty.desktop";
+      "x-scheme-handler/discord" = [ "vesktop.desktop" ];
     };
   };
 }

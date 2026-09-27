@@ -18,9 +18,14 @@ in
 {
   xdg = {
     dataFile = {
-      "applications/mpv.desktop" = mkHiddenDesktopEntry {
-        name = "mpv";
-        exec = "mpv %U";
+      "applications/thunar-settings.desktop" = mkHiddenDesktopEntry {
+        name = "Thunar Settings";
+      };
+      "applications/thunar-bulk-rename.desktop" = mkHiddenDesktopEntry {
+        name = "Thunar Bulk Rename";
+      };
+      "applications/thunar-volman-settings.desktop" = mkHiddenDesktopEntry {
+        name = "Thunar Volman Settings";
       };
       "applications/qt5ct.desktop" = mkHiddenDesktopEntry {
         name = "Qt5 Configuration";
@@ -30,6 +35,10 @@ in
       };
       "applications/kvantummanager.desktop" = mkHiddenDesktopEntry {
         name = "Kvantum Manager";
+      };
+      "applications/mpv.desktop" = mkHiddenDesktopEntry {
+        name = "mpv";
+        exec = "mpv %U";
       };
       "applications/rofi.desktop" = mkHiddenDesktopEntry {
         name = "Rofi";
