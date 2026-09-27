@@ -1,4 +1,10 @@
 { pkgs, ... }:
 {
-  home.packages = [ pkgs.brightnessctl ];
+  imports = [
+    ../../modules/home/desktop/shells/modular
+  ];
+
+  home.packages = with pkgs; [
+    brightnessctl
+  ];
 }
