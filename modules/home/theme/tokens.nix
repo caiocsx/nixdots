@@ -70,16 +70,16 @@ in
   };
   borders = {
     radius = 8;
-    width = 2;
+    width = 0;
   };
   gaps = {
     inner = 3;
     outer = 10;
   };
   opacity = {
-    activeWindow = 0.95;
-    inactiveWindow = 0.85;
-    popup = 0.85;
+    activeWindow = 1;
+    inactiveWindow = 0.9;
+    popup = 0.9;
   };
   blur = {
     size = 6;

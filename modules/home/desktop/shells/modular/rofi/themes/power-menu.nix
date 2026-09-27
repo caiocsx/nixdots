@@ -1,7 +1,7 @@
 { config, theme, ... }:
 ''
   configuration {
-    font:             "${theme.fonts.interface} 10";
+    font:             "${theme.fonts.monospace.proportional} 10";
   }
 
   window {
@@ -69,7 +69,7 @@
     vertical-align:   0.5;
     horizontal-align: 0.5;
     cursor:           inherit;
-    font:             "${theme.fonts.interface} 10";
+    font:             "${theme.fonts.monospace.proportional} 32";
     text-color:       inherit;
     background-color: transparent;
   }

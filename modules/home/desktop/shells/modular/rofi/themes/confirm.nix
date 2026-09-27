@@ -20,7 +20,7 @@
   textbox {
     vertical-align:   0.5;
     horizontal-align: 0.5;
-    font:             "${theme.fonts.interface} 11";
+    font:             "${theme.fonts.monospace.proportional} 11";
     text-color:       @foreground;
     background-color: transparent;
   }
@@ -47,7 +47,7 @@
     vertical-align:   0.5;
     horizontal-align: 0.5;
     cursor:           inherit;
-    font:             "${theme.fonts.interface} 28";
+    font:             "${theme.fonts.monospace.proportional} 28";
     text-color:       inherit;
     background-color: transparent;
   }

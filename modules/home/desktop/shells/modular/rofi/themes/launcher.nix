@@ -8,7 +8,7 @@
     display-filebrowser: " ";
     display-window:      " ";
     display-run:         " ";
-    font:                "${theme.fonts.interface} 10";
+    font:                "${theme.fonts.monospace.proportional} 10";
     icon-theme:          "${theme.icons.name}";
   }
 

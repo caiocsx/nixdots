@@ -44,7 +44,7 @@
       force_zero_scaling = true;
     };
     misc = {
-      font_family = theme.fonts.interface;
+      font_family = theme.fonts.monospace.proportional;
       force_default_wallpaper = 0;
       disable_hyprland_logo = true;
       disable_splash_rendering = true;

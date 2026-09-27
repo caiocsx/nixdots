@@ -63,7 +63,7 @@
       }
 
       .control-center {
-        background-color: @background;
+        background-color: alpha(@background, ${toString theme.opacity.popup});
         border-radius: ${toString theme.borders.radius}px;
       }
 
@@ -82,7 +82,7 @@
 
       .notification {
         padding: 6px;
-        background-color: @background;
+        background-color: alpha(@background, 0.9);
         border-radius: ${toString theme.borders.radius}px;
       }
 

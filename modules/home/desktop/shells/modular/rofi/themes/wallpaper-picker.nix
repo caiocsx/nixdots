@@ -1,7 +1,7 @@
 { theme, ... }:
 ''
   configuration {
-    font:              "${theme.fonts.interface} 10";
+    font:              "${theme.fonts.monospace.proportional} 10";
     show-icons:        true;
   }
 

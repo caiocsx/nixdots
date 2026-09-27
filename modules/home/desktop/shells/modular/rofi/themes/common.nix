@@ -7,9 +7,7 @@
     surface-solid:          ${theme.colors.surface};
     foreground:             ${theme.colors.foreground};
     muted:                  ${theme.colors.muted};
-
     accent:                 ${theme.colors.accent};
-
     cyan:                   ${theme.colors.cyan};
     blue:                   ${theme.colors.blue};
     green:                  ${theme.colors.green};
@@ -18,7 +16,6 @@
     purple:                 ${theme.colors.purple};
     red:                    ${theme.colors.red};
     yellow:                 ${theme.colors.yellow};
-
     radius:                 ${toString theme.borders.radius}px;
   }
 

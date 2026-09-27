@@ -64,17 +64,17 @@
         };
         interval = 1;
       };
-      "mpris" = {
-        "format" = "{status_icon} {title} • {artist}";
-        "status-icons" = {
-          "playing" = "󰐊";
-          "paused" = "󰏤";
-          "stopped" = "󰓛";
+      mpris = {
+        format = "{status_icon} {title} • {artist}";
+        status-icons = {
+          playing = "󰐊";
+          paused = "󰏤";
+          stopped = "󰓛";
         };
-        "tooltip-format" = "{title} • {artist} • {album}";
-        "tooltip" = true;
-        "title-len" = 25;
-        "artist-len" = 10;
+        tooltip-format = "{title} • {artist} • {album}";
+        tooltip = true;
+        title-len = 20;
+        artist-len = 10;
       };
       privacy = {
         modules = [
@@ -413,7 +413,7 @@
         padding: 0 10px;
         margin: 0 4px;
         color: @foreground;
-        background-color: @background;
+        background-color: alpha(@background, ${toString theme.opacity.popup});
         border-radius: ${toString theme.borders.radius}px;
       }
 
@@ -436,13 +436,9 @@
         color: @blue;
       }
 
-      #clock {
+      #clock, #mpris {
         font-size: 14px;
         font-feature-settings: "tnum";
-      }
-
-      #mpris {
-        font-size: 15px;
       }
 
       #tray window decoration {
@@ -453,7 +449,7 @@
 
       #workspaces {
         padding: 0px 10px;
-        background-color: @background;
+        background-color: alpha(@background, ${toString theme.opacity.popup});
         border-radius: ${toString theme.borders.radius}px;
       }
 
@@ -504,7 +500,7 @@
       #pulseaudio-slider,
       #backlight-slider {
         padding: 0 10px;
-        background-color: @background;
+        background-color: alpha(@background, ${toString theme.opacity.popup});
         border-radius: 8px;
       }
 

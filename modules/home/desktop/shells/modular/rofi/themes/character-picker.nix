@@ -1,7 +1,7 @@
 { theme, ... }:
 ''
   configuration {
-    font:               "${theme.fonts.interface} 10";
+    font:               "${theme.fonts.monospace.proportional} 10";
     show-icons:         true;
   }
 
@@ -31,7 +31,7 @@
   textbox-prompt-colon {
     vertical-align:     0.5;
     str:                "󰞅";
-    font:               "${theme.fonts.interface} 12";
+    font:               "${theme.fonts.monospace.proportional} 12";
     text-color:         @foreground;
     expand:             false;
     background-color:   transparent;
