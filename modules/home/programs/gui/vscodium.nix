@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, theme, ... }:
 let
   extensions = [
     pkgs.vscode-marketplace.pkief.material-icon-theme
@@ -16,7 +16,22 @@ let
     "window.menuBarVisibility" = "hidden";
     "breadcrumbs.enabled" = false;
     "workbench.list.smoothScrolling" = true;
-
+    "workbench.colorCustomizations" = {
+      "editor.background" = theme.colors.surface;
+      "editorGutter.background" = theme.colors.surface;
+      "editor.lineHighlightBackground" = theme.colors.accent;
+      "panel.background" = theme.colors.surface;
+      "terminal.background" = theme.colors.surface;
+      "sideBar.background" = theme.colors.background;
+      "sideBarSectionHeader.background" = theme.colors.background;
+      "activityBar.background" = theme.colors.background;
+      "editorGroupHeader.tabsBackground" = theme.colors.background;
+      "statusBar.background" = theme.colors.background;
+      "tab.inactiveBackground" = theme.colors.background;
+      "tab.activeBackground" = theme.colors.surface;
+      "input.background" = theme.colors.surface;
+      "input.border" = theme.colors.accent;
+    };
     "editor.lineHeight" = 1.8;
     "editor.fontLigatures" = true;
     "editor.padding.top" = 20;
@@ -30,7 +45,6 @@ let
     "editor.renderLineHighlight" = "gutter";
     "editor.guides.bracketPairs" = true;
     "editor.rulers" = [ 120 ];
-
     "editor.tabSize" = 2;
     "editor.tabCompletion" = "on";
     "editor.wordWrap" = "wordWrapColumn";
@@ -43,7 +57,6 @@ let
       "source.fixAll.eslint" = "explicit";
       "source.organizeImports" = "explicit";
     };
-
     "files.autoSave" = "afterDelay";
     "files.eol" = "\n";
     "files.insertFinalNewline" = true;
@@ -56,7 +69,6 @@ let
     "explorer.sortOrder" = "foldersNestsFiles";
     "workbench.tree.indent" = 15;
     "workbench.tree.renderIndentGuides" = "none";
-
     "explorer.fileNesting.enabled" = true;
     "explorer.fileNesting.patterns" = {
       "package.json" = "package-lock.json, yarn.lock, pnpm-lock.yaml, bun.lock, bun.lockb";
@@ -67,14 +79,11 @@ let
       "Dockerfile" = "Dockerfile.*, .dockerignore, docker-compose.*";
       ".gitignore" = ".gitattributes, .gitmodules";
     };
-
     "terminal.integrated.fontLigatures.enabled" = true;
     "terminal.integrated.cursorBlinking" = true;
     "terminal.integrated.stickyScroll.enabled" = false;
-
     "git.autofetch" = true;
     "diffEditor.ignoreTrimWhitespace" = true;
-
     "extensions.ignoreRecommendations" = true;
   };
 in
