@@ -7,7 +7,10 @@
     ../../modules/nixos/core
     ../../modules/nixos/desktop
     ../../modules/nixos/services
-    ../../modules/nixos/programs
+
+    ../../modules/nixos/programs/steam.nix
+    ../../modules/nixos/programs/thunar.nix
+    ../../modules/nixos/programs/zsh.nix
   ];
 
   home-manager.users.caiocsx.imports = [ ./home.nix ];
