@@ -8,5 +8,7 @@
     zip
     jq
     ripgrep
+    nixfmt
+    codex
   ];
 }
