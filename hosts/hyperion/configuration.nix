@@ -12,6 +12,8 @@
     ../../modules/nixos/programs/zsh.nix
   ];
 
+  services.xserver.xkb.layout = "br";
+
   home-manager.users.caiocsx.imports = [ ./home.nix ];
   networking.hostName = "hyperion";
   system.stateVersion = "26.05";
