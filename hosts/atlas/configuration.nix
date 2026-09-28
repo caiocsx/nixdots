@@ -8,10 +8,15 @@
     ../../modules/nixos/desktop
     ../../modules/nixos/services
 
-    ../../modules/nixos/programs/steam.nix
+    # ../../modules/nixos/programs/steam.nix
     ../../modules/nixos/programs/thunar.nix
     ../../modules/nixos/programs/zsh.nix
   ];
+
+  services.xserver.xkb = {
+    layout = "us";
+    variant = "intl";
+  };
 
   home-manager.users.caiocsx.imports = [ ./home.nix ];
   networking.hostName = "atlas";
