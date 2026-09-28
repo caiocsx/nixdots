@@ -35,11 +35,34 @@
         "title"
         "dnd"
         "notifications"
+        "buttons-grid"
       ];
       widget-config = {
+        buttons-grid = {
+          buttons-per-row = 4;
+          actions = [
+            {
+              label = "";
+              command = "swaync-client -cp && sleep 0.25 && colorpicker";
+            }
+            {
+              label = "󰃟";
+              command = "bluefilter --toggle";
+            }
+            {
+              label = "";
+              command = "swaync-client -cp && screenshot --region";
+            }
+            {
+              label = "";
+              command = "kitty btop";
+            }
+          ];
+        };
         mpris = {
           show-album-art = "when-available";
           autohide = true;
+          blacklist = [ "playerctld" ];
         };
         title = {
           text = "Notifications";
@@ -81,7 +104,7 @@
       }
 
       .notification {
-        padding: 6px;
+        padding: 14px;
         background-color: alpha(@background, 0.9);
         border-radius: ${toString theme.borders.radius}px;
       }
@@ -95,23 +118,25 @@
       }
 
       .notification-content {
-        margin-top: 4px;
-        padding: 4px;
+        margin: 0;
+        padding: 0;
       }
 
       .summary {
         padding-top: 2px;
+        font-size: 16px;
         font-weight: bold;
       }
 
       .time {
         padding-top: 2px;
+        font-size: 12px;
         color: @muted;
       }
 
       .body {
-        padding-top: 4px;
-        font-size: 0.9rem;
+        padding-top: 6px;
+        font-size: 14px;
       }
 
       .notification image {
@@ -124,25 +149,36 @@
         font-weight: 700;
       }
 
+      .widget-title {
+        margin: 8px 16px;
+      }
+
+      .widget-title > label {
+        font-size: 18px;
+        font-weight: 700;
+      }
+
       .widget-title > button {
-        padding: 2px 16px;
+        padding: 4px 16px;
         border-radius: 12px;
-        background-color: alpha(@red, 0.5);
-        transition: all 0.4s ease-in-out;
+        background-color: alpha(@red, 0.12);
+        transition: background-color 0.2s ease;
       }
 
       .widget-title > button:hover {
-        background-color: @red;
-        box-shadow: 0px 0px 5px red;
+        background-color: alpha(@red, 0.22);
       }
 
-      .widget-title > *,
-      .widget-title>button>* {
-        font-size: 20px;
+      .widget-title > button > * {
+        font-size: 16px;
       }
 
-      .widget-dnd > * {
-        font-size: 20px;
+      .widget-dnd {
+        margin: 4px 16px 12px;
+      }
+
+      .widget-dnd > label {
+        font-size: 14px;
       }
 
       .widget-dnd > switch {
@@ -165,7 +201,7 @@
       }
 
       .widget-buttons-grid {
-        margin: 10px;
+        margin: 12px 16px 16px;
         background-color: transparent;
       }
 
@@ -174,22 +210,20 @@
         background-color: transparent;
         border-radius: 8px;
         box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2), 0 0 8px rgba(0, 0, 0, 0.3);
+        transition: background-color 0.2s ease;
       }
 
       .widget-buttons-grid > flowbox > flowboxchild>button:hover {
-        background-color: @accent;
-        box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);
-        transition: all 0.5s ease;
+        background-color: alpha(@accent, 0.15);
       }
 
       .widget-buttons-grid > flowbox > flowboxchild > button label {
-        font-size: 20px;
-        transition: all 0.7s ease;
+        font-size: 14px;
+        transition: color 0.2s ease;
       }
 
       .widget-buttons-grid > flowbox > flowboxchild > button:hover label {
-        color: @background;
-        transition: all 0.7s ease;
+        color: @accent;
       }
 
       .widget-buttons-grid > flowbox > flowboxchild > button.toggle:checked {

@@ -13,12 +13,18 @@
       "group/group-left" = {
         orientation = "inherit";
         modules = [
+          "custom/nixos"
           "custom/notification"
           "clock"
-          "mpris"
           "privacy"
           "tray"
         ];
+      };
+      "custom/nixos" = {
+        format = "󱄅";
+        on-click = "launcher";
+        on-click-right = "kitty";
+        tooltip = false;
       };
       "custom/notification" = {
         format = "{icon}";
@@ -63,18 +69,6 @@
           on-scroll-down = "shift_down";
         };
         interval = 1;
-      };
-      mpris = {
-        format = "{status_icon} {title} • {artist}";
-        status-icons = {
-          playing = "󰐊";
-          paused = "󰏤";
-          stopped = "󰓛";
-        };
-        tooltip-format = "{title} • {artist} • {album}";
-        tooltip = true;
-        title-len = 20;
-        artist-len = 10;
       };
       privacy = {
         modules = [
@@ -123,66 +117,11 @@
       "group/group-right" = {
         orientation = "inherit";
         modules = [
-          "group/group-tools"
           "pulseaudio#microphone"
           "group/audio"
           "group/brightness"
           "group/group-system"
         ];
-      };
-      "group/group-tools" = {
-        orientation = "inherit";
-        modules = [
-          "group/tools-drawer"
-          "custom/tools"
-        ];
-      };
-      "custom/tools" = {
-        format = "󱌣";
-        tooltip = false;
-      };
-      "group/tools-drawer" = {
-        orientation = "inherit";
-        drawer = {
-          children-class = "tools";
-          transition-left-to-right = true;
-          click-to-reveal = true;
-          transition-duration = 400;
-        };
-        modules = [
-          "custom/arrow-left"
-          "custom/cliphist"
-          "custom/colorpicker"
-          "custom/bluefilter"
-        ];
-      };
-      "custom/arrow-left" = {
-        format = "󰅁";
-        tooltip = false;
-        cursor = true;
-      };
-      "custom/cliphist" = {
-        format = "󱉨";
-        on-click = "clipboard";
-        on-click-right = "clipboard --wipe";
-        tooltip = false;
-      };
-      "custom/colorpicker" = {
-        format = "{}";
-        on-click = "colorpicker";
-        exec = "colorpicker --json";
-        return-type = "json";
-        interval = "once";
-        tooltip = true;
-        signal = 1;
-      };
-      "custom/bluefilter" = {
-        format = "{}";
-        on-click = "bluefilter --toggle";
-        exec = "bluefilter";
-        tooltip = false;
-        interval = "once";
-        signal = 1;
       };
       "pulseaudio#microphone" = {
         format = "{format_source}";
@@ -217,11 +156,7 @@
           headphone = "󰋋";
           headset = "󰋎";
           headset-muted = "󰋐";
-          default = [
-            "󰕿"
-            "󰖀"
-            "󰕾"
-          ];
+          default = [ "󰕾" ];
         };
         on-click = "pavucontrol";
         on-click-right = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
@@ -379,7 +314,6 @@
         all: unset;
         box-shadow: none;
         border: none;
-        min-height: 25px;
         font-family: ${theme.fonts.monospace.proportional};
         font-size: 16px;
       }
@@ -395,36 +329,33 @@
       }
 
       tooltip label {
+        padding: 4px 6px;
         font-size: 14px;
         color: @foreground;
       }
 
+      #custom-nixos,
       #custom-notification,
       #clock,
-      #mpris,
       #privacy,
       #tray,
-      #group-tools,
       #pulseaudio.microphone,
       #pulseaudio,
       #backlight,
       #group-system {
+        min-height: 30px;
         min-width: 25px;
         padding: 0 10px;
         margin: 0 4px;
         color: @foreground;
         background-color: alpha(@background, ${toString theme.opacity.popup});
         border-radius: ${toString theme.borders.radius}px;
+        transition: color 0.3s ease;
       }
 
       #custom-notification:hover,
       #clock:hover,
-      #mpris:hover,
       #privacy:hover,
-      #custom-cliphist:hover,
-      #custom-bluefilter:hover,
-      #custom-tools:hover,
-      #custom-arrow-left:hover,
       #pulseaudio.microphone:hover,
       #pulseaudio:hover,
       #backlight:hover,
@@ -432,13 +363,23 @@
       #network:hover,
       #battery:hover,
       #custom-power:hover {
-        transition: all 0.3s ease;
+        color: @accent;
+      }
+
+      #custom-nixos {
+        font-size: 17px;
         color: @blue;
       }
 
-      #clock, #mpris {
+      #clock {
+        padding: 0 18px;
         font-size: 14px;
         font-feature-settings: "tnum";
+      }
+
+      #privacy,
+      #tray {
+        padding: 0 14px;
       }
 
       #tray window decoration {
@@ -448,7 +389,9 @@
       }
 
       #workspaces {
-        padding: 0px 10px;
+        min-height: 30px;
+        padding: 0 10px;
+        margin: 0 4px;
         background-color: alpha(@background, ${toString theme.opacity.popup});
         border-radius: ${toString theme.borders.radius}px;
       }
@@ -486,20 +429,20 @@
         text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
       }
 
-      #custom-cliphist,
-      #custom-colorpicker,
-      #custom-bluefilter,
-      #custom-tools,
       #bluetooth,
       #network,
       #battery,
       #custom-power {
-        padding: 0 8px;
+        min-width: 20px;
+        padding: 0 6px;
+        transition: color 0.3s ease;
       }
 
       #pulseaudio-slider,
       #backlight-slider {
-        padding: 0 10px;
+        min-height: 30px;
+        padding: 0 14px;
+        margin: 0 4px;
         background-color: alpha(@background, ${toString theme.opacity.popup});
         border-radius: 8px;
       }
