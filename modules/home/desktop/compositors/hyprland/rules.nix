@@ -24,7 +24,7 @@
       {
         name = "float-system-tools";
         match = {
-          class = "^(xdg-desktop-portal-gtk|org.gnome.FileRoller|qalculate-gtk)$";
+          class = "^(xdg-desktop-portal-gtk|org.pulseaudio.pavucontrol|org.gnome.FileRoller|qalculate-gtk)$";
         };
         float = true;
       }
@@ -66,6 +66,35 @@
         size = "480 270";
         move = "74.5% 4.25%";
         animation = "slide";
+      }
+    ];
+    layer_rule = [
+      {
+        name = "blur-waybar";
+        match = {
+          namespace = "^(waybar)$";
+        };
+        blur = true;
+        ignore_alpha = 0.1;
+        blur_popups = true;
+      }
+      {
+        name = "blur-swaync";
+        match = {
+          namespace = "^(swaync-control-center|swaync-notification-window)$";
+        };
+        blur = true;
+        ignore_alpha = 0.1;
+        animation = "slide left";
+      }
+      {
+        name = "blur-rofi";
+        match = {
+          namespace = "^(rofi)$";
+        };
+        blur = true;
+        ignore_alpha = 0.1;
+        animation = "popin";
       }
     ];
   };
