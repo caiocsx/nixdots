@@ -4,8 +4,8 @@
 
   programs.nixcord = {
     enable = true;
+    discord.enable = false;
     vesktop.enable = true;
-    discord.silenceNoModClientWarning = true;
     config = {
       useQuickCss = true;
       frameless = true;
