@@ -71,9 +71,34 @@ in
     bind = [
       # --- Applications ---
       (bind "SUPER + Return" "Open terminal" (dsp.app terminal))
+      (bind "SUPER + SPACE" "Open application launcher" (dsp.exec "launcher"))
+      (bind "SUPER + E" "Open file manager" (dsp.app fileManager))
       (bind "SUPER + B" "Open browser" (dsp.app browser))
-      (bind "SUPER + E" "Open editor" (dsp.app editor))
-      (bind "SUPER + F" "Open file manager" (dsp.app fileManager))
+      (bind "SUPER + D" "Open editor" (dsp.app editor))
+
+      # --- System Controls & Menus ---
+      (bind "SUPER + Delete" "Open power menu" (dsp.exec "power-menu"))
+      (bind "SUPER + SHIFT + Delete" "Shut down session" (dsp.exec "session-shutdown"))
+      (bind "SUPER + ALT + Delete" "Reboot session" (dsp.exec "session-reboot"))
+      (bind "SUPER + ESCAPE" "Open power menu" (dsp.exec "power-menu"))
+      (bind "SUPER + ALT + L" "Lock session" (dsp.exec "session-lock"))
+      (bind "SUPER + A" "Toggle control center" (dsp.exec "control-center-toggle"))
+      (bind "SUPER + SHIFT + B" "Toggle status bar" (dsp.exec "bar-toggle"))
+      (bind "SUPER + period" "Open character picker" (dsp.exec "character-picker"))
+
+      # --- Wallpaper Management ---
+      (bind "SUPER + W" "Open wallpaper picker" (dsp.exec "wallpaper-picker"))
+      (bind "SUPER + ALT + bracketleft" "Select previous wallpaper" (dsp.exec "wallpaper-picker --prev"))
+      (bind "SUPER + ALT + bracketright" "Select next wallpaper" (dsp.exec "wallpaper-picker --next"))
+
+      # --- Clipboard Management ---
+      (bind "SUPER + V" "Open clipboard history" (dsp.exec "clipboard"))
+      (bind "SUPER + SHIFT + V" "Clear clipboard history" (dsp.exec "clipboard --wipe"))
+
+      # --- Screenshots ---
+      (bind "SUPER + PRINT" "Capture selected window" (dsp.exec "screenshot --window"))
+      (bind "SUPER + SHIFT + PRINT" "Capture selected region" (dsp.exec "screenshot --region"))
+      (bind "SUPER + CTRL + PRINT" "Capture selected output" (dsp.exec "screenshot --output"))
 
       # --- Accessibility / Screen Zoom ---
       (bind "SUPER + ALT + mouse_up" "Zoom in" (
@@ -84,7 +109,7 @@ in
       ))
 
       # --- Window State & Layout ---
-      (bind "SUPER + SPACE" "Toggle window maximization" dsp.maximize)
+      (bind "SUPER + M" "Toggle window maximization" dsp.maximize)
       (bind "SUPER + Q" "Close active window" dsp.close)
       (bind "SUPER + SHIFT + Q" "Kill a window" dsp.kill)
       (bind "SUPER + SHIFT + W" "Toggle sized floating window" (dsp.floatSized 1000 660))
