@@ -15,7 +15,7 @@ let
       uwsm
     ];
     text = ''
-      rofi -show drun -run-command "uwsm app -- {cmd}" -theme ${themes.launcher}
+      exec rofi -show drun -run-command "uwsm app -- {cmd}" -theme "${themes.launcher}"
     '';
   };
 in
