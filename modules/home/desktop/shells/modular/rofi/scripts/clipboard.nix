@@ -14,74 +14,63 @@ let
       rofi
       wl-clipboard
       cliphist
-      gnused
       libnotify
     ];
     text = ''
-      readonly ICON_YES=" "
-      readonly ICON_NO="󰅙 "
-
-      show_menu() {
-        local prompt="$1"
-        shift
-        rofi -dmenu -theme "${themes.listMenu}" -p "$prompt" "$@"
-      }
+      readonly ICON_YES=''
+      readonly ICON_NO='󰅙'
 
       notify_info() {
-        notify-send "Clipboard" "$1" -t "''${2:-3000}"
+        notify-send -t 3000 "Clipboard" "$1"
       }
 
-      confirm_action() {
-        local message="$1"
-        local confirmed
+      clear_history() {
+        local selected
+        selected=$(printf '%s\n' "$ICON_YES" "$ICON_NO" |
+          rofi -dmenu -no-custom -mesg "Clear clipboard history?" \
+            -theme "${themes.confirm}") || return 0
+        [[ "$selected" == "$ICON_YES" ]] || return 0
 
-        confirmed=$(printf "%s\n%s\n" "$ICON_YES" "$ICON_NO" | \
-          rofi -dmenu \
-            -mesg "$message" \
-            -theme "${themes.confirm}") || return 1
-
-        [[ "''${confirmed// /}" == "''${ICON_YES// /}" ]]
+        cliphist wipe
+        notify_info "Clipboard history cleared."
       }
 
-      menu_clear_history() {
-        if confirm_action "Clear clipboard history?"; then
-          cliphist wipe
-          notify_info "Clipboard history cleared."
-        fi
-      }
-
-      main_menu() {
-        local items
-        mapfile -t items < <(cliphist list | sed '/^[[:space:]]*$/d')
-
-        if [ "''${#items[@]}" -eq 0 ]; then
+      show_menu() {
+        local history selected
+        local items=() labels=()
+        history=$(cliphist list)
+        if [[ -z "$history" ]]; then
           notify_info "Clipboard history is empty."
-          return
+          return 0
         fi
 
-        local display_items=()
+        mapfile -t items <<< "$history"
         local item
         for item in "''${items[@]}"; do
-          display_items+=("''${item#*$'\t'}")
+          labels+=("''${item#*$'\t'}")
         done
 
-        local idx
-        idx=$(printf '%s\n' "''${display_items[@]}" | show_menu "Clipboard" -format i) || return
+        selected=$(printf '%s\n' "''${labels[@]}" |
+          rofi -dmenu -no-custom -format i -p "Clipboard" \
+            -theme "${themes.listMenu}") || return 0
+        [[ "$selected" =~ ^[0-9]+$ ]] || return 0
+        (( selected < ''${#items[@]} )) || return 1
 
-        [ -z "$idx" ] && return
-
-        if [[ "$idx" =~ ^[0-9]+$ ]] && [ "$idx" -lt "''${#items[@]}" ]; then
-          printf "%s\n" "''${items[$idx]}" | cliphist decode | wl-copy
-          notify_info "Copied to clipboard."
-        fi
+        printf '%s\n' "''${items[selected]}" | cliphist decode | wl-copy
+        notify_info "Copied to clipboard."
       }
 
       main() {
+        if (( $# > 1 )); then
+          printf 'Expected at most one option.\n' >&2
+          return 1
+        fi
+
         case "''${1:-}" in
-          "")            main_menu ;;
-          -w|--wipe)     menu_clear_history ;;
-          -h|--help)     echo "Usage: ''${0##*/} [ -w/--wipe | -h/--help ]" ;;
-          *)             echo "Unknown option: $1" >&2; exit 1 ;;
+          "") show_menu ;;
+          -w|--wipe) clear_history ;;
+          -h|--help) printf 'Usage: %s [-w|--wipe | -h|--help]\n' "''${0##*/}" ;;
+          *) printf 'Unknown option: %s\n' "$1" >&2; return 1 ;;
         esac
       }
 
