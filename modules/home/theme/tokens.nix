@@ -50,9 +50,10 @@ let
     if builtins.stringLength hex == 1 then "0${hex}" else hex;
 
   withAlpha = color: opacity: "#${lib.removePrefix "#" color}${opacityToHex opacity}";
+  toRgb = color: "rgb(${lib.removePrefix "#" color})";
 in
 {
-  inherit withAlpha;
+  inherit withAlpha toRgb;
 
   colors = palette // {
     accent = accentColor;
