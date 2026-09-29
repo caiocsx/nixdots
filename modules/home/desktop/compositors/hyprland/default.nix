@@ -1,15 +1,6 @@
-{ pkgs, ... }:
+{ ... }:
 {
   imports = [
-    ../../common
-    ./animations.nix
-    ./binds.nix
-    ./rules.nix
-    ./settings.nix
+    ./config
   ];
-
-  wayland.windowManager.hyprland = {
-    enable = true;
-    systemd.enable = false;
-  };
 }
