@@ -9,5 +9,6 @@
     ./swayidle.nix
     ./swaync.nix
     ./waybar.nix
+    ./wlsunset.nix
   ];
 }

@@ -39,15 +39,11 @@
       ];
       widget-config = {
         buttons-grid = {
-          buttons-per-row = 4;
+          buttons-per-row = 3;
           actions = [
             {
               label = "";
               command = "swaync-client -cp && sleep 0.25 && colorpicker";
-            }
-            {
-              label = "󰃟";
-              command = "bluefilter --toggle";
             }
             {
               label = "";
