@@ -14,85 +14,51 @@ let
       rofi
       util-linux
       procps
-      gnugrep
+      coreutils
+      hostname
+      systemd
       gawk
     ];
     text = ''
-      set_icons() {
-        declare -gA ACTIONS=(
-          [""]="SHUTDOWN"
-          [""]="REBOOT"
-          ["󰍃"]="LOGOUT"
-          ["󰌾"]="LOCK"
-          ["󰏤"]="SUSPEND"
-          ["󰤄"]="HIBERNATE"
-        )
-        ORDERED_ICONS=("" "" "󰍃" "󰌾" "󰏤" "󰤄")
-        ICON_YES=''
-        ICON_NO='󰅙'
-      }
+      readonly ICON_YES=''
+      readonly ICON_NO='󰅙'
 
       confirm_action() {
-        printf "%s\n%s\n" "$ICON_YES" "$ICON_NO" | \
-          rofi -dmenu -p "Confirmation" \
-            -mesg "Are you sure?" \
-            -theme "${themes.confirm}"
-      }
-
-      get_system_info() {
-        hostname_str=$(hostname)
-        current_user=$(whoami)
-
-        UPTIME=$(uptime -p 2>/dev/null | sed 's/^up //' || true)
-        if [ -z "$UPTIME" ]; then
-          UPTIME=$(uptime | awk -F'up ' '{print $2}' | cut -d',' -f1 | xargs || echo "unknown")
-        fi
-
-        LAST_LOGIN=$(last -n 1 "$current_user" 2>/dev/null | grep -v "wtmp" | head -n 1 | awk '{print $4, $5, $6}' | xargs || true)
-
-        if [ -z "$LAST_LOGIN" ]; then
-          LAST_LOGIN=$(who -b | awk '{print $3, $4, $5}' | xargs || echo "Unknown")
-        fi
-      }
-
-      show_menu() {
-        local menu_items
-        menu_items="$(printf "%s\n" "''${ORDERED_ICONS[@]}")"
-
-        rofi -dmenu -p " $current_user@$hostname_str" \
-          -mesg " Last Login: $LAST_LOGIN |  Uptime: $UPTIME" \
-          -theme "${themes.powerMenu}" <<<"$menu_items"
-      }
-
-      execute_action() {
-        local selected_icon="$1"
-        local action="''${ACTIONS[$selected_icon]:-}"
-
-        [[ -z "$action" ]] && exit 1
-
-        if [[ "$action" != "LOCK" ]]; then
-          local confirmed
-          confirmed="$(confirm_action)"
-          [[ "''${confirmed// /}" != "''${ICON_YES// /}" ]] && return
-        fi
-
-        case "$action" in
-          SHUTDOWN) systemctl poweroff ;;
-          REBOOT) systemctl reboot ;;
-          LOGOUT) session-exit ;;
-          LOCK) session-lock ;;
-          SUSPEND) systemctl suspend ;;
-          HIBERNATE) systemctl hibernate ;;
-        esac
+        local selected
+        selected=$(printf '%s\n' "$ICON_YES" "$ICON_NO" |
+          rofi -dmenu -no-custom -p "Confirmation" -mesg "Are you sure?" \
+            -theme "${themes.confirm}") || return 1
+        [[ "$selected" == "$ICON_YES" ]]
       }
 
       main() {
-        get_system_info
-        set_icons
+        local host user uptime_text last_login selected
+        local icons=('' '' '󰍃' '󰌾' '󰏤' '󰤄')
 
-        local selected_icon
-        selected_icon="$(show_menu)"
-        [[ -n "$selected_icon" ]] && execute_action "$selected_icon"
+        host=$(hostname)
+        user=$(whoami)
+        uptime_text=$(uptime -p)
+        last_login=$(last -n 1 "$user" 2>/dev/null | awk -v user="$user" '$1 == user { print $4, $5, $6 }' || true)
+
+        selected=$(printf '%s\n' "''${icons[@]}" |
+          rofi -dmenu -no-custom -format i -p " $user@$host" \
+            -mesg " Last Login: ''${last_login:-Unknown} |  Uptime: ''${uptime_text#up }" \
+            -theme "${themes.powerMenu}") || return 0
+
+        [[ "$selected" =~ ^[0-5]$ ]] || return 0
+        if [[ "$selected" != 3 ]]; then
+          confirm_action || return 0
+        fi
+
+        # Session commands are supplied by the compositor and lock modules.
+        case "$selected" in
+          0) exec session-shutdown ;;
+          1) exec session-reboot ;;
+          2) exec session-exit ;;
+          3) exec session-lock ;;
+          4) exec systemctl suspend ;;
+          5) exec systemctl hibernate ;;
+        esac
       }
 
       main "$@"
