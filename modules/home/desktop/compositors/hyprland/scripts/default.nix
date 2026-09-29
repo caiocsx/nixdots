@@ -1,7 +1,6 @@
 { ... }:
 {
   imports = [
-    ./config
-    ./scripts
+    ./session.nix
   ];
 }
