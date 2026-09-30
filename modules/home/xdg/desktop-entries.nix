@@ -18,6 +18,10 @@ in
 {
   xdg = {
     dataFile = {
+      "applications/uuctl.desktop" = mkHiddenDesktopEntry {
+        name = "uuctl";
+        exec = "uuctl";
+      };
       "applications/thunar-settings.desktop" = mkHiddenDesktopEntry {
         name = "Thunar Settings";
       };

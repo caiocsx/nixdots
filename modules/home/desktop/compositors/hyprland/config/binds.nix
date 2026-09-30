@@ -83,6 +83,7 @@ in
       (bind "SUPER + ESCAPE" "Open power menu" (dsp.exec "power-menu"))
       (bind "SUPER + ALT + L" "Lock session" (dsp.exec "session-lock"))
       (bind "SUPER + A" "Toggle control center" (dsp.exec "control-center-toggle"))
+      (bind "SUPER + U" "Open user unit menu" (dsp.exec "unit-menu"))
       (bind "SUPER + SHIFT + B" "Toggle status bar" (dsp.exec "bar-toggle"))
       (bind "SUPER + EQUAL" "Open calculator" (dsp.exec "calculator"))
       (bind "SUPER + period" "Open character picker" (dsp.exec "character-picker"))
