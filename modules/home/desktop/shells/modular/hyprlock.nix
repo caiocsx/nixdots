@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   theme,
   ...
 }:
@@ -28,21 +29,21 @@ in
       label = [
         {
           monitor = "";
-          text = "cmd[update:1000] echo \"$(date +\"%A, %B %d\")\"";
+          text = "cmd[update:1000] ${pkgs.coreutils}/bin/date '+%A, %B %d'";
           position = "0, 405";
           halign = "center";
           valign = "center";
-          font_family = theme.fonts.monospace.proportional;
+          font_family = "${theme.fonts.monospace.proportional} Bold";
           font_size = 30;
           color = colors.foreground;
         }
         {
           monitor = "";
-          text = "cmd[update:1000] echo \"$(date +\"%k:%M\")\"";
+          text = "cmd[update:1000] ${pkgs.coreutils}/bin/date '+%k:%M'";
           position = "0, 310";
           halign = "center";
           valign = "center";
-          font_family = theme.fonts.monospace.proportional;
+          font_family = "${theme.fonts.monospace.proportional} Bold";
           font_size = 100;
           color = colors.muted;
         }
