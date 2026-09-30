@@ -135,7 +135,6 @@
       "group/audio" = {
         orientation = "inherit";
         drawer = {
-          children-class = "audio";
           transition-left-to-right = false;
           transition-duration = 400;
         };
@@ -167,7 +166,6 @@
       "group/brightness" = {
         orientation = "inherit";
         drawer = {
-          children-class = "brightness";
           transition-left-to-right = false;
           transition-duration = 400;
         };
@@ -377,8 +375,12 @@
         font-feature-settings: "tnum";
       }
 
-      #privacy,
       #tray {
+        padding: 0 14px;
+      }
+
+      #privacy {
+        min-width: 0;
         padding: 0 14px;
       }
 
@@ -429,15 +431,6 @@
         text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
       }
 
-      #bluetooth,
-      #network,
-      #battery,
-      #custom-power {
-        min-width: 20px;
-        padding: 0 6px;
-        transition: color 0.3s ease;
-      }
-
       #pulseaudio-slider,
       #backlight-slider {
         min-height: 30px;
@@ -467,6 +460,15 @@
         min-height: 8px;
         background-color: @foreground;
         border-radius: 8px;
+      }
+
+      #bluetooth,
+      #network,
+      #battery,
+      #custom-power {
+        min-width: 20px;
+        padding: 0 6px;
+        transition: color 0.3s ease;
       }
 
       #battery.charging.warning,
