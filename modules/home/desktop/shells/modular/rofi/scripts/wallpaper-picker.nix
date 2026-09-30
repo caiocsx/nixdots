@@ -4,7 +4,6 @@
   theme,
   ...
 }:
-
 let
   themes = import ../themes { inherit config pkgs theme; };
 

@@ -4,11 +4,9 @@
   pkgs,
   ...
 }:
-
 let
   stylixFonts = config.stylix.fonts;
   stylixColors = config.lib.stylix.colors.withHashtag;
-
   palette = {
     background = stylixColors.base00;
     surface = stylixColors.base01;
@@ -24,7 +22,6 @@ let
     yellow = stylixColors.base0A;
   };
   accentColor = palette.blue;
-
   gtkCss = pkgs.writeText "theme-gtk.css" ''
     @define-color background ${palette.background};
     @define-color surface ${palette.surface};
@@ -41,7 +38,6 @@ let
     @define-color magenta ${palette.magenta};
     @define-color purple ${palette.purple};
   '';
-
   opacityToHex =
     opacity:
     let
