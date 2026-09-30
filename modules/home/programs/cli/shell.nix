@@ -1,6 +1,5 @@
-{ config, pkgs, ... }:
+{ config, ... }:
 {
-  home.packages = with pkgs; [ fd ];
   programs = {
     nh = {
       enable = true;

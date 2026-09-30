@@ -7,9 +7,7 @@
     syntaxHighlighting.enable = true;
     initContent = ''
       export YSU_IGNORED_ALIASES=("ls" "eza")
-
       setopt correct
-
       zstyle ':fzf-tab:*' use-fzf-default-opts yes
       zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --icons --color=always $realpath'
     '';
