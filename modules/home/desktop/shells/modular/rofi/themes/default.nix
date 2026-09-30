@@ -11,6 +11,7 @@ in
 {
   calculator = mkTheme "calculator" (import ./calculator.nix { inherit theme; });
 
+  gameLauncher = mkTheme "game-launcher" (import ./game-launcher.nix { inherit theme; });
 
   confirm = mkTheme "confirm" (import ./confirm.nix { inherit theme; });
 

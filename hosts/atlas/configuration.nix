@@ -8,7 +8,7 @@
     ../../modules/nixos/desktop
     ../../modules/nixos/services
 
-    # ../../modules/nixos/programs/steam.nix
+    ../../modules/nixos/programs/steam.nix
     ../../modules/nixos/programs/thunar.nix
     ../../modules/nixos/programs/zsh.nix
   ];

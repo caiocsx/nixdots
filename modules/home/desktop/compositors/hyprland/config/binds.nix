@@ -75,6 +75,7 @@ in
       (bind "SUPER + E" "Open file manager" (dsp.app fileManager))
       (bind "SUPER + B" "Open browser" (dsp.app browser))
       (bind "SUPER + D" "Open editor" (dsp.app editor))
+      (bind "SUPER + G" "Open game launcher" (dsp.exec "game-launcher"))
 
       # --- System Controls & Menus ---
       (bind "SUPER + Delete" "Open power menu" (dsp.exec "power-menu"))
