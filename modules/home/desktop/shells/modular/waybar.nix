@@ -1,4 +1,4 @@
-{ theme, ... }:
+{ pkgs, theme, ... }:
 {
   programs.waybar = {
     enable = true;
@@ -251,11 +251,11 @@
           critical = 10;
         };
         events = {
-          on-charging = "notify-send -u normal 'Power' 'Connected to AC power'";
-          on-charging-100 = "notify-send -u normal 'Battery' 'Battery is fully charged'";
-          on-discharging = "notify-send -u normal 'Power' 'Running on battery'";
-          on-discharging-warning = "notify-send -u normal 'Battery Warning' 'Battery level is low'";
-          on-discharging-critical = "notify-send -u critical 'Battery Critical' 'Battery level is critically low'";
+          on-charging = "${pkgs.libnotify}/bin/notify-send -u normal 'Power' 'Connected to AC power'";
+          on-charging-100 = "${pkgs.libnotify}/bin/notify-send -u normal 'Battery' 'Battery is fully charged'";
+          on-discharging = "${pkgs.libnotify}/bin/notify-send -u normal 'Power' 'Running on battery'";
+          on-discharging-warning = "${pkgs.libnotify}/bin/notify-send -u normal 'Battery Warning' 'Battery level is low'";
+          on-discharging-critical = "${pkgs.libnotify}/bin/notify-send -u critical 'Battery Critical' 'Battery level is critically low'";
         };
         format = "{icon}";
         format-icons = {
