@@ -35,26 +35,8 @@
         "title"
         "dnd"
         "notifications"
-        "buttons-grid"
       ];
       widget-config = {
-        buttons-grid = {
-          buttons-per-row = 3;
-          actions = [
-            {
-              label = "";
-              command = "swaync-client -cp && sleep 0.25 && colorpicker";
-            }
-            {
-              label = "";
-              command = "swaync-client -cp && screenshot --region";
-            }
-            {
-              label = "";
-              command = "kitty btop";
-            }
-          ];
-        };
         mpris = {
           show-album-art = "when-available";
           autohide = true;
@@ -196,39 +178,6 @@
         border-radius: 10px;
       }
 
-      .widget-buttons-grid {
-        margin: 12px 16px 16px;
-        background-color: transparent;
-      }
-
-      .widget-buttons-grid > flowbox > flowboxchild>button {
-        padding: 10px 8px;
-        background-color: transparent;
-        border-radius: 8px;
-        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2), 0 0 8px rgba(0, 0, 0, 0.3);
-        transition: background-color 0.2s ease;
-      }
-
-      .widget-buttons-grid > flowbox > flowboxchild>button:hover {
-        background-color: alpha(@accent, 0.15);
-      }
-
-      .widget-buttons-grid > flowbox > flowboxchild > button label {
-        font-size: 14px;
-        transition: color 0.2s ease;
-      }
-
-      .widget-buttons-grid > flowbox > flowboxchild > button:hover label {
-        color: @accent;
-      }
-
-      .widget-buttons-grid > flowbox > flowboxchild > button.toggle:checked {
-        background-color: @accent;
-      }
-
-      .widget-buttons-grid > flowbox > flowboxchild > button.toggle:checked label {
-        color: @background;
-      }
     '';
   };
 }
