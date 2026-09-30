@@ -84,6 +84,7 @@ in
       (bind "SUPER + ALT + L" "Lock session" (dsp.exec "session-lock"))
       (bind "SUPER + A" "Toggle control center" (dsp.exec "control-center-toggle"))
       (bind "SUPER + SHIFT + B" "Toggle status bar" (dsp.exec "bar-toggle"))
+      (bind "SUPER + EQUAL" "Open calculator" (dsp.exec "calculator"))
       (bind "SUPER + period" "Open character picker" (dsp.exec "character-picker"))
 
       # --- Wallpaper Management ---

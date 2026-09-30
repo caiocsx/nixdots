@@ -9,6 +9,9 @@ let
   mkTheme = name: content: pkgs.writeText "${name}.rasi" (common + content);
 in
 {
+  calculator = mkTheme "calculator" (import ./calculator.nix { inherit theme; });
+
+
   confirm = mkTheme "confirm" (import ./confirm.nix { inherit theme; });
 
   listMenu = mkTheme "list-menu" (import ./list-menu.nix { inherit theme; });

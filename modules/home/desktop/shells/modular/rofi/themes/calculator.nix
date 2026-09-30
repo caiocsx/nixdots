@@ -1,0 +1,97 @@
+{ theme, ... }:
+''
+  configuration {
+    font:               "${theme.fonts.monospace.proportional} 10";
+    calc {
+      hint-result:      "= ";
+      hint-welcome:     "Calc";
+    }
+  }
+
+  window {
+    width:              520px;
+    height:             480px;
+    padding:            10px;
+    border-radius:      @radius;
+    background-color:   @background;
+  }
+
+  mainbox {
+    orientation:        vertical;
+    spacing:            20px;
+    background-color:   transparent;
+    children:           [ inputbar, message, listbox ];
+  }
+
+  inputbar {
+    padding:            12px;
+    spacing:            15px;
+    border-radius:      @radius;
+    background-color:   @surface;
+    children:           [ textbox-prompt-colon, entry ];
+  }
+
+  textbox-prompt-colon {
+    str:                "";
+    text-color:         @foreground;
+    expand:             false;
+    background-color:   transparent;
+  }
+
+  entry {
+    placeholder:        "Type an expression...";
+    placeholder-color:  @muted;
+    cursor:             text;
+    text-color:         @foreground;
+    background-color:   transparent;
+  }
+
+  message {
+    padding:            12px 15px;
+    border-radius:      @radius;
+    background-color:   @surface;
+  }
+
+  textbox {
+    text-color:         @foreground;
+    background-color:   transparent;
+  }
+
+  error-message {
+    padding:            12px 15px;
+    border-radius:      @radius;
+    background-color:   @surface;
+    text-color:         @red;
+  }
+
+  listbox {
+    background-color:   transparent;
+    children:           [ listview ];
+  }
+
+  listview {
+    spacing:            8px;
+    columns:            1;
+    scrollbar:          true;
+    cycle:              true;
+    dynamic:            true;
+    fixed-height:       true;
+    fixed-columns:      true;
+    background-color:   transparent;
+  }
+
+  element {
+    padding:            12px 15px;
+    cursor:             pointer;
+    border-radius:      @radius;
+    text-color:         @foreground;
+    background-color:   transparent;
+  }
+
+  element-text {
+    vertical-align:     0.5;
+    cursor:             inherit;
+    text-color:         inherit;
+    background-color:   transparent;
+  }
+''

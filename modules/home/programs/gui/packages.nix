@@ -6,7 +6,6 @@
     protonmail-desktop
     obsidian
     onlyoffice-desktopeditors
-    qalculate-gtk
     stremio-linux-shell
   ];
 }

@@ -1,6 +1,7 @@
 { ... }:
 {
   imports = [
+    ./calculator.nix
     ./character-picker.nix
     ./clipboard.nix
     ./launcher.nix

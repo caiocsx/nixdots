@@ -24,7 +24,7 @@
       {
         name = "float-system-tools";
         match = {
-          class = "^(xdg-desktop-portal-gtk|org.pulseaudio.pavucontrol|org.gnome.FileRoller|qalculate-gtk)$";
+          class = "^(xdg-desktop-portal-gtk|org.pulseaudio.pavucontrol|org.gnome.FileRoller)$";
         };
         float = true;
       }
