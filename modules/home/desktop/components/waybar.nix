@@ -157,7 +157,7 @@
           headset-muted = "󰋐";
           default = [ "󰕾" ];
         };
-        on-click = "pavucontrol";
+        on-click = "kitty -e wiremix";
         on-click-right = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
         tooltip-format = "Volume: {volume}%";
         ignored-sinks = [ "Easy Effects Sink" ];
