@@ -54,7 +54,6 @@
           type = "gpu";
           key = "   󰢮 GPU";
           keyColor = "yellow";
-          format = "{1}";
         }
         {
           type = "memory";
