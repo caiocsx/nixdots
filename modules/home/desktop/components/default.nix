@@ -4,7 +4,8 @@
     ./rofi
     ./packages.nix
     ./controls.nix
-    ./services.nix
+    ./awww.nix
+    ./cliphist.nix
     ./hyprlock.nix
     ./swayidle.nix
     ./swaync.nix
