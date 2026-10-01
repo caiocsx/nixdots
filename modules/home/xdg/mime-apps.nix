@@ -3,8 +3,6 @@
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
-      "x-scheme-handler/terminal" = "kitty.desktop";
-
       "inode/directory" = "thunar.desktop";
       "application/x-directory" = "thunar.desktop";
 
