@@ -83,28 +83,32 @@ in
         dsp.app "${apps.terminal} -e ${apps.systemMonitor}"
       ))
       (bind "SUPER + G" "Applications: open game launcher" (dsp.exec "game-launcher"))
-
-      # --- System Controls & Menus ---
-      (bind "SUPER + F1" "Help: search keyboard shortcuts and keybinds" (dsp.exec "keybinds"))
-      (bind "SUPER + SHIFT + Delete" "System: shut down computer" (
-        dsp.exec "${pkgs.hyprshutdown}/bin/hyprshutdown -t 'Shutting down...' --post-cmd 'shutdown -P 0'"
-      ))
-      (bind "SUPER + ALT + Delete" "System: reboot computer" (
-        dsp.exec "${pkgs.hyprshutdown}/bin/hyprshutdown -t 'Restarting...' --post-cmd reboot"
-      ))
-      (bind "SUPER + Delete" "System: log out of Hyprland session" (
-        dsp.exec "${pkgs.hyprshutdown}/bin/hyprshutdown"
-      ))
-      (bind "SUPER + ESCAPE" "System: open power menu" (dsp.exec "power-menu"))
-      (bind "SUPER + ALT + L" "System: lock screen" (dsp.exec "hyprlock"))
-      (bind "SUPER + A" "Notifications: toggle SwayNC control center" (dsp.exec "swaync-client -t -sw"))
-      (bind "SUPER + U" "System: manage systemd user services" (dsp.exec "unit-menu"))
       (bind "SUPER + EQUAL" "Applications: open calculator" (dsp.exec "calculator"))
       (bind "SUPER + period" "Clipboard: copy emoji or symbol from character picker" (
         dsp.exec "character-picker"
       ))
 
-      # --- Wallpaper Management ---
+      # --- System ---
+      (bind "SUPER + F1" "System: search keyboard shortcuts and keybinds" (dsp.exec "keybinds"))
+      (bind "SUPER + U" "System: manage systemd user services" (dsp.exec "unit-menu"))
+
+      # --- Session ---
+      (bind "SUPER + SHIFT + Delete" "Session: shut down computer" (
+        dsp.exec "${pkgs.hyprshutdown}/bin/hyprshutdown -t 'Shutting down...' --post-cmd 'shutdown -P 0'"
+      ))
+      (bind "SUPER + ALT + Delete" "Session: reboot computer" (
+        dsp.exec "${pkgs.hyprshutdown}/bin/hyprshutdown -t 'Restarting...' --post-cmd reboot"
+      ))
+      (bind "SUPER + Delete" "Session: log out of Hyprland session" (
+        dsp.exec "${pkgs.hyprshutdown}/bin/hyprshutdown"
+      ))
+      (bind "SUPER + ESCAPE" "Session: open power menu" (dsp.exec "power-menu"))
+      (bind "SUPER + ALT + L" "Session: lock screen" (dsp.exec "hyprlock"))
+
+      # --- Notifications ---
+      (bind "SUPER + A" "Notifications: toggle SwayNC control center" (dsp.exec "swaync-client -t -sw"))
+
+      # --- Wallpaper ---
       (bind "SUPER + W" "Wallpaper: open wallpaper picker" (dsp.exec "wallpaper-picker"))
       (bind "SUPER + ALT + bracketleft" "Wallpaper: apply previous wallpaper" (
         dsp.exec "wallpaper-picker --prev"
@@ -113,16 +117,16 @@ in
         dsp.exec "wallpaper-picker --next"
       ))
 
-      # --- Clipboard Management ---
+      # --- Clipboard ---
       (bind "SUPER + V" "Clipboard: search and copy from history" (dsp.exec "clipboard"))
       (bind "SUPER + SHIFT + V" "Clipboard: clear history" (dsp.exec "clipboard --wipe"))
 
-      # --- Screenshots ---
+      # --- Screenshot ---
       (bind "SUPER + PRINT" "Screenshot: copy selected region to clipboard" (
         dsp.exec "screenshot --region --copy"
       ))
       (bind "SUPER + SHIFT + PRINT" "Screenshot: copy selected window to clipboard" (
-        dsp.exec "screenshot  --window --copy"
+        dsp.exec "screenshot --window --copy"
       ))
       (bind "SUPER + CTRL + PRINT" "Screenshot: copy selected monitor to clipboard" (
         dsp.exec "screenshot --output --copy"
@@ -137,7 +141,7 @@ in
         dsp.exec "screenshot --output"
       ))
 
-      # --- Accessibility / Screen Zoom ---
+      # --- Accessibility ---
       (bind "SUPER + ALT + mouse_up" "Accessibility: zoom screen to 150%" (
         lua "function() hl.config({ cursor = { zoom_factor = 1.5 } }) end"
       ))
@@ -145,7 +149,7 @@ in
         lua "function() hl.config({ cursor = { zoom_factor = 1.0 } }) end"
       ))
 
-      # --- Window State & Layout ---
+      # --- Window ---
       (bind "SUPER + M" "Window: toggle maximized state" dsp.maximize)
       (bind "SUPER + Q" "Window: close active window" dsp.close)
       (bind "SUPER + SHIFT + Q" "Window: force kill a window" dsp.kill)
@@ -153,44 +157,48 @@ in
         dsp.floatSized 1000 660
       ))
       (bind "SUPER + ALT + W" "Window: toggle floating mode" dsp.float)
-      (bind "SUPER + P" "Window: toggle pseudo tiling" dsp.pseudo)
+
+      # --- Layout ---
+      (bind "SUPER + P" "Layout: toggle pseudo tiling" dsp.pseudo)
       (bind "SUPER + T" "Layout: toggle window split orientation" (dsp.layout "togglesplit"))
       (bind "SUPER + bracketleft" "Layout: decrease window split ratio" (dsp.layout "splitratio -0.05"))
       (bind "SUPER + bracketright" "Layout: increase window split ratio" (dsp.layout "splitratio +0.05"))
 
-      # --- Window Navigation & Movement ---
-      (bind "SUPER + H" "Window: focus window on the left" (dsp.focus "left"))
-      (bind "SUPER + L" "Window: focus window on the right" (dsp.focus "right"))
-      (bind "SUPER + K" "Window: focus window above" (dsp.focus "up"))
-      (bind "SUPER + J" "Window: focus window below" (dsp.focus "down"))
-      (bind "SUPER + SHIFT + H" "Window: swap position with window on the left" (dsp.swap "left"))
-      (bind "SUPER + SHIFT + L" "Window: swap position with window on the right" (dsp.swap "right"))
-      (bind "SUPER + SHIFT + K" "Window: swap position with window above" (dsp.swap "up"))
-      (bind "SUPER + SHIFT + J" "Window: swap position with window below" (dsp.swap "down"))
+      # --- Window / Focus ---
+      (bind "SUPER + H" "Window / Focus: focus window on the left" (dsp.focus "left"))
+      (bind "SUPER + L" "Window / Focus: focus window on the right" (dsp.focus "right"))
+      (bind "SUPER + K" "Window / Focus: focus window above" (dsp.focus "up"))
+      (bind "SUPER + J" "Window / Focus: focus window below" (dsp.focus "down"))
 
-      # --- Window Resizing ---
-      (bindOpts "SUPER + SHIFT + Right" "Window: resize to increase width" (dsp.resizeActive 30 0) {
-        repeating = true;
-      })
-      (bindOpts "SUPER + SHIFT + Left" "Window: resize to decrease width" (dsp.resizeActive (-30) 0) {
-        repeating = true;
-      })
-      (bindOpts "SUPER + SHIFT + Up" "Window: resize to decrease height" (dsp.resizeActive 0 (-30)) {
-        repeating = true;
-      })
-      (bindOpts "SUPER + SHIFT + Down" "Window: resize to increase height" (dsp.resizeActive 0 30) {
-        repeating = true;
-      })
-
-      # --- Mouse Window Controls ---
-      (bindOpts "SUPER + mouse:272" "Window: move window by dragging with mouse" dsp.drag {
-        mouse = true;
-      })
-      (bindOpts "SUPER + mouse:273" "Window: resize window by dragging with mouse" dsp.resize {
+      # --- Window / Move ---
+      (bind "SUPER + SHIFT + H" "Window / Move: swap position with window on the left" (dsp.swap "left"))
+      (bind "SUPER + SHIFT + L" "Window / Move: swap position with window on the right" (
+        dsp.swap "right"
+      ))
+      (bind "SUPER + SHIFT + K" "Window / Move: swap position with window above" (dsp.swap "up"))
+      (bind "SUPER + SHIFT + J" "Window / Move: swap position with window below" (dsp.swap "down"))
+      (bindOpts "SUPER + mouse:272" "Window / Move: move window by dragging with mouse" dsp.drag {
         mouse = true;
       })
 
-      # --- Workspace Navigation & Scratchpad ---
+      # --- Window / Resize ---
+      (bindOpts "SUPER + SHIFT + Right" "Window / Resize: increase width" (dsp.resizeActive 30 0) {
+        repeating = true;
+      })
+      (bindOpts "SUPER + SHIFT + Left" "Window / Resize: decrease width" (dsp.resizeActive (-30) 0) {
+        repeating = true;
+      })
+      (bindOpts "SUPER + SHIFT + Up" "Window / Resize: decrease height" (dsp.resizeActive 0 (-30)) {
+        repeating = true;
+      })
+      (bindOpts "SUPER + SHIFT + Down" "Window / Resize: increase height" (dsp.resizeActive 0 30) {
+        repeating = true;
+      })
+      (bindOpts "SUPER + mouse:273" "Window / Resize: resize window by dragging with mouse" dsp.resize {
+        mouse = true;
+      })
+
+      # --- Workspace ---
       (bind "SUPER + CTRL + Right" "Workspace: switch to next workspace" (dsp.focusWorkspace "r+1"))
       (bind "SUPER + CTRL + Left" "Workspace: switch to previous workspace" (dsp.focusWorkspace "r-1"))
       (bind "SUPER + mouse_down" "Workspace: switch to next existing workspace" (
@@ -199,17 +207,17 @@ in
       (bind "SUPER + mouse_up" "Workspace: switch to previous existing workspace" (
         dsp.focusWorkspace "e-1"
       ))
-      (bind "SUPER + S" "Workspace: show or hide special workspace (scratchpad)" (
-        dsp.toggleSpecial "special"
-      ))
-      (bind "SUPER + SHIFT + S" "Workspace: move window to scratchpad and follow" (
+
+      # --- Scratchpad ---
+      (bind "SUPER + S" "Scratchpad: show or hide special workspace" (dsp.toggleSpecial "special"))
+      (bind "SUPER + SHIFT + S" "Scratchpad: move window to scratchpad and follow" (
         dsp.moveToSpecial "special"
       ))
-      (bind "SUPER + ALT + S" "Workspace: move window to scratchpad without following" (
+      (bind "SUPER + ALT + S" "Scratchpad: move window to scratchpad without following" (
         dsp.moveToSpecialSilent "special"
       ))
 
-      # --- Audio & Hardware Controls ---
+      # --- Audio ---
       (bindOpts "XF86AudioRaiseVolume" "Audio: increase output volume by 5%"
         (dsp.exec "${pkgs.wireplumber}/bin/wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+")
         {
@@ -229,7 +237,7 @@ in
         { locked = true; }
       )
 
-      # --- Media Controls ---
+      # --- Media ---
       (bindOpts "XF86AudioPlay" "Media: play or pause playback"
         (dsp.exec "${pkgs.playerctl}/bin/playerctl play-pause")
         { locked = true; }
@@ -244,12 +252,11 @@ in
         (dsp.exec "${pkgs.playerctl}/bin/playerctl previous")
         { locked = true; }
       )
-
       (bindOpts "XF86AudioStop" "Media: stop playback" (dsp.exec "${pkgs.playerctl}/bin/playerctl stop") {
         locked = true;
       })
 
-      # --- Display Brightness ---
+      # --- Display ---
       (bindOpts "XF86MonBrightnessUp" "Display: increase screen brightness by 10%"
         (dsp.exec "${pkgs.brightnessctl}/bin/brightnessctl set +10%")
         {

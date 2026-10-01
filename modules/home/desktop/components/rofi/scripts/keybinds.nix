@@ -32,14 +32,10 @@ let
         workspace = builtins.elemAt match 4;
         suffix = builtins.elemAt match 5;
         complete = lib.all (
-          i:
-          builtins.elem "${prefix}${toString i}${description}${toString i}${suffix}" rawEntries
+          i: builtins.elem "${prefix}${toString i}${description}${toString i}${suffix}" rawEntries
         ) (lib.range 1 9);
       in
-      if key == workspace && complete then
-        "${prefix}1–9${description}1–9${suffix}"
-      else
-        entry;
+      if key == workspace && complete then "${prefix}1–9${description}1–9${suffix}" else entry;
   entries = lib.unique (map summarize rawEntries);
   bindingsFile = pkgs.writeText "keybinds.txt" (lib.concatStringsSep "\n" entries + "\n");
 
