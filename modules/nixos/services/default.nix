@@ -8,5 +8,6 @@
     ./ly.nix
     ./network-manager.nix
     ./power-profiles.nix
+    ./polkit.nix
   ];
 }
