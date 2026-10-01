@@ -17,6 +17,8 @@ let
       hostname
       systemd
       gawk
+      hyprshutdown
+      hyprlock
     ];
     text = ''
       readonly ICON_YES=''
@@ -49,12 +51,11 @@ let
           confirm_action || return 0
         fi
 
-        # Session commands are supplied by the compositor and lock modules.
         case "$selected" in
-          0) exec session-shutdown ;;
-          1) exec session-reboot ;;
-          2) exec session-exit ;;
-          3) exec session-lock ;;
+          0) exec hyprshutdown -t 'Shutting down...' --post-cmd 'shutdown -P 0' ;;
+          1) exec hyprshutdown -t 'Restarting...' --post-cmd reboot ;;
+          2) exec hyprshutdown ;;
+          3) pidof hyprlock || exec hyprlock ;;
           4) exec systemctl suspend ;;
           5) exec systemctl hibernate ;;
         esac

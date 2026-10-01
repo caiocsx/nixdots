@@ -1,7 +1,7 @@
 { ... }:
 {
   imports = [
-    ./compositors/hyprland
+    ./hyprland
     ./components
     ./polkit.nix
   ];
