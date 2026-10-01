@@ -18,6 +18,7 @@
   };
 
   xdg.configFile."uwsm/env".text = lib.mkAfter ''
+    export GBM_BACKEND=nvidia-drm
     export __GLX_VENDOR_LIBRARY_NAME=nvidia
   '';
 }
