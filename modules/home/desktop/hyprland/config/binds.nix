@@ -85,6 +85,7 @@ in
       (bind "SUPER + G" "Applications: open game launcher" (dsp.exec "game-launcher"))
 
       # --- System Controls & Menus ---
+      (bind "SUPER + F1" "Help: search keyboard shortcuts and keybinds" (dsp.exec "keybinds"))
       (bind "SUPER + SHIFT + Delete" "System: shut down computer" (
         dsp.exec "${pkgs.hyprshutdown}/bin/hyprshutdown -t 'Shutting down...' --post-cmd 'shutdown -P 0'"
       ))
