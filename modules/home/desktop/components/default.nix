@@ -7,9 +7,9 @@
     ./awww.nix
     ./cliphist.nix
     ./hyprlock.nix
-    ./swayidle.nix
+    ./hypridle.nix
     ./swaync.nix
     ./waybar.nix
-    ./wlsunset.nix
+    ./hyprsunset.nix
   ];
 }
