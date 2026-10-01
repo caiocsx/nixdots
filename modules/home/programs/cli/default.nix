@@ -7,6 +7,7 @@
     ./git.nix
     ./nixvim.nix
     ./shell.nix
+    ./atuin.nix
     ./zsh.nix
   ];
 }
