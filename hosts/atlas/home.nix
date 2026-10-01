@@ -1,9 +1,5 @@
 { lib, ... }:
 {
-  imports = [
-    ../../modules/home/desktop/shells/modular
-  ];
-
   wayland.windowManager.hyprland = {
     settings = {
       monitor = [

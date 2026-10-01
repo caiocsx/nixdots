@@ -237,7 +237,7 @@
         tooltip-format-linked = "{ifname}\nConnected, waiting for IP";
         tooltip-format-disconnected = "Disconnected";
         tooltip-format-disabled = "Disabled";
-        on-click = "kitty -e nmtui";
+        on-click = "kitty -e wlctl";
         on-click-right = "rfkill toggle wifi";
         tooltip = true;
         max-length = 20;
