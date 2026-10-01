@@ -4,5 +4,10 @@
     ./scripts
   ];
 
-  programs.rofi.enable = true;
+  programs.rofi = {
+    enable = true;
+    extraConfig = {
+      drun-exclude-categories = "Game";
+    };
+  };
 }
