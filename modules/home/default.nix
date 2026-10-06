@@ -5,6 +5,7 @@
     ./theme
     ./xdg
     ./programs
+    ./session.nix
   ];
 
   home = {

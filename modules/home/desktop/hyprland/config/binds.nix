@@ -1,13 +1,13 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 let
   lua = lib.generators.mkLuaInline;
 
   apps = {
-    terminal = "kitty";
-    fileManager = "thunar";
-    browser = "zen-beta";
-    editor = "codium";
-    systemMonitor = "btop";
+    terminal = config.home.sessionVariables.TERMINAL;
+    fileManager = config.home.sessionVariables.FILE_MANAGER;
+    browser = config.home.sessionVariables.BROWSER;
+    editor = config.home.sessionVariables.EDITOR;
+    systemMonitor = config.home.sessionVariables.SYSTEM_MONITOR;
   };
 
   dsp = {
@@ -79,7 +79,7 @@ in
       (bind "SUPER + E" "Applications: open file manager" (dsp.app apps.fileManager))
       (bind "SUPER + B" "Applications: open web browser" (dsp.app apps.browser))
       (bind "SUPER + D" "Applications: open code editor" (dsp.app apps.editor))
-      (bind "SUPER + R" "Applications: open system monitor" (
+      (bind "SUPER + SHIFT + ESCAPE" "Applications: open system monitor" (
         dsp.app "${apps.terminal} -e ${apps.systemMonitor}"
       ))
       (bind "SUPER + G" "Applications: open game launcher" (dsp.exec "game-launcher"))
