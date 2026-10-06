@@ -30,7 +30,7 @@ let
       "tab.inactiveBackground" = theme.colors.background;
       "tab.activeBackground" = theme.colors.surface;
       "input.background" = theme.colors.surface;
-      "input.border" = theme.colors.accent;
+      "input.border" = theme.colors.muted;
     };
     "editor.lineHeight" = 1.8;
     "editor.fontLigatures" = true;

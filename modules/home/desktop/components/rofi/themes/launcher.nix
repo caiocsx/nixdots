@@ -91,7 +91,7 @@
     padding:             10px 15px;
     spacing:             15px;
     cursor:              pointer;
-    border-radius:       40px;
+    border-radius:       @radius;
     text-color:          @foreground;
     background-color:    transparent;
   }

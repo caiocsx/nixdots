@@ -13,18 +13,11 @@
       "group/group-left" = {
         orientation = "inherit";
         modules = [
-          "custom/nixos"
           "custom/notification"
           "clock"
           "privacy"
           "tray"
         ];
-      };
-      "custom/nixos" = {
-        format = "󱄅";
-        on-click = "launcher";
-        on-click-right = "kitty";
-        tooltip = false;
       };
       "custom/notification" = {
         format = "{icon}";
@@ -290,11 +283,6 @@
         tooltip = true;
         interval = 10;
       };
-      "custom/power" = {
-        format = "󰤆";
-        on-click = "power-menu";
-        tooltip = false;
-      };
     };
     style = ''
       @import url("${theme.css.gtk}");
@@ -346,7 +334,7 @@
         padding: 0 10px;
         margin: 0 4px;
         color: @foreground;
-        background-color: alpha(@background, ${toString theme.opacity.popup});
+        background-color: alpha(@background, ${toString theme.opacity.shell});
         border-radius: ${toString theme.borders.radius}px;
         transition: color 0.3s ease;
       }
@@ -394,7 +382,7 @@
         min-height: 30px;
         padding: 0 10px;
         margin: 0 4px;
-        background-color: alpha(@background, ${toString theme.opacity.popup});
+        background-color: alpha(@background, ${toString theme.opacity.shell});
         border-radius: ${toString theme.borders.radius}px;
       }
 
@@ -436,8 +424,8 @@
         min-height: 30px;
         padding: 0 14px;
         margin: 0 4px;
-        background-color: alpha(@background, ${toString theme.opacity.popup});
-        border-radius: 8px;
+        background-color: alpha(@background, ${toString theme.opacity.shell});
+        border-radius: ${toString theme.borders.radius}px;
       }
 
       #pulseaudio-slider slider,
@@ -469,6 +457,10 @@
         min-width: 20px;
         padding: 0 6px;
         transition: color 0.3s ease;
+      }
+
+      #network {
+        font-size: 15px;
       }
 
       #battery.charging.warning,

@@ -6,7 +6,7 @@
 
   programs.rofi = {
     enable = true;
-    extraConfig = {
+    settings = {
       drun-exclude-categories = "Game";
     };
   };

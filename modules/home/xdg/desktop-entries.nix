@@ -60,7 +60,6 @@ in
       ];
       settings.Keywords = "Discord;Vesktop;Chat;";
     };
-
     dataFile = lib.mapAttrs' hideDesktopEntry hiddenEntries // {
       # Keep Steam visible when Rofi excludes the Game category.
       "applications/steam.desktop".source = editDesktopFile "steam" pkgs.steam [

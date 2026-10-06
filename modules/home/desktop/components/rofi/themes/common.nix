@@ -1,9 +1,9 @@
 { theme, ... }:
 ''
   * {
-    background:             ${theme.withAlpha theme.colors.background theme.opacity.popup};
+    background:             ${theme.withAlpha theme.colors.background theme.opacity.shell};
     background-solid:       ${theme.colors.background};
-    surface:                ${theme.withAlpha theme.colors.surface theme.opacity.popup};
+    surface:                ${theme.withAlpha theme.colors.surface theme.opacity.shell};
     surface-solid:          ${theme.colors.surface};
     foreground:             ${theme.colors.foreground};
     muted:                  ${theme.colors.muted};

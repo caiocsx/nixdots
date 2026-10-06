@@ -64,7 +64,7 @@
       }
 
       .control-center {
-        background-color: alpha(@background, ${toString theme.opacity.popup});
+        background-color: alpha(@background, ${toString theme.opacity.shell});
         border-radius: ${toString theme.borders.radius}px;
       }
 
@@ -177,7 +177,6 @@
         background-color: @surface;
         border-radius: 10px;
       }
-
     '';
   };
 }

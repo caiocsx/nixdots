@@ -74,9 +74,9 @@ in
     outer = 10;
   };
   opacity = {
-    activeWindow = 1;
-    inactiveWindow = 0.9;
-    popup = 0.9;
+    activeWindow = 0.95;
+    inactiveWindow = 0.85;
+    shell = 0.85;
   };
   blur = {
     size = 6;
