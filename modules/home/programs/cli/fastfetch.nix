@@ -1,116 +1,109 @@
-{ ... }:
+{ inputs, ... }:
 {
   programs.fastfetch = {
     enable = true;
     settings = {
+      logo = {
+        source = "${inputs.self}/assets/fastfetch/*.png";
+        type = "kitty-direct";
+        width = 30;
+        height = 20;
+        padding = {
+          right = 3;
+          left = 5;
+        };
+      };
+      display = {
+        separator = "";
+        percent = {
+          type = 1;
+          width = 3;
+        };
+      };
       modules = [
+        "break"
         {
           type = "custom";
-          format = "┌─────────────────────System──────────────────────┐";
+          format = "{##727272}{{";
         }
         {
           type = "title";
-          key = "   󰀄 User";
-          keyColor = "blue";
-          format = "{1}@{2}";
-        }
-        {
-          type = "kernel";
-          key = "   󰻀 Kernel";
-          keyColor = "blue";
+          key = "  {##575757}system.{##7E97AB}host       {##727272}= ";
+          format = ''{##88afa2}"{user-name}@{host-name}"{##727272};'';
         }
         {
           type = "os";
-          key = "    OS";
-          keyColor = "blue";
-          format = "{2}";
+          key = "  {##575757}system.{##7E97AB}os         {##727272}= ";
+          format = "{##88afa2}\"{name} {version}\"{##727272};";
+        }
+        {
+          type = "kernel";
+          key = "  {##575757}system.{##7E97AB}kernel     {##727272}= ";
+          format = "{##88afa2}\"{sysname} {release}\"{##727272};";
         }
         {
           type = "wm";
-          key = "   󰖯 WM";
-          keyColor = "blue";
-          format = "{2}";
+          key = "  {##575757}system.{##7E97AB}wm         {##727272}= ";
+          format = "{##88afa2}\"{pretty-name} {version}\"{##727272};";
         }
         {
           type = "packages";
-          key = "   󰏗 Packages";
-          keyColor = "blue";
+          key = "  {##575757}system.{##7E97AB}packages   {##727272}= ";
+          format = "{##727272}[ {##88afa2}\"{nix-system} nix-system\" \"{nix-user} nix-user\"{##727272} ];";
         }
-        {
-          type = "custom";
-          format = "└─────────────────────────────────────────────────┘";
-        }
-        {
-          type = "custom";
-          format = "┌────────────────────Hardware─────────────────────┐";
-        }
+        "break"
         {
           type = "cpu";
-          key = "   󰻠 CPU";
-          keyColor = "yellow";
-          format = "{1}";
+          key = "  {##575757}hardware.{##7E97AB}cpu      {##727272}= ";
+          format = "{##88afa2}\"{name} ({cores-physical}/{cores-logical})\"{##727272};";
         }
         {
           type = "gpu";
-          key = "   󰢮 GPU";
-          keyColor = "yellow";
+          key = "  {##575757}hardware.{##7E97AB}gpu      {##727272}= ";
+          format = "{##88afa2}\"{vendor} {name}\"{##727272};";
         }
         {
           type = "memory";
-          key = "   󰍛 Memory";
-          keyColor = "yellow";
-          format = "{1} / {2} ({3})";
+          key = "  {##575757}hardware.{##7E97AB}ram      {##727272}= ";
+          format = "{##88afa2}\"{used}/{total}\"{##727272};   {##575757}# {percentage}";
         }
         {
           type = "disk";
-          key = "   󰋊 Disk";
-          keyColor = "yellow";
-          format = "{1} / {2} ({3})";
           folders = "/";
+          key = "  {##575757}hardware.{##7E97AB}disk0    {##727272}= ";
+          format = "{##88afa2}\"{size-used}/{size-total}\"{##727272};  {##575757}# {size-percentage}";
+        }
+        "break"
+        {
+          type = "terminal";
+          key = "  {##575757}terminal.{##7E97AB}term     {##727272}= ";
+          format = "{##88afa2}\"{pretty-name}\"{##727272};";
         }
         {
-          type = "custom";
-          format = "└─────────────────────────────────────────────────┘";
+          type = "shell";
+          key = "  {##575757}terminal.{##7E97AB}shell    {##727272}= ";
+          format = "{##88afa2}\"{pretty-name} {version}\"{##727272};";
         }
+        "break"
         {
-          type = "custom";
-          format = "┌─────────────────────Extras──────────────────────┐";
+          type = "uptime";
+          key = "  {##575757}info.{##7E97AB}uptime       {##727272}= ";
+          format = "{##88afa2}\"{days} days, {hours} hours, {minutes} mins\"{##727272};";
         }
         {
           type = "datetime";
-          key = "   󰙹 DateTime";
-          keyColor = "magenta";
-        }
-        {
-          type = "uptime";
-          key = "   󱑆 Uptime";
-          keyColor = "magenta";
+          key = "  {##575757}info.{##7E97AB}dateTime     {##727272}= ";
+          format = "{##88afa2}\"{year}-{month-pretty}-{day-in-month} {hour-pretty}:{minute-pretty}\"{##727272};";
         }
         {
           type = "disk";
-          key = "   󰞌 OS Age";
-          keyColor = "magenta";
-          format = "{days} days";
           folders = "/";
+          key = "  {##575757}info.{##7E97AB}osAge        {##727272}= ";
+          format = "{##88afa2}\"{days} days\"{##727272};";
         }
         {
           type = "custom";
-          format = "└─────────────────────────────────────────────────┘";
-        }
-        {
-          type = "colors";
-          symbol = "circle";
-          paddingLeft = 2;
-          colors = [
-            "black"
-            "red"
-            "green"
-            "yellow"
-            "blue"
-            "magenta"
-            "cyan"
-            "white"
-          ];
+          format = "{##727272}}";
         }
         "break"
       ];
