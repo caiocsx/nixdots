@@ -2,6 +2,7 @@
 {
   imports = [
     ./boot.nix
+    ./memory.nix
     ./network.nix
     ./nix.nix
     ./nixpkgs.nix
