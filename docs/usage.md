@@ -8,13 +8,11 @@ The checkout is expected at `~/nixdots`. Select your host explicitly when using 
 
 ```bash
 cd ~/nixdots
-target_host=atlas
 
 git diff
 git add flake.nix hosts modules
 nix flake check --no-build
-sudo nixos-rebuild build --flake ".#$target_host"
-sudo nixos-rebuild switch --flake ".#$target_host"
+sudo nixos-rebuild switch --flake .#atlas
 ```
 
 Home Manager is part of the NixOS module graph, so the rebuild also updates your home configuration. There is no standalone `homeConfigurations` output to activate separately.
@@ -72,6 +70,16 @@ The picker maintains the selected wallpaper and lock-screen image under `~/.cach
 `SUPER + Print` copies a region, `SUPER + Shift + Print` copies a selected window, and `SUPER + Ctrl + Print` copies a selected monitor. Add `Alt` to open the corresponding capture in Swappy. Saved images go to `~/Pictures/Screenshots`.
 
 For all shortcuts, open `SUPER + F1` or inspect [`binds.nix`](../modules/home/desktop/hyprland/config/binds.nix).
+
+## Memory and swap
+
+Zram and disk swap start automatically. Hibernation uses disk swap, with automatic resume discovery on UEFI. After installation and reboot, check that both devices appear:
+
+```bash
+swapon --show
+```
+
+Save your work, choose **Hibernate** in the power menu, and power on again to verify that the session returns. See [NixOS power management](https://wiki.nixos.org/wiki/Power_Management) for troubleshooting.
 
 ## Recovery
 

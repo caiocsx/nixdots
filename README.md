@@ -4,9 +4,9 @@
 
 **My personal NixOS desktop, built around Hyprland.**
 
-![GitHub last commit](https://img.shields.io/github/last-commit/caiocsx/nixdots?style=for-the-badge)
-[![Check](https://img.shields.io/github/actions/workflow/status/caiocsx/nixdots/test.yml?branch=main&style=for-the-badge&label=check)](https://github.com/caiocsx/nixdots/actions/workflows/test.yml)
-[![License](https://img.shields.io/github/license/caiocsx/nixdots?style=for-the-badge)](LICENSE)
+![GitHub last commit](https://img.shields.io/github/last-commit/caiocsx/nixdots?style=for-the-badge&)
+![GitHub Repo stars](https://img.shields.io/github/stars/caiocsx/nixdots?style=for-the-badge&)
+![GitHub repo size](https://img.shields.io/github/repo-size/caiocsx/nixdots?style=for-the-badge&)
 
 [Installation](docs/installation.md) · [Customization](docs/customization.md) · [Everyday use](docs/usage.md)
 
@@ -14,22 +14,40 @@
 
 ## Overview
 
-A modular configuration for my desktop and laptop, using Nix flakes to pin dependencies and Home Manager to manage user applications alongside the operating system. Shared modules keep both machines consistent; host files hold hardware and display settings.
+A modular NixOS configuration built around Hyprland, using Nix flakes to pin dependencies and Home Manager to manage user applications alongside the operating system. Shared modules define the system and desktop; host files hold hardware and display settings. Stylix centralizes theming, so you can choose your own palette, fonts, icons, and cursor.
 
-The desktop combines Hyprland, small focused utilities, and a Nord theme shared through Stylix. This is a personal setup you can fork and adapt: usernames, disks, monitors, and application preferences are specific to my machines.
+> [!IMPORTANT]
+> **This is a personal setup, not a general-purpose configuration.** Use it as a reference, reuse individual modules, or fork and adapt it to your needs. Applying it unchanged will carry over my username, Git identity, disk and boot settings, monitor configuration, keyboard layouts, locale, and application preferences. Review the [customization checklist](docs/customization.md#adapt-the-configuration) before installing; these settings are not automatically adapted to your machine.
 
 ## Desktop
 
-| Area | Components |
+The shared configuration includes the following desktop components and applications. Host-specific options are listed under [Hosts](#hosts).
+
+| Desktop component | What is configured |
 | --- | --- |
-| Session | Hyprland, UWSM, Ly |
-| Panel and menus | Waybar, Rofi, SwayNotificationCenter |
-| Appearance | Stylix, Nord, Papirus, Bibata, JetBrains Mono Nerd Font |
-| Screen and wallpaper | Hyprlock, Hypridle, Hyprsunset, awww |
-| Everyday apps | Kitty, Thunar, Zen Browser, VSCodium, mpv, imv |
-| Terminal tools | Zsh, Starship, Atuin, fzf, zoxide, Nixvim |
-| Desktop utilities | Clipboard history, screenshots, calculator, emoji picker, wallpaper picker |
-| System services | PipeWire, NetworkManager, Bluetooth, Docker, Flatpak |
+| Compositor and session | Hyprland window management, UWSM session management, Ly login manager |
+| Status bar and notifications | Waybar and SwayNotificationCenter |
+| Launcher and menus | Rofi application launcher, power menu, shortcut viewer, calculator, character picker, and wallpaper picker |
+| Locking and idle behavior | Hyprlock screen lock and Hypridle idle actions |
+| Wallpaper and display temperature | awww wallpapers and Hyprsunset color temperature control |
+| Clipboard and screenshots | Cliphist history; grim and slurp capture; Swappy annotation |
+| Theme, icons, and fonts | Stylix with a configurable palette, Papirus icons, Bibata cursor, Inter, Noto fonts, and JetBrains Mono Nerd Font |
+
+| Applications and terminal | What is included |
+| --- | --- |
+| Terminal and shell | Kitty, Zsh, Starship prompt, Atuin history, fzf search, zoxide navigation |
+| Editors and development | VSCodium, Neovim through Nixvim, Git, direnv |
+| Files and browsing | Thunar and Zen Browser |
+| Media and communication | mpv, imv, Spotify, Stremio, Discord |
+| Productivity and Proton apps | Obsidian, ONLYOFFICE, Proton Mail, Proton Pass, Proton VPN |
+| System inspection and maintenance | btop, Fastfetch, nh rebuild and cleanup commands |
+
+| System integration | What is enabled |
+| --- | --- |
+| Audio | PipeWire |
+| Connectivity | NetworkManager and Bluetooth |
+| Containers and application distribution | Docker and Flatpak |
+| Memory and sleep | Automatic zram, disk swap, suspend, and hibernation |
 
 ## Hosts
 
@@ -38,7 +56,7 @@ The desktop combines Hyprland, small focused utilities, and a Nord theme shared 
 | `atlas` | Desktop | NVIDIA | US international | Enabled |
 | `hyperion` | Laptop | AMD | Brazilian | Disabled |
 
-Both hosts target `x86_64-linux`, track `nixos-unstable`, and use `caiocsx` as the primary user. The checked-in storage configuration uses Btrfs subvolumes and GRUB with UEFI.
+Both hosts target `x86_64-linux`, track `nixos-unstable`, and use `caiocsx` as the primary user. The installation guide uses ext4, GRUB, and UEFI.
 
 ## Installation
 
@@ -47,9 +65,8 @@ Both hosts target `x86_64-linux`, track `nixos-unstable`, and use `caiocsx` as t
 | Starting point | Guide |
 | --- | --- |
 | A fresh NixOS installation from a live USB | [Clean install — recommended](docs/installation.md#clean-install-recommended) |
-| An existing NixOS installation | [Migrate an existing system](docs/installation.md#existing-nixos-installation) |
 
-Both paths cover generating your own hardware configuration, adapting the host and user, building, and the first login. Existing installations also need their boot settings, state versions, and managed home files reviewed before activation.
+The guide covers generating your hardware configuration, adapting the host and user, installing, and the first login.
 
 > The hardware files contain my disk UUIDs. Replace them with your own before installing. Start with the [installation guide](docs/installation.md), rather than rebuilding an unchanged clone.
 

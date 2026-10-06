@@ -4,11 +4,12 @@
 
 ## Adapt the configuration
 
-Work through these settings before the first installation or migration.
+This repository reflects my hardware, identity, and workflow. Use individual modules as a reference or adapt the full configuration before the first installation or migration. Applying it unchanged also applies my personal settings.
 
 | Setting | Where to edit | What to check |
 | --- | --- | --- |
 | Hardware and storage | `hosts/<host>/hardware-configuration.nix` | Generate this on your machine; never reuse the committed disk UUIDs. |
+| Swap | `hosts/<host>/hardware-configuration.nix` | Keep the generated `swapDevices` entry for your partition. Zram and UEFI resume discovery are automatic. |
 | Host and GPU | `hosts/<host>/configuration.nix` | Hostname, hardware module import, system keyboard, optional Steam import. |
 | Monitors and input | `hosts/<host>/home.nix` | Output name, resolution, refresh rate, scale, Hyprland keyboard, touchpad settings. |
 | Boot | `modules/nixos/core/boot.nix` | GRUB, UEFI, `/boot`, and any settings needed for your storage setup. |
@@ -16,6 +17,8 @@ Work through these settings before the first installation or migration.
 | Home directory | `modules/home/default.nix` | `home.username`, `home.homeDirectory`, and `home.stateVersion`. |
 | Locale and time | `modules/nixos/core/system-defaults.nix` | Defaults are `en_US.UTF-8` and `America/Recife`. |
 | Git identity | `modules/home/programs/cli/git.nix` | Replace the author name and email. |
+| Applications and services | `modules/home/programs/`, `modules/nixos/services/` | Review installed apps, enabled services, and their preferences; remove imports you do not need. |
+| Shortcuts and default apps | `modules/home/desktop/hyprland/config/binds.nix`, `modules/home/xdg/` | Adapt keybindings, application commands, and file associations to your workflow. |
 | System state version | `hosts/<host>/configuration.nix` | Preserve the existing value on a migrated system. |
 
 ### Rename the user consistently
@@ -85,7 +88,7 @@ sudo nixos-rebuild build --flake .#myhost
 | Lock screen and idle behavior | [`hyprlock.nix`](../modules/home/desktop/components/hyprlock.nix), [`hypridle.nix`](../modules/home/desktop/components/hypridle.nix) |
 | Default applications and launcher entries | [`modules/home/xdg/`](../modules/home/xdg/) |
 
-Stylix supplies the base palette and fonts; the custom desktop components consume the shared theme tokens. Start there when changing the overall appearance.
+Stylix supplies the base palette and fonts; the custom desktop components consume the shared theme tokens. To choose another theme, change `stylix.base16Scheme` in `modules/nixos/theme/stylix.nix` to your preferred Base16 scheme and review `stylix.polarity` for a light or dark appearance. Fonts, icons, and cursor settings live in the same file. Use `modules/home/theme/tokens.nix` for shared component styling such as spacing, opacity, and blur.
 
 The `apps` set in `binds.nix` defines the terminal, file manager, browser, editor, and system monitor commands. When replacing one, also update its package/module, relevant MIME associations, and desktop entry overrides. The keybind menu reads descriptions from this same file; its workspace summarizer also depends on the `Workspace:` description pattern.
 
