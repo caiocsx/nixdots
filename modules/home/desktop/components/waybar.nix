@@ -450,6 +450,10 @@
         border-radius: 8px;
       }
 
+      #backlight {
+        font-size: 13px;
+      }
+
       #bluetooth,
       #network,
       #battery,
@@ -459,8 +463,9 @@
         transition: color 0.3s ease;
       }
 
-      #network {
-        font-size: 15px;
+      #network,
+      #battery {
+        font-size: 14px;
       }
 
       #battery.charging.warning,
