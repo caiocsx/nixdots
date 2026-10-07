@@ -1,4 +1,7 @@
 { ... }:
 {
-  imports = [ ./exo.nix ];
+  imports = [
+    ./exo.nix
+    ./rofi.nix
+  ];
 }
