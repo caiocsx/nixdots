@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   lua = lib.generators.mkLuaInline;
 
@@ -79,31 +84,37 @@ in
       (bind "SUPER + E" "Applications: open file manager" (dsp.app apps.fileManager))
       (bind "SUPER + B" "Applications: open web browser" (dsp.app apps.browser))
       (bind "SUPER + D" "Applications: open code editor" (dsp.app apps.editor))
-      (bind "SUPER + SHIFT + ESCAPE" "Applications: open system monitor" (
-        dsp.app "${apps.terminal} -e ${apps.systemMonitor}"
-      ))
-      (bind "SUPER + G" "Applications: open game launcher" (dsp.exec "game-launcher"))
-      (bind "SUPER + EQUAL" "Applications: open calculator" (dsp.exec "calculator"))
-      (bind "SUPER + period" "Clipboard: copy emoji or symbol from character picker" (
-        dsp.exec "character-picker"
-      ))
+
+      # --- Gaming ---
+      (bind "SUPER + G" "Gaming: open game launcher" (dsp.exec "game-launcher"))
+
+      # --- Utilities ---
+      (bind "SUPER + EQUAL" "Utilities: open calculator" (dsp.exec "calculator"))
+      (bind "SUPER + period" "Utilities: open character picker" (dsp.exec "character-picker"))
+
+      # --- Connectivity ---
+      (bind "SUPER + ALT + N" "Connectivity: open Wi-Fi TUI" (dsp.app "${apps.terminal} -e wlctl"))
+      (bind "SUPER + ALT + B" "Connectivity: open Bluetooth TUI" (dsp.app "${apps.terminal} -e bluetui"))
 
       # --- System ---
+      (bind "SUPER + ESCAPE" "System: open power menu" (dsp.exec "power-menu"))
+      (bind "SUPER + ALT + L" "System: lock screen" (dsp.exec "hyprlock"))
       (bind "SUPER + F1" "System: search keyboard shortcuts and keybinds" (dsp.exec "keybinds"))
       (bind "SUPER + U" "System: manage systemd user services" (dsp.exec "unit-menu"))
+      (bind "SUPER + ALT + M" "System: open system monitor" (
+        dsp.app "${apps.terminal} -e ${apps.systemMonitor}"
+      ))
 
       # --- Session ---
-      (bind "SUPER + SHIFT + Delete" "Session: shut down computer" (
-        dsp.exec "${pkgs.hyprshutdown}/bin/hyprshutdown -t 'Shutting down...' --post-cmd 'shutdown -P 0'"
+      (bind "SUPER + Delete" "Session: log out of Hyprland session" (
+        dsp.exec "${pkgs.hyprshutdown}/bin/hyprshutdown"
       ))
       (bind "SUPER + ALT + Delete" "Session: reboot computer" (
         dsp.exec "${pkgs.hyprshutdown}/bin/hyprshutdown -t 'Restarting...' --post-cmd reboot"
       ))
-      (bind "SUPER + Delete" "Session: log out of Hyprland session" (
-        dsp.exec "${pkgs.hyprshutdown}/bin/hyprshutdown"
+      (bind "SUPER + SHIFT + Delete" "Session: shut down computer" (
+        dsp.exec "${pkgs.hyprshutdown}/bin/hyprshutdown -t 'Shutting down...' --post-cmd 'shutdown -P 0'"
       ))
-      (bind "SUPER + ESCAPE" "Session: open power menu" (dsp.exec "power-menu"))
-      (bind "SUPER + ALT + L" "Session: lock screen" (dsp.exec "hyprlock"))
 
       # --- Notifications ---
       (bind "SUPER + A" "Notifications: toggle SwayNC control center" (dsp.exec "swaync-client -t -sw"))
