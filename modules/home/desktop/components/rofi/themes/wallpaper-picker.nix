@@ -7,7 +7,7 @@
 
   window {
     width:             820px;
-    height:            700px;
+    height:            680px;
     padding:           20px;
     border-radius:     @radius;
     background-color:  @background;
@@ -38,8 +38,8 @@
   entry {
     placeholder:       "Search wallpaper...";
     placeholder-color: @muted;
-    text-color:        @foreground;
     cursor:            text;
+    text-color:        @foreground;
     background-color:  transparent;
   }
 
@@ -49,7 +49,7 @@
     scrollbar:         true;
     cycle:             false;
     flow:              horizontal;
-    fixed-width:       true;
+    fixed-columns:     true;
     fixed-height:      true;
     spacing:           12px;
     background-color:  transparent;

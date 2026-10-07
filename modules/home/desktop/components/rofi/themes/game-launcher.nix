@@ -6,16 +6,16 @@
   }
 
   window {
-    width:             820px;
-    height:            760px;
+    width:             960px;
+    height:            840px;
     padding:           20px;
     border-radius:     @radius;
     background-color:  @background;
   }
 
   mainbox {
-    orientation:       vertical;
     spacing:           20px;
+    orientation:       vertical;
     background-color:  transparent;
     children:          [ inputbar, listview, textbox-hint ];
   }
@@ -44,56 +44,45 @@
   }
 
   listview {
-    layout:            vertical;
-    flow:              horizontal;
-    columns:           3;
+    columns:           4;
     lines:             2;
-    spacing:           12px;
     scrollbar:         true;
     cycle:             false;
     dynamic:           true;
+    flow:              horizontal;
     fixed-height:      true;
     fixed-columns:     true;
+    spacing:           12px;
     background-color:  transparent;
   }
 
   element {
-    children:          [ element-icon, element-text ];
     orientation:       vertical;
-    padding:           8px;
-    spacing:           8px;
-    border:            2px;
-    border-color:      transparent;
-    border-radius:     @radius;
+    padding:           5px;
+    spacing:           5px;
     cursor:            pointer;
-    text-color:        @foreground;
-    background-color:  @surface-solid;
-  }
-
-  element selected.normal {
-    border-color:      @accent;
+    border-radius:     @radius;
     text-color:        @foreground;
     background-color:  @surface-solid;
   }
 
   element-icon {
-    size:              210px;
     horizontal-align:  0.5;
     vertical-align:    0.5;
+    size:              310px;
     cursor:            inherit;
-    background-color:  transparent;
+    border-radius:     @radius;
   }
 
   element-text {
     horizontal-align:  0.5;
-    vertical-align:    0.5;
     cursor:            inherit;
     text-color:        inherit;
     background-color:  transparent;
   }
 
   textbox-hint {
-    str:               "Enter: launch   ·   Shift+Enter: game folder";
+    str:               "Enter: launch · Shift+Enter: game folder";
     horizontal-align:  0.5;
     expand:            false;
     text-color:        @muted;

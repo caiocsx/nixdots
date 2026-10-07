@@ -10,7 +10,7 @@
 
   window {
     width:              520px;
-    height:             480px;
+    height:             490px;
     padding:            10px;
     border-radius:      @radius;
     background-color:   @background;
