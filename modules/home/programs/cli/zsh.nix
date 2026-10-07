@@ -24,7 +24,7 @@
       nrb = "nh os build";
       nrt = "nh os test";
       nrs = "nh os switch";
-      nrboot = "nh os boot";
+      nrbt = "nh os boot";
       nup = "nix flake update --flake ~/nixdots";
       nupg = "nix flake update --flake ~/nixdots && nix flake check ~/nixdots && nh os switch";
     };

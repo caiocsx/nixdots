@@ -1,15 +1,8 @@
 # Installation
 
-[← README](../README.md) · [Customization](customization.md) · [Everyday use](usage.md)
-
-- [Before you start](#before-you-start)
-- [Storage layout](#storage-layout)
-- [Clean install — recommended](#clean-install-recommended)
-- [First login](#first-login)
-
 ## Before you start
 
-This is a personal configuration. Follow the [customization checklist](customization.md#adapt-the-configuration) before installing.
+This is a personal configuration with many machine- and user-specific settings. It is strongly recommended to fork it, adapt the selected host and user using the [customization checklist](customization.md#adapt-the-configuration), and push your changes before booting the installer. Editing the configuration in the live environment is possible, but means changing several files with the tools available there, such as `nano`. During installation, clone the repository you prepared and generate the hardware configuration for the target machine.
 
 The commands use concrete examples throughout:
 
@@ -21,16 +14,18 @@ The commands use concrete examples throughout:
 | `/dev/nvme0n1p3` | Your swap partition |
 | `atlas` | Your selected flake host, such as `hyperion` |
 | `caiocsx` | Your username, also updated in the Nix configuration |
+| `/home/caiocsx` | Your configured home directory |
+| `users` | Your primary user group, if you changed it in the Nix configuration |
 
-Replace these examples directly in commands and configuration files. Use your fork's URL if applicable, and keep `flake.lock` unchanged for the first installation.
+Replace these examples directly in commands and configuration files. Keep `flake.lock` unchanged for the first installation.
 
 The supplied hosts target `x86_64-linux` and UEFI with GRUB. This guide follows the [NixOS manual installation workflow](https://nixos.org/manual/nixos/stable/#sec-installation-installing).
 
 ## Storage layout
 
-The installation uses one ext4 filesystem for `/`, a FAT32 EFI partition mounted at `/boot`, and a swap partition for memory pressure and hibernation.
+The example uses one ext4 filesystem for `/`, a FAT32 EFI partition mounted at `/boot`, and a Linux swap partition.
 
-## Clean install (recommended)
+## Install from a live USB
 
 ### 1. Boot the live USB and connect
 
@@ -52,11 +47,13 @@ cfdisk /dev/nvme0n1
 | --- | --- | --- |
 | `/dev/nvme0n1p1` | 1 GiB | EFI System |
 | `/dev/nvme0n1p2` | Remaining space after reserving swap | Linux filesystem |
-| `/dev/nvme0n1p3` | Enough for hibernation; size according to your RAM and workload | Linux swap |
+| `/dev/nvme0n1p3` | Size according to your available space and expected memory use | Linux swap |
 
 Write the changes and quit `cfdisk`. **Formatting erases the selected partitions.** For dual boot, preserve the existing OS partitions and EFI partition; create Linux and swap partitions in available space.
 
-Format the new EFI, ext4, and swap partitions:
+These commands are for new partitions on a dedicated disk. For dual boot, substitute the actual partition paths and do not run `mkfs.fat` or `mkswap` on an existing EFI or swap partition you intend to reuse; format only the new Linux and swap partitions.
+
+Format the partitions:
 
 ```bash
 mkfs.fat -F 32 -n boot /dev/nvme0n1p1
@@ -65,7 +62,7 @@ mkswap /dev/nvme0n1p3
 swapon /dev/nvme0n1p3
 ```
 
-Do not format an existing EFI or swap partition you intend to reuse. Encryption requires additional setup.
+Encryption requires additional setup.
 
 ### 3. Mount the filesystems
 
@@ -86,33 +83,12 @@ git clone https://github.com/caiocsx/nixdots.git /mnt/etc/nixdots
 cd /mnt/etc/nixdots
 nixos-generate-config --root /mnt
 cp /mnt/etc/nixos/hardware-configuration.nix hosts/atlas/hardware-configuration.nix
-```
-
-This replaces the selected host's hardware file with settings generated for your machine, including ext4 and the active swap partition.
-
-### 5. Personalize the configuration
-
-Complete [Adapt the configuration](customization.md#adapt-the-configuration) for the selected host and user.
-
-Optionally review your edits before staging:
-
-```bash
-git diff
-```
-
-Stage changes so the flake includes new files:
-
-```bash
 git add -A
 ```
 
-Optional evaluation check:
+Replace the clone URL with your fork's URL. This replaces the selected host's hardware file with settings generated for your machine. Stage the generated file so the Git-backed flake includes it.
 
-```bash
-nix --extra-experimental-features 'nix-command flakes' flake check --no-build
-```
-
-### 6. Install and set passwords
+### 5. Install and set passwords
 
 ```bash
 nixos-install --root /mnt --flake .#atlas --option extra-experimental-features 'nix-command flakes'
@@ -122,7 +98,7 @@ reboot
 
 The installer prompts for the root password; the second command sets your user's password. Remove the installation media when rebooting.
 
-### 7. Move the checkout after login
+### 6. Move the checkout after login
 
 Log in as your configured user and move the repository into the location expected by the shell aliases and `nh`:
 
@@ -132,14 +108,6 @@ sudo chown -R caiocsx:users /home/caiocsx/nixdots
 cd /home/caiocsx/nixdots
 ```
 
-Adjust the account, group, and home path if needed. Use this checkout for future rebuilds.
+Keep the checkout at `~/nixdots`; `nh` and the shell aliases use that path to find the flake for future rebuilds.
 
-## First login
-
-- Select the Hyprland session managed by UWSM in Ly.
-- Open Kitty with `SUPER + Return`, or the shortcut menu with `SUPER + F1`.
-- Add images to `~/Pictures/Wallpapers` and choose one with `SUPER + W`. Wallpapers are not bundled.
-- Review browser accounts, extensions, and application preferences.
-- Check swap with `swapon --show` and test hibernation using the [memory and swap guide](usage.md#memory-and-swap).
-
-Continue with [Everyday use](usage.md) for updates and maintenance.
+For first-login steps, see [Everyday use](usage.md#first-login).

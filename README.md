@@ -47,7 +47,6 @@ The shared configuration includes the following desktop components and applicati
 | Audio | PipeWire |
 | Connectivity | NetworkManager and Bluetooth |
 | Containers and application distribution | Docker and Flatpak |
-| Memory and sleep | Automatic zram, disk swap, suspend, and hibernation |
 
 ## Hosts
 
@@ -60,13 +59,7 @@ Both hosts target `x86_64-linux`, track `nixos-unstable`, and use `caiocsx` as t
 
 ## Installation
 
-**A clean install is recommended** for adopting the complete setup. It gives you a fresh base for the system services and Home Manager files managed here.
-
-| Starting point | Guide |
-| --- | --- |
-| A fresh NixOS installation from a live USB | [Clean install — recommended](docs/installation.md#clean-install-recommended) |
-
-The guide covers generating your hardware configuration, adapting the host and user, installing, and the first login.
+For a fresh NixOS installation from a live USB, follow the [installation guide](docs/installation.md). It covers adapting the host and user, generating the hardware configuration, and installing the system.
 
 > The hardware files contain my disk UUIDs. Replace them with your own before installing. Start with the [installation guide](docs/installation.md), rather than rebuilding an unchanged clone.
 

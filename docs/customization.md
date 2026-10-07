@@ -1,7 +1,5 @@
 # Customization
 
-[← README](../README.md) · [Installation](installation.md) · [Everyday use](usage.md)
-
 ## Adapt the configuration
 
 This repository reflects my hardware, identity, and workflow. Use individual modules as a reference or adapt the full configuration before the first installation or migration. Applying it unchanged also applies my personal settings.
@@ -9,7 +7,6 @@ This repository reflects my hardware, identity, and workflow. Use individual mod
 | Setting | Where to edit | What to check |
 | --- | --- | --- |
 | Hardware and storage | `hosts/<host>/hardware-configuration.nix` | Generate this on your machine; never reuse the committed disk UUIDs. |
-| Swap | `hosts/<host>/hardware-configuration.nix` | Keep the generated `swapDevices` entry for your partition. Zram and UEFI resume discovery are automatic. |
 | Host and GPU | `hosts/<host>/configuration.nix` | Hostname, hardware module import, system keyboard, optional Steam import. |
 | Monitors and input | `hosts/<host>/home.nix` | Output name, resolution, refresh rate, scale, Hyprland keyboard, touchpad settings. |
 | Boot | `modules/nixos/core/boot.nix` | GRUB, UEFI, `/boot`, and any settings needed for your storage setup. |
