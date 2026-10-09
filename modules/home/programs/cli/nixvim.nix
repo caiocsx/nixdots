@@ -1,112 +1,161 @@
-{ config, inputs, ... }:
+{
+  config,
+  inputs,
+  pkgs,
+  ...
+}:
 {
   imports = [ inputs.nixvim.homeModules.nixvim ];
 
   programs.nixvim = {
     enable = true;
     globals.mapleader = " ";
+    extraPackages = with pkgs; [
+      nixfmt
+      rustfmt
+      shfmt
+      stylua
+    ];
     opts = {
       number = true;
       relativenumber = true;
+      signcolumn = "yes";
+      cursorline = true;
+      scrolloff = 8;
       expandtab = true;
       shiftwidth = 2;
       tabstop = 2;
       smartindent = true;
+      iskeyword = "@,48-57,_,192-255,-";
       ignorecase = true;
       smartcase = true;
-      signcolumn = "yes";
-      cursorline = true;
-      scrolloff = 8;
       splitright = true;
       splitbelow = true;
       undofile = true;
+      swapfile = false;
     };
     clipboard = {
       register = "unnamedplus";
       providers.wl-copy.enable = true;
     };
+    diagnostic.settings = {
+      virtual_text = true;
+      severity_sort = true;
+      float = {
+        border = "rounded";
+        source = "if_many";
+      };
+    };
     plugins = {
-      telescope.enable = true;
+      oil.enable = true;
       web-devicons.enable = true;
       lualine.enable = true;
       gitsigns.enable = true;
       which-key.enable = true;
+      telescope.enable = true;
+      nvim-autopairs.enable = true;
+      blink-cmp.enable = true;
       treesitter = {
         enable = true;
+        highlight.enable = true;
         grammarPackages = with config.programs.nixvim.plugins.treesitter.package.builtGrammars; [
           bash
-          json
           lua
-          markdown
-          markdown_inline
           nix
-          vim
-          vimdoc
-          yaml
+          rust
         ];
-        settings.highlight.enable = true;
-      };
-      blink-cmp = {
-        enable = true;
-        settings.keymap.preset = "default";
       };
       lsp = {
         enable = true;
-        servers.nil_ls.enable = true;
+        keymaps = {
+          lspBuf = {
+            "gd" = "definition";
+            "gri" = "implementation";
+            "grr" = "references";
+            "<leader>rn" = "rename";
+            "<leader>ca" = "code_action";
+          };
+          diagnostic."gl" = "open_float";
+        };
+        servers = {
+          bashls.enable = true;
+          lua_ls.enable = true;
+          nixd.enable = true;
+          rust_analyzer = {
+            enable = true;
+            installCargo = true;
+            installRustc = true;
+          };
+        };
       };
       conform-nvim = {
         enable = true;
-        settings.formatters_by_ft.nix = [ "nixfmt" ];
+        settings = {
+          format_on_save = {
+            timeout_ms = 500;
+          };
+          formatters_by_ft = {
+            bash = [ "shfmt" ];
+            lua = [ "stylua" ];
+            nix = [ "nixfmt" ];
+            rust = [ "rustfmt" ];
+            sh = [ "shfmt" ];
+          };
+        };
+      };
+      toggleterm = {
+        enable = true;
+        settings = {
+          open_mapping = "[[<c-t>]]";
+          direction = "float";
+          float_opts = {
+            border = "curved";
+          };
+        };
       };
     };
     keymaps = [
       {
         mode = "n";
-        key = "<Esc>";
-        action = "<cmd>nohlsearch<CR>";
-        options.desc = "Clear search highlight";
+        key = "<leader>e";
+        action = "<cmd>Oil<CR>";
+        options.desc = "Open File Explorer (Oil)";
       }
       {
         mode = "n";
         key = "<leader>ff";
         action = "<cmd>Telescope find_files<CR>";
-        options.desc = "Find files";
+        options.desc = "Find Files";
       }
       {
         mode = "n";
         key = "<leader>fg";
         action = "<cmd>Telescope live_grep<CR>";
-        options.desc = "Search text";
+        options.desc = "Find Text";
       }
       {
         mode = "n";
         key = "<leader>fb";
         action = "<cmd>Telescope buffers<CR>";
-        options.desc = "Find buffers";
+        options.desc = "Find Buffers";
       }
       {
         mode = "n";
-        key = "gd";
-        action.__raw = "vim.lsp.buf.definition";
-        options.desc = "Go to definition";
+        key = "<leader>fh";
+        action = "<cmd>Telescope help_tags<CR>";
+        options.desc = "Help Tags";
       }
       {
         mode = "n";
-        key = "<leader>rn";
-        action.__raw = "vim.lsp.buf.rename";
-        options.desc = "Rename symbol";
+        key = "<leader>cf";
+        action = "<cmd>lua require('conform').format({ async = true })<CR>";
+        options.desc = "Format Code";
       }
       {
         mode = "n";
-        key = "<leader>ca";
-        action.__raw = "vim.lsp.buf.code_action";
-        options.desc = "Code action";
-      }
-      {
-        mode = "n";
-        key = "<leader>f";
-        action.__raw = "function() require('conform').format({ async = true, lsp_format = 'fallback' }) end";
-        options.desc = "Format buffer";
+        key = "<Esc>";
+        action = "<cmd>nohlsearch<CR>";
+        options.desc = "Clear Search Highlight";
       }
     ];
   };
