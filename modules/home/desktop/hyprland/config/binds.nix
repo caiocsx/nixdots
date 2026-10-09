@@ -133,22 +133,22 @@ in
       (bind "SUPER + SHIFT + V" "Clipboard: clear history" (dsp.exec "clipboard --wipe"))
 
       # --- Screenshot ---
-      (bind "SUPER + PRINT" "Screenshot: copy selected region to clipboard" (
+      (bind "SUPER + PRINT" "Screenshot: save and copy selected region to clipboard" (
         dsp.exec "screenshot --region --copy"
       ))
-      (bind "SUPER + SHIFT + PRINT" "Screenshot: copy selected window to clipboard" (
+      (bind "SUPER + SHIFT + PRINT" "Screenshot: save and copy selected window to clipboard" (
         dsp.exec "screenshot --window --copy"
       ))
-      (bind "SUPER + CTRL + PRINT" "Screenshot: copy selected monitor to clipboard" (
+      (bind "SUPER + CTRL + PRINT" "Screenshot: save and copy selected monitor to clipboard" (
         dsp.exec "screenshot --output --copy"
       ))
-      (bind "SUPER + ALT + PRINT" "Screenshot: edit selected region in Swappy" (
+      (bind "SUPER + ALT + PRINT" "Screenshot: save and edit selected region in Swappy" (
         dsp.exec "screenshot --region"
       ))
-      (bind "SUPER + ALT + SHIFT + PRINT" "Screenshot: edit selected window in Swappy" (
+      (bind "SUPER + ALT + SHIFT + PRINT" "Screenshot: save and edit selected window in Swappy" (
         dsp.exec "screenshot --window"
       ))
-      (bind "SUPER + ALT + CTRL + PRINT" "Screenshot: edit selected monitor in Swappy" (
+      (bind "SUPER + ALT + CTRL + PRINT" "Screenshot: save and edit selected monitor in Swappy" (
         dsp.exec "screenshot --output"
       ))
 

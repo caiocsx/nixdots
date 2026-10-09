@@ -1,8 +1,14 @@
-{ pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   screenshot = pkgs.writeShellApplication {
     name = "screenshot";
     runtimeInputs = [
+      pkgs.coreutils
       pkgs.grim
       pkgs.hyprland
       pkgs.jq
@@ -37,12 +43,13 @@ let
       }
 
       select_output() {
-        slurp -o
+        slurp -o -r
       }
 
       main() {
         local mode="region"
-        local geometry
+        local geometry file
+        local directory=${lib.escapeShellArg config.xdg.userDirs.extraConfig.SCREENSHOTS}
         local copy=false
 
         while (( $# > 0 )); do
@@ -86,12 +93,14 @@ let
 
         [[ -n "$geometry" ]] || return 0
 
+        mkdir -p -- "$directory"
+        file="$directory/$(date +%Y-%m-%d_%H-%M-%S_%N).png"
+        grim -g "$geometry" "$file"
+
         if "$copy"; then
-          grim -g "$geometry" - |
-            wl-copy --type image/png
+          wl-copy --type image/png < "$file"
         else
-          grim -g "$geometry" - |
-            swappy -f -
+          swappy -f "$file" -o "$file"
         fi
       }
 
