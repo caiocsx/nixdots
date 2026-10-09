@@ -37,6 +37,10 @@ See the [NixOS rebuild documentation](https://wiki.nixos.org/wiki/Nixos-rebuild)
 
 The CI workflow runs `nix flake check`. With the current flake outputs, this validates the host configurations; it does not replace a full system build or a desktop session test.
 
+## Development environments
+
+Use the [development templates](development.md) to initialize a project's development environment. Templates are copied into each project, which owns its environment and lock file independently of nixdots. The guide covers discovering templates, initialization, automatic activation, customization, and sharing the project.
+
 ## Update dependencies
 
 To review a dependency update before activation, update the lock file, inspect its diff, check the flake, and build:

@@ -42,6 +42,7 @@
       ...
     }@inputs:
     {
+      templates = import ./templates;
       nixosConfigurations =
         let
           commonModules = [

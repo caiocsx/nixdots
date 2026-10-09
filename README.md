@@ -8,7 +8,7 @@
 ![GitHub Repo stars](https://img.shields.io/github/stars/caiocsx/nixdots?style=for-the-badge&)
 ![GitHub repo size](https://img.shields.io/github/repo-size/caiocsx/nixdots?style=for-the-badge&)
 
-[Installation](docs/installation.md) · [Customization](docs/customization.md) · [Everyday use](docs/usage.md)
+[Installation](docs/installation.md) · [Customization](docs/customization.md) · [Everyday use](docs/usage.md) · [Development templates](docs/development.md)
 
 </div>
 
@@ -63,7 +63,11 @@ For a fresh NixOS installation from a live USB, follow the [installation guide](
 
 > The hardware files contain my disk UUIDs. Replace them with your own before installing. Start with the [installation guide](docs/installation.md), rather than rebuilding an unchanged clone.
 
-Home Manager is integrated into the NixOS configuration, so one system rebuild applies both layers. The flake exposes `nixosConfigurations`; installation uses `nixos-install` or `nixos-rebuild`.
+Home Manager is integrated into the NixOS configuration, so one system rebuild applies both layers. The flake exposes `nixosConfigurations` and independent development templates; installation uses `nixos-install` or `nixos-rebuild`.
+
+## Development templates
+
+List available templates with `nix flake show ~/nixdots`, then copy one into a project with `nix flake init -t ~/nixdots#TEMPLATE_NAME`, replacing `TEMPLATE_NAME` with a name from the catalog. Each project owns its flake and generates its own lock file, with no dependency on nixdots after initialization. See the [development guide](docs/development.md) for setup, direnv, sharing projects, and adding templates.
 
 ## Project structure
 
@@ -87,7 +91,8 @@ Home Manager is integrated into the NixOS configuration, so one system rebuild a
 │       ├── programs/         # CLI and GUI application configuration
 │       ├── theme/            # Shared theme tokens and target overrides
 │       └── xdg/              # MIME associations, launchers, and directories
-├── docs/                     # Installation, customization, and usage guides
+├── templates/                # Catalog and standalone development environment templates
+├── docs/                     # Installation, customization, usage, and development guides
 └── .github/workflows/        # Flake validation
 ```
 
