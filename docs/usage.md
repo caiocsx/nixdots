@@ -18,7 +18,7 @@ nrs
 
 ## Shell aliases
 
-The aliases below are defined in [`zsh.nix`](../modules/home/programs/cli/zsh.nix). `nh` uses the checkout path configured in [`shell.nix`](../modules/home/programs/cli/shell.nix).
+The aliases below are defined in [`zsh.nix`](../modules/home/programs/cli/zsh.nix). `nh` uses the checkout path configured in [`nh.nix`](../modules/home/programs/cli/nh.nix).
 
 `nh` selects the host matching the current machine's hostname, so the system aliases work from any directory. The commands below show `#atlas` as an example; replace it with your host, such as `hyperion`. The suffix can be omitted when the flake has an output matching the current hostname, as described in the [NixOS rebuild documentation](https://wiki.nixos.org/wiki/Nixos-rebuild).
 
