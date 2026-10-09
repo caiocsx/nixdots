@@ -78,7 +78,7 @@
             icon-name = "location-services-active-symbolic";
           }
         ];
-        icon-size = 14;
+        icon-size = 12;
         icon-spacing = 10;
         transition-duration = 250;
       };
