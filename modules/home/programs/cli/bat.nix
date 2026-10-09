@@ -1,4 +1,10 @@
 { ... }:
 {
-  programs.bat.enable = true;
+  programs.bat = {
+    enable = true;
+    config = {
+      style = "numbers,changes,header";
+      paging = "auto";
+    };
+  };
 }
