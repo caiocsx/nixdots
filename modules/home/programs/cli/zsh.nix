@@ -6,12 +6,12 @@
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
     initContent = ''
-      export YSU_IGNORED_ALIASES=("ls" "eza")
       setopt correct
       zstyle ':fzf-tab:*' use-fzf-default-opts yes
       zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --icons --color=always $realpath'
     '';
     shellAliases = {
+      b = "bat";
       c = "clear";
       h = "history";
       ff = "fastfetch";
@@ -31,18 +31,28 @@
     plugins = [
       {
         name = "fzf-tab";
-        src = "${pkgs.zsh-fzf-tab}/share/fzf-tab";
-        file = "fzf-tab.plugin.zsh";
+        src = pkgs.zsh-fzf-tab;
+        file = "share/fzf-tab/fzf-tab.plugin.zsh";
       }
       {
         name = "you-should-use";
-        src = "${pkgs.zsh-you-should-use}/share/zsh/plugins/you-should-use";
-        file = "you-should-use.plugin.zsh";
+        src = pkgs.zsh-you-should-use;
+        file = "share/zsh/plugins/you-should-use/you-should-use.plugin.zsh";
       }
       {
         name = "autopair";
-        src = "${pkgs.zsh-autopair}/share/zsh/zsh-autopair";
-        file = "autopair.zsh";
+        src = pkgs.zsh-autopair;
+        file = "share/zsh/zsh-autopair/autopair.zsh";
+      }
+      {
+        name = "sudo";
+        src = pkgs.oh-my-zsh;
+        file = "share/oh-my-zsh/plugins/sudo/sudo.plugin.zsh";
+      }
+      {
+        name = "extract";
+        src = pkgs.oh-my-zsh;
+        file = "share/oh-my-zsh/plugins/extract/extract.plugin.zsh";
       }
     ];
   };
