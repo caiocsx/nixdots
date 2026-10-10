@@ -106,11 +106,14 @@
       toggleterm = {
         enable = true;
         settings = {
-          open_mapping = "[[<c-t>]]";
-          direction = "float";
-          float_opts = {
-            border = "curved";
-          };
+          open_mapping = "[[<c-/>]]";
+          direction = "vertical";
+          size.__raw = ''
+            function()
+              return math.max(1, math.floor(vim.o.columns * 0.40))
+            end
+          '';
+          persist_size = false;
         };
       };
     };
@@ -156,6 +159,78 @@
         key = "<Esc>";
         action = "<cmd>nohlsearch<CR>";
         options.desc = "Clear Search Highlight";
+      }
+      {
+        mode = [
+          "n"
+          "t"
+        ];
+        key = "<A-h>";
+        action = "<cmd>wincmd h<CR>";
+        options.desc = "Focus Left Window";
+      }
+      {
+        mode = [
+          "n"
+          "t"
+        ];
+        key = "<A-j>";
+        action = "<cmd>wincmd j<CR>";
+        options.desc = "Focus Lower Window";
+      }
+      {
+        mode = [
+          "n"
+          "t"
+        ];
+        key = "<A-k>";
+        action = "<cmd>wincmd k<CR>";
+        options.desc = "Focus Upper Window";
+      }
+      {
+        mode = [
+          "n"
+          "t"
+        ];
+        key = "<A-l>";
+        action = "<cmd>wincmd l<CR>";
+        options.desc = "Focus Right Window";
+      }
+      {
+        mode = [
+          "n"
+          "t"
+        ];
+        key = "<A-Right>";
+        action = "<cmd>vertical resize -5<CR>";
+        options.desc = "Decrease Window Width";
+      }
+      {
+        mode = [
+          "n"
+          "t"
+        ];
+        key = "<A-Left>";
+        action = "<cmd>vertical resize +5<CR>";
+        options.desc = "Increase Window Width";
+      }
+      {
+        mode = [
+          "n"
+          "t"
+        ];
+        key = "<A-Up>";
+        action = "<cmd>resize +3<CR>";
+        options.desc = "Increase Window Height";
+      }
+      {
+        mode = [
+          "n"
+          "t"
+        ];
+        key = "<A-Down>";
+        action = "<cmd>resize -3<CR>";
+        options.desc = "Decrease Window Height";
       }
     ];
   };
