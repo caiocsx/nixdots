@@ -26,7 +26,6 @@
       shiftwidth = 2;
       tabstop = 2;
       smartindent = true;
-      iskeyword = "@,48-57,_,192-255,-";
       ignorecase = true;
       smartcase = true;
       splitright = true;
@@ -47,14 +46,29 @@
       };
     };
     plugins = {
-      oil.enable = true;
       web-devicons.enable = true;
       lualine.enable = true;
-      gitsigns.enable = true;
       which-key.enable = true;
       telescope.enable = true;
+      oil = {
+        enable = true;
+        settings = {
+          view_options.show_hidden = true;
+          watch_for_changes = true;
+        };
+      };
+      snacks = {
+        enable = true;
+        settings = {
+          indent.enabled = true;
+          input.enabled = true;
+          bigfile.enabled = true;
+          notifier.enabled = true;
+          words.enabled = true;
+        };
+      };
+      gitsigns.enable = true;
       nvim-autopairs.enable = true;
-      blink-cmp.enable = true;
       treesitter = {
         enable = true;
         highlight.enable = true;
@@ -63,8 +77,17 @@
           lua
           nix
           rust
+          toml
         ];
       };
+      blink-cmp = {
+        enable = true;
+        settings = {
+          keymap.preset = "super-tab";
+          completion.trigger.show_in_snippet = false;
+        };
+      };
+      friendly-snippets.enable = true;
       lsp = {
         enable = true;
         keymaps = {
