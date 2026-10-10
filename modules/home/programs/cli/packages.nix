@@ -11,5 +11,7 @@
     fd
     nixfmt
     codex
+    gcc
+    gnumake
   ];
 }
