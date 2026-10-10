@@ -15,9 +15,7 @@ let
     ];
     text = ''
       exec uuctl "$@" rofi -dmenu -i -no-custom \
-        -theme "${themes.listMenu}" \
-        -theme-str 'inputbar { children: [ prompt, entry ]; } prompt { text-color: @foreground; background-color: transparent; }' \
-        -p
+        -theme "${themes.listMenu}" -p
     '';
   };
 in
