@@ -97,6 +97,9 @@ in
       (bind "SUPER + ALT + B" "Connectivity: open Bluetooth TUI" (dsp.app "${apps.terminal} -e bluetui"))
 
       # --- System ---
+      (bind "SUPER + X" "System: toggle Waybar visibility" (
+        dsp.exec "${pkgs.systemd}/bin/systemctl --user kill --signal=SIGUSR1 --kill-whom=main waybar.service"
+      ))
       (bind "SUPER + ESCAPE" "System: open power menu" (dsp.exec "power-menu"))
       (bind "SUPER + ALT + L" "System: lock screen" (dsp.exec "hyprlock"))
       (bind "SUPER + F1" "System: search keyboard shortcuts and keybinds" (dsp.exec "keybinds"))

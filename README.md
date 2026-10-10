@@ -107,6 +107,7 @@ Each host contains `configuration.nix`, `hardware-configuration.nix`, and `home.
 | `SUPER + Return` | Open Kitty |
 | `SUPER + Space` | Open the application launcher |
 | `SUPER + E` / `SUPER + B` / `SUPER + D` | Open Thunar / Zen Browser / VSCodium |
+| `SUPER + X` | Show or hide Waybar |
 | `SUPER + W` | Choose a wallpaper |
 | `SUPER + V` | Open clipboard history |
 | `SUPER + Print` | Copy a selected screen region |
