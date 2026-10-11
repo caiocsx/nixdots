@@ -9,7 +9,6 @@
     ./hyprlock.nix
     ./hypridle.nix
     ./swaync.nix
-    ./swappy.nix
     ./waybar.nix
     ./hyprsunset.nix
   ];

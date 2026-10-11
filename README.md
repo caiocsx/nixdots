@@ -30,7 +30,7 @@ The shared configuration includes the following desktop components and applicati
 | Launcher and menus | Rofi application launcher, power menu, shortcut viewer, calculator, character picker, and wallpaper picker |
 | Locking and idle behavior | Hyprlock screen lock and Hypridle idle actions |
 | Wallpaper and display temperature | awww wallpapers and Hyprsunset color temperature control |
-| Clipboard and screenshots | Cliphist history; grim and slurp capture; Swappy annotation |
+| Clipboard and screenshots | Cliphist history; grim and slurp capture |
 | Theme, icons, and fonts | Stylix with a configurable palette, Papirus icons, Bibata cursor, Inter, Noto fonts, and JetBrains Mono Nerd Font |
 
 | Applications and terminal | What is included |

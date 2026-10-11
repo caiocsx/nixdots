@@ -13,7 +13,6 @@ let
       pkgs.hyprland
       pkgs.jq
       pkgs.slurp
-      pkgs.swappy
       pkgs.wl-clipboard
     ];
     text = ''
@@ -50,7 +49,6 @@ let
         local mode="region"
         local geometry file
         local directory=${lib.escapeShellArg config.xdg.userDirs.extraConfig.SCREENSHOTS}
-        local copy=false
 
         while (( $# > 0 )); do
           case "$1" in
@@ -63,11 +61,8 @@ let
             -o|--output)
               mode="output"
               ;;
-            -c|--copy)
-              copy=true
-              ;;
             -h|--help)
-              echo "Usage: ''${0##*/} [-r|--region | -w|--window | -o|--output] [-c|--copy] [-h|--help]"
+              echo "Usage: ''${0##*/} [-r|--region | -w|--window | -o|--output] [-h|--help]"
               return 0
               ;;
             *)
@@ -94,14 +89,10 @@ let
         [[ -n "$geometry" ]] || return 0
 
         mkdir -p -- "$directory"
-        file="$directory/$(date +%Y-%m-%d_%H-%M-%S_%N).png"
+        file="$directory/$(date +%Y-%m-%d_%H-%M-%S).png"
         grim -g "$geometry" "$file"
 
-        if "$copy"; then
-          wl-copy --type image/png < "$file"
-        else
-          swappy -f "$file" -o "$file"
-        fi
+        wl-copy --type image/png < "$file"
       }
 
       main "$@"

@@ -69,7 +69,7 @@ Add JPG, JPEG, PNG, or GIF files to `~/Pictures/Wallpapers`. The repository does
 
 The picker stores the selected wallpaper and lock-screen image under `~/.cache/wallpapers`. GIFs use a still frame for the lock screen.
 
-`SUPER + Print` copies a region, `SUPER + Shift + Print` copies a selected window, and `SUPER + Ctrl + Print` copies a selected monitor. Add `Alt` to open the corresponding capture in Swappy. Saved images go to `~/Pictures/Screenshots`.
+`SUPER + Print` captures a region, `SUPER + Shift + Print` captures a selected window, and `SUPER + Ctrl + Print` captures a selected monitor. Each capture is saved to `~/Pictures/Screenshots` and copied to the clipboard. The same behavior is available with `screenshot --region`, `screenshot --window`, and `screenshot --output`.
 
 For all shortcuts, press `SUPER + F1` or inspect [`binds.nix`](../modules/home/desktop/hyprland/config/binds.nix).
 
