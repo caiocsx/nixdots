@@ -4,6 +4,7 @@
     proton-vpn
     proton-pass
     protonmail-desktop
+    gimp
     obsidian
     onlyoffice-desktopeditors
     stremio-linux-shell
