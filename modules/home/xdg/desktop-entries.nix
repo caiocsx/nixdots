@@ -11,6 +11,7 @@ let
     kvantummanager = pkgs.kdePackages.qtstyleplugin-kvantum;
     qt5ct = pkgs.libsForQt5.qt5ct;
     qt6ct = pkgs.kdePackages.qt6ct;
+    yazi = pkgs.yazi;
     rofi = pkgs.rofi;
     rofi-theme-selector = pkgs.rofi;
     thunar-bulk-rename = pkgs.thunar;
