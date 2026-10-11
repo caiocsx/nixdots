@@ -70,6 +70,13 @@
     ];
     layer_rule = [
       {
+        name = "screenshot-selection-no-animation";
+        match = {
+          namespace = "^(selection)$";
+        };
+        no_anim = true;
+      }
+      {
         name = "blur-waybar";
         match = {
           namespace = "^(waybar)$";

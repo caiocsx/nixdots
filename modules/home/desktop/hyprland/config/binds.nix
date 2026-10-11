@@ -137,21 +137,12 @@ in
 
       # --- Screenshot ---
       (bind "SUPER + PRINT" "Screenshot: save and copy selected region to clipboard" (
-        dsp.exec "screenshot --region --copy"
-      ))
-      (bind "SUPER + SHIFT + PRINT" "Screenshot: save and copy selected window to clipboard" (
-        dsp.exec "screenshot --window --copy"
-      ))
-      (bind "SUPER + CTRL + PRINT" "Screenshot: save and copy selected monitor to clipboard" (
-        dsp.exec "screenshot --output --copy"
-      ))
-      (bind "SUPER + ALT + PRINT" "Screenshot: save and edit selected region in Swappy" (
         dsp.exec "screenshot --region"
       ))
-      (bind "SUPER + ALT + SHIFT + PRINT" "Screenshot: save and edit selected window in Swappy" (
+      (bind "SUPER + SHIFT + PRINT" "Screenshot: save and copy selected window to clipboard" (
         dsp.exec "screenshot --window"
       ))
-      (bind "SUPER + ALT + CTRL + PRINT" "Screenshot: save and edit selected monitor in Swappy" (
+      (bind "SUPER + CTRL + PRINT" "Screenshot: save and copy selected monitor to clipboard" (
         dsp.exec "screenshot --output"
       ))
 
@@ -167,10 +158,10 @@ in
       (bind "SUPER + M" "Window: toggle maximized state" dsp.maximize)
       (bind "SUPER + Q" "Window: close active window" dsp.close)
       (bind "SUPER + SHIFT + Q" "Window: force kill a window" dsp.kill)
-      (bind "SUPER + SHIFT + W" "Window: toggle floating mode and center at 1000x660" (
+      (bind "SUPER + F" "Window: toggle floating mode" dsp.float)
+      (bind "SUPER + SHIFT + F" "Window: toggle floating mode and center at 1000x660" (
         dsp.floatSized 1000 660
       ))
-      (bind "SUPER + ALT + W" "Window: toggle floating mode" dsp.float)
 
       # --- Layout ---
       (bind "SUPER + P" "Layout: toggle pseudo tiling" dsp.pseudo)
