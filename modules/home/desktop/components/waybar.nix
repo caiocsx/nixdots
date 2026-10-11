@@ -143,12 +143,14 @@
       };
       pulseaudio = {
         format = "{icon}";
-        format-muted = "󰝟";
+        format-muted = "{icon}";
         format-icons = {
-          headphone = "󰋋";
-          headset = "󰋎";
-          headset-muted = "󰋐";
-          default = [ "󰕾" ];
+          default = "󰕾";
+          default-muted = "󰝟";
+          headphone = "<span size='11pt'>󰋋</span>";
+          headphone-muted = "<span size='11pt'>󰟎</span>";
+          headset = "<span size='11pt'>󰋎</span>";
+          headset-muted = "<span size='11pt'>󰋐</span>";
         };
         on-click = "kitty -e wiremix";
         on-click-right = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
