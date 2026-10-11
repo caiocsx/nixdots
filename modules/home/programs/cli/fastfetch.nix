@@ -1,4 +1,10 @@
-{ inputs, ... }:
+{ inputs, theme, ... }:
+let
+  muted = "{#${theme.colors.muted}}";
+  foreground = "{#${theme.colors.foreground}}";
+  blue = "{#${theme.colors.blue}}";
+  green = "{#${theme.colors.green}}";
+in
 {
   programs.fastfetch = {
     enable = true;
@@ -24,86 +30,86 @@
         "break"
         {
           type = "custom";
-          format = "{##727272}{{";
+          format = "${foreground}{{";
         }
         {
           type = "title";
-          key = "  {##575757}system.{##7E97AB}host       {##727272}= ";
-          format = ''{##88afa2}"{user-name}@{host-name}"{##727272};'';
+          key = "  ${muted}system.${blue}host       ${foreground}= ";
+          format = ''${green}"{user-name}@{host-name}"${foreground};'';
         }
         {
           type = "os";
-          key = "  {##575757}system.{##7E97AB}os         {##727272}= ";
-          format = "{##88afa2}\"{name} {version}\"{##727272};";
+          key = "  ${muted}system.${blue}os         ${foreground}= ";
+          format = "${green}\"{name} {version}\"${foreground};";
         }
         {
           type = "kernel";
-          key = "  {##575757}system.{##7E97AB}kernel     {##727272}= ";
-          format = "{##88afa2}\"{sysname} {release}\"{##727272};";
+          key = "  ${muted}system.${blue}kernel     ${foreground}= ";
+          format = "${green}\"{sysname} {release}\"${foreground};";
         }
         {
           type = "wm";
-          key = "  {##575757}system.{##7E97AB}wm         {##727272}= ";
-          format = "{##88afa2}\"{pretty-name} {version}\"{##727272};";
+          key = "  ${muted}system.${blue}wm         ${foreground}= ";
+          format = "${green}\"{pretty-name} {version}\"${foreground};";
         }
         {
           type = "packages";
-          key = "  {##575757}system.{##7E97AB}packages   {##727272}= ";
-          format = "{##727272}[ {##88afa2}\"{nix-system} nix-system\" \"{nix-user} nix-user\"{##727272} ];";
+          key = "  ${muted}system.${blue}packages   ${foreground}= ";
+          format = "${foreground}[ ${green}\"{nix-system} nix-system\" \"{nix-user} nix-user\"${foreground} ];";
         }
         "break"
         {
           type = "cpu";
-          key = "  {##575757}hardware.{##7E97AB}cpu      {##727272}= ";
-          format = "{##88afa2}\"{name} ({cores-physical}/{cores-logical})\"{##727272};";
+          key = "  ${muted}hardware.${blue}cpu      ${foreground}= ";
+          format = "${green}\"{name} ({cores-physical}/{cores-logical})\"${foreground};";
         }
         {
           type = "gpu";
-          key = "  {##575757}hardware.{##7E97AB}gpu      {##727272}= ";
-          format = "{##88afa2}\"{vendor} {name}\"{##727272};";
+          key = "  ${muted}hardware.${blue}gpu      ${foreground}= ";
+          format = "${green}\"{vendor} {name}\"${foreground};";
         }
         {
           type = "memory";
-          key = "  {##575757}hardware.{##7E97AB}ram      {##727272}= ";
-          format = "{##88afa2}\"{used}/{total}\"{##727272};   {##575757}# {percentage}";
+          key = "  ${muted}hardware.${blue}ram      ${foreground}= ";
+          format = "${green}\"{used}/{total}\"${foreground};   ${muted}# {percentage}";
         }
         {
           type = "disk";
           folders = "/";
-          key = "  {##575757}hardware.{##7E97AB}disk0    {##727272}= ";
-          format = "{##88afa2}\"{size-used}/{size-total}\"{##727272};  {##575757}# {size-percentage}";
+          key = "  ${muted}hardware.${blue}disk0    ${foreground}= ";
+          format = "${green}\"{size-used}/{size-total}\"${foreground};  ${muted}# {size-percentage}";
         }
         "break"
         {
           type = "terminal";
-          key = "  {##575757}terminal.{##7E97AB}term     {##727272}= ";
-          format = "{##88afa2}\"{pretty-name}\"{##727272};";
+          key = "  ${muted}terminal.${blue}term     ${foreground}= ";
+          format = "${green}\"{pretty-name}\"${foreground};";
         }
         {
           type = "shell";
-          key = "  {##575757}terminal.{##7E97AB}shell    {##727272}= ";
-          format = "{##88afa2}\"{pretty-name} {version}\"{##727272};";
+          key = "  ${muted}terminal.${blue}shell    ${foreground}= ";
+          format = "${green}\"{pretty-name} {version}\"${foreground};";
         }
         "break"
         {
           type = "uptime";
-          key = "  {##575757}info.{##7E97AB}uptime       {##727272}= ";
-          format = "{##88afa2}\"{days} days, {hours} hours, {minutes} mins\"{##727272};";
+          key = "  ${muted}info.${blue}uptime       ${foreground}= ";
+          format = "${green}\"{days} days, {hours} hours, {minutes} mins\"${foreground};";
         }
         {
           type = "datetime";
-          key = "  {##575757}info.{##7E97AB}dateTime     {##727272}= ";
-          format = "{##88afa2}\"{year}-{month-pretty}-{day-in-month} {hour-pretty}:{minute-pretty}\"{##727272};";
+          key = "  ${muted}info.${blue}dateTime     ${foreground}= ";
+          format = "${green}\"{year}-{month-pretty}-{day-in-month} {hour-pretty}:{minute-pretty}\"${foreground};";
         }
         {
           type = "disk";
           folders = "/";
-          key = "  {##575757}info.{##7E97AB}osAge        {##727272}= ";
-          format = "{##88afa2}\"{days} days\"{##727272};";
+          key = "  ${muted}info.${blue}osAge        ${foreground}= ";
+          format = "${green}\"{days} days\"${foreground};";
         }
         {
           type = "custom";
-          format = "{##727272}}";
+          format = "${foreground}}";
         }
         "break"
       ];
