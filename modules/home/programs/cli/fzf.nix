@@ -17,7 +17,6 @@
       ];
     };
     historyWidget = {
-      zsh.command = "";
       options = [
         "--style=full"
       ];
