@@ -1,26 +1,23 @@
 { inputs, theme, ... }:
-let
-  muted = "{#${theme.colors.muted}}";
-  foreground = "{#${theme.colors.foreground}}";
-  blue = "{#${theme.colors.blue}}";
-  green = "{#${theme.colors.green}}";
-in
 {
   programs.fastfetch = {
     enable = true;
     settings = {
       logo = {
-        source = "${inputs.self}/assets/fastfetch/*.png";
-        type = "kitty-direct";
-        width = 30;
-        height = 20;
+        type = "file";
+        source = "${inputs.self}/assets/fastfetch/ghost.txt";
+        color = {
+          "1" = "white";
+        };
         padding = {
-          right = 3;
-          left = 5;
+          top = 1;
+          right = 5;
+          left = 3;
         };
       };
       display = {
-        separator = "";
+        separator = "  ";
+        color = "white";
         percent = {
           type = 1;
           width = 3;
@@ -30,86 +27,77 @@ in
         "break"
         {
           type = "custom";
-          format = "${foreground}{{";
-        }
-        {
-          type = "title";
-          key = "  ${muted}system.${blue}host       ${foreground}= ";
-          format = ''${green}"{user-name}@{host-name}"${foreground};'';
-        }
-        {
-          type = "os";
-          key = "  ${muted}system.${blue}os         ${foreground}= ";
-          format = "${green}\"{name} {version}\"${foreground};";
-        }
-        {
-          type = "kernel";
-          key = "  ${muted}system.${blue}kernel     ${foreground}= ";
-          format = "${green}\"{sysname} {release}\"${foreground};";
-        }
-        {
-          type = "wm";
-          key = "  ${muted}system.${blue}wm         ${foreground}= ";
-          format = "${green}\"{pretty-name} {version}\"${foreground};";
-        }
-        {
-          type = "packages";
-          key = "  ${muted}system.${blue}packages   ${foreground}= ";
-          format = "${foreground}[ ${green}\"{nix-system} nix-system\" \"{nix-user} nix-user\"${foreground} ];";
-        }
-        "break"
-        {
-          type = "cpu";
-          key = "  ${muted}hardware.${blue}cpu      ${foreground}= ";
-          format = "${green}\"{name} ({cores-physical}/{cores-logical})\"${foreground};";
-        }
-        {
-          type = "gpu";
-          key = "  ${muted}hardware.${blue}gpu      ${foreground}= ";
-          format = "${green}\"{vendor} {name}\"${foreground};";
-        }
-        {
-          type = "memory";
-          key = "  ${muted}hardware.${blue}ram      ${foreground}= ";
-          format = "${green}\"{used}/{total}\"${foreground};   ${muted}# {percentage}";
-        }
-        {
-          type = "disk";
-          folders = "/";
-          key = "  ${muted}hardware.${blue}disk0    ${foreground}= ";
-          format = "${green}\"{size-used}/{size-total}\"${foreground};  ${muted}# {size-percentage}";
-        }
-        "break"
-        {
-          type = "terminal";
-          key = "  ${muted}terminal.${blue}term     ${foreground}= ";
-          format = "${green}\"{pretty-name}\"${foreground};";
-        }
-        {
-          type = "shell";
-          key = "  ${muted}terminal.${blue}shell    ${foreground}= ";
-          format = "${green}\"{pretty-name} {version}\"${foreground};";
-        }
-        "break"
-        {
-          type = "uptime";
-          key = "  ${muted}info.${blue}uptime       ${foreground}= ";
-          format = "${green}\"{days} days, {hours} hours, {minutes} mins\"${foreground};";
-        }
-        {
-          type = "datetime";
-          key = "  ${muted}info.${blue}dateTime     ${foreground}= ";
-          format = "${green}\"{year}-{month-pretty}-{day-in-month} {hour-pretty}:{minute-pretty}\"${foreground};";
-        }
-        {
-          type = "disk";
-          folders = "/";
-          key = "  ${muted}info.${blue}osAge        ${foreground}= ";
-          format = "${green}\"{days} days\"${foreground};";
+          key = "╭─────────────────────────────────────────╮";
         }
         {
           type = "custom";
-          format = "${foreground}}";
+          key = "│                                         │";
+        }
+        {
+          type = "os";
+          key = "│  OS           ";
+          format = "{name>22}  │";
+        }
+        {
+          type = "command";
+          key = "│  Kernel       ";
+          text = "uname -r | cut -d '-' -f1";
+          format = "{>22}  │";
+        }
+        {
+          type = "wm";
+          key = "│  WM           ";
+          format = "{pretty-name>22}  │";
+        }
+        {
+          type = "terminal";
+          key = "│  Terminal       ";
+          format = "{pretty-name>20}  │";
+        }
+        {
+          type = "shell";
+          key = "│  Shell        ";
+          format = "{pretty-name>22}  │";
+        }
+        {
+          type = "packages";
+          key = "│  Packages     ";
+          format = "{all>22}  │";
+        }
+        {
+          type = "memory";
+          key = "│  RAM          ";
+          format = "{used>9} / {total>10}  │";
+        }
+        {
+          type = "disk";
+          folders = "/";
+          key = "│  Disk         ";
+          format = "{size-used>9} / {size-total>10}  │";
+        }
+        {
+          type = "command";
+          key = "│  Date/Time    ";
+          text = "date '+%Y-%m-%d %H:%M'";
+          format = "{>22}  │";
+        }
+        {
+          type = "disk";
+          folders = "/";
+          key = "│  OS Age       ";
+          format = "{days>17} days  │";
+        }
+        {
+          type = "custom";
+          key = "│                                         │";
+        }
+        {
+          type = "custom";
+          key = "│      Keep learning, keep building.      │";
+        }
+        {
+          type = "custom";
+          key = "╰─────────────────────────────────────────╯";
         }
         "break"
       ];
