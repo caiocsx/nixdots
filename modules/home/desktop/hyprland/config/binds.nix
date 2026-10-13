@@ -160,7 +160,7 @@ in
       (bind "SUPER + SHIFT + Q" "Window: force kill a window" dsp.kill)
       (bind "SUPER + F" "Window: toggle floating mode" dsp.float)
       (bind "SUPER + SHIFT + F" "Window: toggle floating mode and center at 1000x660" (
-        dsp.floatSized 1000 660
+        dsp.floatSized 760 440
       ))
 
       # --- Layout ---
