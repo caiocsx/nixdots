@@ -1,15 +1,17 @@
-{ inputs, ... }:
+{ inputs, pkgs, ... }:
 let
-  mkExtension = slug: guid: {
-    name = guid;
+  nixSnowflakeIcon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+  mkExtension = addonName: addonId: {
+    name = addonId;
     value = {
-      install_url = "https://addons.mozilla.org/en-US/firefox/downloads/latest/${slug}/latest.xpi";
+      install_url = "https://addons.mozilla.org/en-US/firefox/downloads/latest/${addonName}/latest.xpi";
       installation_mode = "normal_installed";
       private_browsing = true;
     };
   };
   extensions = [
     (mkExtension "ublock-origin" "uBlock0@raymondhill.net")
+    (mkExtension "consent-o-matic" "gdpr@cavi.au.dk")
     (mkExtension "proton-pass" "78272b6fa58f4a1abaac99321d503a20@proton.me")
     (mkExtension "darkreader" "addon@darkreader.org")
     (mkExtension "absolute-enable-right-click" "{9350bc42-47fb-4598-ae0f-825e3dd9ceba}")
@@ -36,17 +38,13 @@ in
       HttpsOnlyMode = "enabled";
       EnableTrackingProtection = {
         Value = true;
-        Locked = false;
+        Locked = true;
         Category = "strict";
-        Cryptomining = true;
-        Fingerprinting = true;
-        EmailTracking = true;
-        SuspectedFingerprinting = true;
       };
       DNSOverHTTPS = {
         Enabled = true;
+        Locked = true;
         ProviderURL = "https://dns.quad9.net/dns-query";
-        Locked = false;
       };
       ExtensionSettings = builtins.listToAttrs extensions;
       "3rdparty".Extensions = {
@@ -63,12 +61,10 @@ in
               "easyprivacy"
               "urlhaus-1"
               "plowe-0"
-
               "fanboy-cookiemonster"
               "easylist-annoyances"
               "ublock-annoyances"
               "adguard-cookies"
-
               "adguard-spyware-url"
             ];
           };
@@ -99,11 +95,18 @@ in
             Alias = "wk";
           }
           {
-            Name = "Nixpkgs Packages";
+            Name = "Nix Packages";
             URLTemplate = "https://search.nixos.org/packages?query={searchTerms}";
             Method = "GET";
-            IconURL = "https://raw.githubusercontent.com/NixOS/nixos-artwork/refs/heads/master/logo/nix-snowflake-colours.svg";
+            IconURL = nixSnowflakeIcon;
             Alias = "np";
+          }
+          {
+            Name = "Nix Options";
+            URLTemplate = "https://search.nixos.org/options?query={searchTerms}";
+            Method = "GET";
+            IconURL = nixSnowflakeIcon;
+            Alias = "no";
           }
         ];
       };
@@ -111,47 +114,57 @@ in
     profiles.default = {
       isDefault = true;
       spacesForce = true;
-      containersForce = true;
       pinsForce = true;
-      pinsForceAction = "remove";
       settings = {
+        "zen.welcome-screen.seen" = true;
         "zen.workspaces.continue-where-left-off" = true;
+        "zen.view.compact.enable-at-startup" = true;
         "zen.view.compact.hide-tabbar" = true;
         "zen.urlbar.behavior" = "float";
       };
       mods = [
         "e122b5d9-d385-4bf8-9971-e137809097d0" # No Top Sites
-        "253a3a74-0cc4-47b7-8b82-996a64f030d5" # Floating History
         "4ab93b88-151c-451b-a1b7-a1e0e28fa7f8" # No Sidebar Scrollbar
         "7190e4e9-bead-4b40-8f57-95d852ddc941" # Tab title fixes
         "803c7895-b39b-458e-84f8-a521f4d7a064" # Hide Inactive Workspaces
         "906c6915-5677-48ff-9bfc-096a02a72379" # Floating Status Bar
       ];
-      containers = {
-        Dev = {
-          color = "red";
-          icon = "chill";
-          id = 2;
+      pins = {
+        "YouTube" = {
+          id = "9d8a8f91-7e29-4688-ae2e-da4e49d4a179";
+          url = "https://youtube.com";
+          isEssential = true;
+          position = 101;
         };
-        Personal = {
-          color = "purple";
-          icon = "fingerprint";
-          id = 1;
+        "Proton Mail" = {
+          id = "f02c8ad1-83e1-4b8d-9a72-6c3410e5b827";
+          url = "https://mail.proton.me";
+          isEssential = true;
+          position = 102;
         };
-        Shopping = {
-          color = "yellow";
-          icon = "cart";
-          id = 5;
+        "Whatsapp" = {
+          id = "e4067f49-45aa-4200-9468-97c7296154f4";
+          url = "https://web.whatsapp.com/";
+          isEssential = true;
+          position = 103;
         };
-        Study = {
-          color = "green";
-          icon = "tree";
-          id = 3;
+        "GitHub" = {
+          id = "4f765c89-2fca-4561-8a34-44ba1ddac904";
+          url = "https://github.com";
+          isEssential = true;
+          position = 104;
         };
-        Work = {
-          color = "blue";
-          icon = "briefcase";
-          id = 4;
+        "ChatGPT" = {
+          id = "9cbe689c-65f2-4400-a0ad-5efd052dad4b";
+          url = "https://chatgpt.com";
+          isEssential = true;
+          position = 105;
+        };
+        "Reddit" = {
+          id = "48e8a119-5a14-4826-9545-91c8e8dd3bf6";
+          url = "https://reddit.com";
+          isEssential = true;
+          position = 106;
         };
       };
       spaces = {
@@ -159,46 +172,26 @@ in
           id = "c6de089c-410d-4206-961d-ab11f988d40a";
           position = 1000;
           icon = "🏠";
-          container = 1;
         };
         "Dev" = {
           id = "f9db866c-da35-43a8-8863-d2ddb419b5ae";
           position = 2000;
           icon = "💻";
-          container = 2;
         };
         "Study" = {
           id = "78aabdad-8aae-4fe0-8ff0-2a0c6c4ccc24";
           position = 3000;
           icon = "📚";
-          container = 3;
-          pins = {
-            "NixOS" = {
-              id = "d85a9026-1458-4db6-b115-346746bcc692";
-              isGroup = true;
-              isFolderCollapsed = false;
-              position = 301;
-              pins = {
-                "NixOS Search" = {
-                  id = "f8dd784e-11d7-430a-8f57-7b05ecdb4c77";
-                  url = "https://search.nixos.org/packages";
-                  position = 302;
-                };
-              };
-            };
-          };
         };
         "Work" = {
           id = "cdd10fab-4fc5-494b-9041-325e5759195b";
           position = 4000;
           icon = "💼";
-          container = 4;
         };
         "Shopping" = {
           id = "01a3de97-93e1-44be-84b3-74c51e5b11e9";
           position = 5000;
           icon = "🛒";
-          container = 5;
         };
       };
     };
