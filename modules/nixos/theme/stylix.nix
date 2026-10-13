@@ -1,9 +1,13 @@
 { pkgs, ... }:
+let
+  # ls "$(nix eval --raw nixpkgs#base16-schemes)/share/themes/"
+  scheme = name: "${pkgs.base16-schemes}/share/themes/${name}.yaml";
+in
 {
   stylix = {
     enable = true;
     polarity = "dark";
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/nord.yaml";
+    base16Scheme = scheme "nord";
     cursor = {
       name = "Bibata-Modern-Ice";
       package = pkgs.bibata-cursors;
