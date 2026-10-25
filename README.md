@@ -21,30 +21,21 @@ A modular NixOS configuration built around Hyprland, using Nix flakes to pin dep
 
 ## Desktop
 
-The shared configuration includes the following desktop components and applications. Host-specific options are listed under [Hosts](#hosts).
+The shared configuration installs and configures the following desktop components, applications, and system integrations. Host-specific options are listed under [Hosts](#hosts).
 
-| Desktop component | What is configured |
+| Area | Installed and configured |
 | --- | --- |
-| Compositor and session | Hyprland window management, UWSM session management, Ly login manager |
-| Status bar and notifications | Waybar and SwayNotificationCenter |
-| Launcher and utilities | Vicinae app launcher, power menu, clipboard history, emoji picker, wallpaper picker, and extensions |
-| Locking and idle behavior | Hyprlock screen lock and Hypridle idle actions |
-| Wallpaper and display temperature | awww wallpapers and Hyprsunset color temperature control |
-| Screenshots | Capture script using grim and slurp |
+| Compositor and session | Hyprland window management, UWSM session management, and Ly login manager |
+| Desktop shell | Waybar status bar, SwayNotificationCenter notifications, Vicinae launcher and utilities, Hyprlock screen lock, and Hypridle idle actions |
+| Desktop utilities | Clipboard history, power menu, emoji and wallpaper pickers, Vicinae extensions, and a screenshot script using grim and slurp |
+| Wallpaper and display | awww wallpaper management and Hyprsunset color temperature control |
 | Theme, icons, and fonts | Stylix with a configurable palette, Papirus icons, Bibata cursor, Inter, Noto fonts, and JetBrains Mono Nerd Font |
-
-| Applications and terminal | What is included |
-| --- | --- |
-| Terminal and shell | Kitty, Zsh, Starship prompt, fzf search, zoxide navigation |
-| Editors and development | VSCodium, Neovim through Nixvim, Mousepad text editor, Git, direnv |
+| Terminal and shell | Kitty, Zsh, Starship prompt, fzf search, and zoxide navigation |
+| Editors and development | VSCodium, Neovim through Nixvim, Mousepad text editor, Git, and direnv |
 | Files and browsing | Thunar with Xarchiver archive integration, and Zen Browser |
-| Media and communication | mpv, imv, Spotify, Discord |
-| System inspection and maintenance | btop, Fastfetch, nh rebuild and cleanup commands |
-
-| System integration | What is enabled |
-| --- | --- |
-| Audio | PipeWire |
-| Connectivity | NetworkManager and Bluetooth |
+| Media and communication | mpv, imv, Spotify, and Discord |
+| System inspection and maintenance | btop, Fastfetch, and nh rebuild and cleanup commands |
+| Audio and connectivity | PipeWire, NetworkManager, and Bluetooth |
 | Containers and application distribution | Docker and Flatpak |
 
 ## Hosts
