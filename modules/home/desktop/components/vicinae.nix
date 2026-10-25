@@ -7,9 +7,11 @@
 {
   programs.vicinae = {
     enable = true;
+    mutableSettings = true;
     systemd.enable = true;
     extensions = with inputs.vicinae-extensions.packages.${pkgs.stdenv.hostPlatform.system}; [
       awww-switcher
+      hypr-keybinds
       nix
       process-manager
     ];
@@ -53,6 +55,7 @@
             wallpaperPath = "~/Pictures/Wallpapers";
             transitionType = "any";
             transitionDuration = "2";
+            showImageDetails = false;
           };
         };
       };
