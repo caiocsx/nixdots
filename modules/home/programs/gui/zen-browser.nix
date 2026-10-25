@@ -1,6 +1,5 @@
-{ inputs, pkgs, ... }:
+{ inputs, ... }:
 let
-  nixSnowflakeIcon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
   mkExtension = addonName: addonId: {
     name = addonId;
     value = {
@@ -98,15 +97,15 @@ in
             Name = "Nix Packages";
             URLTemplate = "https://search.nixos.org/packages?query={searchTerms}";
             Method = "GET";
-            IconURL = nixSnowflakeIcon;
-            Alias = "np";
+            IconURL = "https://raw.githubusercontent.com/NixOS/nixos-artwork/refs/heads/master/logo/nix-snowflake-colours.svg";
+            Alias = "nxp";
           }
           {
             Name = "Nix Options";
             URLTemplate = "https://search.nixos.org/options?query={searchTerms}";
             Method = "GET";
-            IconURL = nixSnowflakeIcon;
-            Alias = "no";
+            IconURL = "https://raw.githubusercontent.com/NixOS/nixos-artwork/refs/heads/master/logo/nix-snowflake-colours.svg";
+            Alias = "nxo";
           }
         ];
       };
