@@ -1,6 +1,10 @@
 {
   rust = {
     path = ./rust;
-    description = "Rust development environment";
+    description = "Starter template for Rust projects";
+  };
+  typescript = {
+    path = ./typescript;
+    description = "Starter template for JavaScript and TypeScript projects";
   };
 }

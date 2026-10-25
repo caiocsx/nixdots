@@ -22,6 +22,7 @@
             packages = with pkgs; [
               cargo
               clippy
+              gcc
               rustc
               rustfmt
               rust-analyzer
