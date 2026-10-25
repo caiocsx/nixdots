@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 {
   wayland.windowManager.hyprland = {
     settings = {
@@ -21,4 +21,8 @@
     export GBM_BACKEND=nvidia-drm
     export __GLX_VENDOR_LIBRARY_NAME=nvidia
   '';
+
+  home.packages = with pkgs; [
+    heroic
+  ];
 }
