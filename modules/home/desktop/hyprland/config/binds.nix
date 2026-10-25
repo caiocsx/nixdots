@@ -33,6 +33,53 @@ let
     maximize = lua "hl.dsp.window.fullscreen({ maximize = true })";
     pseudo = lua "hl.dsp.window.pseudo()";
     layout = msg: lua ''hl.dsp.layout("${msg}")'';
+    cycleLayout = lua ''
+      function()
+        local layouts = { "scrolling", "dwindle", "master", "monocle" }
+        local workspace = hl.get_active_workspace()
+        local specialWorkspace = hl.get_active_special_workspace()
+
+        if specialWorkspace then
+          workspace = specialWorkspace
+        end
+
+        if not workspace then
+          return
+        end
+
+        local nextLayout = "dwindle"
+
+        for i, layout in ipairs(layouts) do
+          if layout == workspace.tiled_layout then
+            nextLayout = layouts[(i % #layouts) + 1]
+            break
+          end
+        end
+
+        local workspaceSelector = workspace.special and workspace.name or workspace.id
+        hl.workspace_rule({ workspace = tostring(workspaceSelector), layout = nextLayout })
+      end
+    '';
+    toggleLowDistractionMode = lua ''
+      function()
+        if hl.get_config("animations.enabled") == false then
+          hl.exec_cmd("hyprctl reload")
+          return
+        end
+
+        hl.config({
+          animations = {
+            enabled = false,
+          },
+          decoration = {
+            active_opacity = 1;
+            inactive_opacity = 0.98;
+            shadow = { enabled = false },
+            blur = { enabled = false },
+          },
+        })
+      end
+    '';
     focus = dir: lua ''hl.dsp.focus({ direction = "${dir}" })'';
     swap = dir: lua ''hl.dsp.window.swap({ direction = "${dir}" })'';
     toggleSpecial = name: lua ''hl.dsp.workspace.toggle_special("${name}")'';
@@ -89,6 +136,9 @@ in
       (bind "SUPER + period" "Utilities: search emoji and symbols" (
         dsp.exec "vicinae vicinae://launch/core/search-emojis"
       ))
+      (bind "SUPER + F1" "Utilities: search Hyprland keybinds" (
+        dsp.exec "vicinae 'vicinae://launch/@sovereign/vicinae-extension-hypr-keybinds-0/hyprland-keybinds'"
+      ))
 
       # --- Connectivity ---
       (bind "SUPER + ALT + N" "Connectivity: open Wi-Fi TUI" (dsp.app "${apps.terminal} -e wlctl"))
@@ -98,7 +148,7 @@ in
       (bind "SUPER + X" "System: toggle Waybar visibility" (
         dsp.exec "${pkgs.systemd}/bin/systemctl --user kill --signal=SIGUSR1 --kill-whom=main waybar.service"
       ))
-      (bind "SUPER + ESCAPE" "System: open Vicinae power commands" (
+      (bind "SUPER + ESCAPE" "System: open power commands" (
         dsp.exec "vicinae vicinae://launch/power"
       ))
       (bind "SUPER + ALT + L" "System: lock screen" (dsp.exec "hyprlock"))
@@ -141,13 +191,8 @@ in
         dsp.exec "screenshot --output"
       ))
 
-      # --- Accessibility ---
-      (bind "SUPER + ALT + mouse_up" "Accessibility: zoom screen to 150%" (
-        lua "function() hl.config({ cursor = { zoom_factor = 1.5 } }) end"
-      ))
-      (bind "SUPER + ALT + mouse_down" "Accessibility: reset screen zoom to 100%" (
-        lua "function() hl.config({ cursor = { zoom_factor = 1.0 } }) end"
-      ))
+      # --- Visuals / Performance ---
+      (bind "SUPER + F2" "Visuals: toggle low-distraction mode" dsp.toggleLowDistractionMode)
 
       # --- Window ---
       (bind "SUPER + M" "Window: toggle maximized state" dsp.maximize)
@@ -159,6 +204,7 @@ in
       ))
 
       # --- Layout ---
+      (bind "SUPER + tab" "Layout: cycle workspace layout" dsp.cycleLayout)
       (bind "SUPER + P" "Layout: toggle pseudo tiling" dsp.pseudo)
       (bind "SUPER + T" "Layout: toggle window split orientation" (dsp.layout "togglesplit"))
       (bind "SUPER + bracketleft" "Layout: decrease window split ratio" (dsp.layout "splitratio -0.05"))
@@ -255,6 +301,14 @@ in
       (bindOpts "XF86AudioStop" "Media: stop playback" (dsp.exec "${pkgs.playerctl}/bin/playerctl stop") {
         locked = true;
       })
+
+      # --- Zoom ---
+      (bind "SUPER + ALT + mouse_up" "Zoom: increase screen zoom to 150%" (
+        lua "function() hl.config({ cursor = { zoom_factor = 1.5 } }) end"
+      ))
+      (bind "SUPER + ALT + mouse_down" "Zoom: reset screen zoom to 100%" (
+        lua "function() hl.config({ cursor = { zoom_factor = 1.0 } }) end"
+      ))
 
       # --- Display ---
       (bindOpts "XF86MonBrightnessUp" "Display: increase screen brightness by 10%"

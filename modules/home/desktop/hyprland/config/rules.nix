@@ -3,6 +3,20 @@
   wayland.windowManager.hyprland.settings = {
     window_rule = [
       {
+        name = "browser-workspace";
+        match = {
+          class = "^(brave-browser|firefox|zen|zen-beta)$";
+        };
+        workspace = "1 silent";
+      }
+      {
+        name = "editors-workspace";
+        match = {
+          class = "^(codium|code|dev[.]zed[.]Zed)$";
+        };
+        workspace = "2 silent";
+      }
+      {
         name = "suppress-maximize";
         match = {
           class = ".*";
@@ -49,7 +63,7 @@
       {
         name = "size-browser-dialogs";
         match = {
-          class = "^(firefox|google-chrome|zen|zen-beta)$";
+          class = "^(brave-browser|firefox|zen|zen-beta)$";
           title = "^(Save As|Choose Files|Open File|Open Folder)$";
         };
         size = "800 600";
@@ -58,7 +72,7 @@
       {
         name = "pip-browser";
         match = {
-          class = "^(firefox|google-chrome|zen|zen-beta)$";
+          class = "^(brave-browser|firefox|zen|zen-beta)$";
           title = ".*(Picture-in-Picture|Picture in Picture).*";
         };
         float = true;
