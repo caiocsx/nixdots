@@ -2,8 +2,9 @@
 
 ## First login
 
-- Select the Hyprland session managed by UWSM in Ly.
-- Open Kitty with `SUPER + Return`, or search shortcuts with `SUPER + F1`.
+At Ly, select the Hyprland session managed by UWSM. Once logged in, press `SUPER + F1` to search the configured keybinds.
+
+On the first launch after login, some applications such as VS Code and Zen Browser may not pick up their configured settings right away. Close and reopen the application to apply them.
 
 ## Apply changes
 
@@ -59,19 +60,11 @@ After reviewing the diff and build, activate with `nrs`. Commit `flake.lock` if 
 
 Add JPG, JPEG, PNG, or GIF files to `~/Pictures/Wallpapers`. The repository does not include wallpaper images.
 
-| Action | Shortcut or command |
-| --- | --- |
-| Open the wallpaper picker | `SUPER + W` |
-| Previous / next wallpaper | `SUPER + Alt + [` / `]` |
-| Choose a random wallpaper | `wallpaper-picker --random` |
-| Apply a specific image | `wallpaper-picker --set /path/to/image.png` |
-| Print the current image path | `wallpaper-picker --current` |
-
-The picker stores the selected wallpaper and lock-screen image under `~/.cache/wallpapers`. GIFs use a still frame for the lock screen.
-
 `SUPER + Print` captures a region, `SUPER + Shift + Print` captures a selected window, and `SUPER + Ctrl + Print` captures a selected monitor. Each capture is saved to `~/Pictures/Screenshots` and copied to the clipboard. The same behavior is available with `screenshot --region`, `screenshot --window`, and `screenshot --output`.
 
-For all shortcuts, press `SUPER + F1` or inspect [`binds.nix`](../modules/home/desktop/hyprland/config/binds.nix).
+## Workspaces and layouts
+
+`SUPER + Tab` cycles the active workspace through `scrolling`, `dwindle`, `master`, and `monocle`. Browser windows with classes for Brave, Firefox, or Zen are assigned to workspace 1; VSCodium, VS Code, and Zed are assigned to workspace 2. See [`rules.nix`](../modules/home/desktop/hyprland/config/rules.nix) for the window rules and [`binds.nix`](../modules/home/desktop/hyprland/config/binds.nix) for the complete shortcut list.
 
 ## Recovery
 

@@ -27,19 +27,18 @@ The shared configuration includes the following desktop components and applicati
 | --- | --- |
 | Compositor and session | Hyprland window management, UWSM session management, Ly login manager |
 | Status bar and notifications | Waybar and SwayNotificationCenter |
-| Launcher and menus | Rofi application launcher, power menu, shortcut viewer, calculator, character picker, and wallpaper picker |
+| Launcher and utilities | Vicinae app launcher, power menu, clipboard history, emoji picker, wallpaper picker, and extensions |
 | Locking and idle behavior | Hyprlock screen lock and Hypridle idle actions |
 | Wallpaper and display temperature | awww wallpapers and Hyprsunset color temperature control |
-| Clipboard and screenshots | Cliphist history; grim and slurp capture |
+| Screenshots | Capture script using grim and slurp |
 | Theme, icons, and fonts | Stylix with a configurable palette, Papirus icons, Bibata cursor, Inter, Noto fonts, and JetBrains Mono Nerd Font |
 
 | Applications and terminal | What is included |
 | --- | --- |
-| Terminal and shell | Kitty, Zsh, Starship prompt, Atuin history, fzf search, zoxide navigation |
-| Editors and development | VSCodium, Neovim through Nixvim, Git, direnv |
-| Files and browsing | Thunar and Zen Browser |
-| Media and communication | mpv, imv, Spotify, Stremio, Discord |
-| Productivity and Proton apps | Obsidian, ONLYOFFICE, Proton Mail, Proton Pass, Proton VPN |
+| Terminal and shell | Kitty, Zsh, Starship prompt, fzf search, zoxide navigation |
+| Editors and development | VSCodium, Neovim through Nixvim, Mousepad text editor, Git, direnv |
+| Files and browsing | Thunar with Xarchiver archive integration, and Zen Browser |
+| Media and communication | mpv, imv, Spotify, Discord |
 | System inspection and maintenance | btop, Fastfetch, nh rebuild and cleanup commands |
 
 | System integration | What is enabled |
@@ -87,7 +86,7 @@ List available templates with `nix flake show ~/nixdots`, then copy one into a p
 │   │   ├── services/         # Audio, networking, login, and more
 │   │   └── theme/            # Stylix palette, fonts, icons, and cursor
 │   └── home/
-│       ├── desktop/          # Hyprland, Waybar, Rofi, and scripts
+│       ├── desktop/          # Hyprland, Waybar, Vicinae, and scripts
 │       ├── programs/         # CLI and GUI application configuration
 │       ├── theme/            # Shared theme tokens and target overrides
 │       └── xdg/              # MIME associations, launchers, and directories
@@ -100,23 +99,23 @@ Each host contains `configuration.nix`, `hardware-configuration.nix`, and `home.
 
 ## Getting around
 
-`SUPER` is usually the Windows key. Press **`SUPER + F1`** for the searchable shortcut menu generated from the configured bindings.
+`SUPER` is usually the Windows key. The shortcuts below are configured in Hyprland; see the [usage guide](docs/usage.md) for workspace behavior and more details.
 
 | Shortcut | Action |
 | --- | --- |
-| `SUPER + Return` | Open Kitty |
-| `SUPER + Space` | Open the application launcher |
+| `SUPER + Return` | Open terminal |
+| `SUPER + Space` | Open launcher |
 | `SUPER + E` / `SUPER + B` / `SUPER + D` | Open Thunar / Zen Browser / VSCodium |
-| `SUPER + X` | Show or hide Waybar |
 | `SUPER + W` | Choose a wallpaper |
 | `SUPER + V` | Open clipboard history |
-| `SUPER + Print` | Copy a selected screen region |
+| `SUPER + F1` | Search Hyprland keybinds |
+| `SUPER + Escape` | Open power menu |
+| `SUPER + Print` | capture selected region |
 | `SUPER + 1`–`9` | Switch workspace |
 | `SUPER + Q` | Close the active window |
 | `SUPER + Alt + L` | Lock the screen |
-| `SUPER + Escape` | Open the power menu |
 
-The [usage guide](docs/usage.md) covers wallpapers, rebuilds, updates, shell aliases, and recovery.
+The [usage guide](docs/usage.md) covers shell aliases, updates, wallpapers, and more.
 
 ## License
 

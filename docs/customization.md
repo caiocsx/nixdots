@@ -80,14 +80,16 @@ sudo nixos-rebuild build --flake .#myhost
 | Shared colors, spacing, opacity, blur | [`modules/home/theme/tokens.nix`](../modules/home/theme/tokens.nix) |
 | Hyprland behavior and rules | [`modules/home/desktop/hyprland/config/`](../modules/home/desktop/hyprland/config/) |
 | Shortcuts and application commands | [`binds.nix`](../modules/home/desktop/hyprland/config/binds.nix) |
+| Vicinae settings and extensions | [`vicinae.nix`](../modules/home/desktop/components/vicinae.nix) |
 | Panel modules and styling | [`waybar.nix`](../modules/home/desktop/components/waybar.nix) |
-| Rofi scripts and themes | [`modules/home/desktop/components/rofi/`](../modules/home/desktop/components/rofi/) |
+| Screenshots | [`screenshot.nix`](../modules/home/desktop/components/scripts/screenshot.nix) |
 | Lock screen and idle behavior | [`hyprlock.nix`](../modules/home/desktop/components/hyprlock.nix), [`hypridle.nix`](../modules/home/desktop/components/hypridle.nix) |
 | Default applications and launcher entries | [`modules/home/xdg/`](../modules/home/xdg/) |
+| Thunar archive integration | [`thunar.nix`](../modules/nixos/programs/thunar.nix) |
 
 Stylix supplies the base palette and fonts; the custom desktop components consume the shared theme tokens. To choose another theme, change `stylix.base16Scheme` in `modules/nixos/theme/stylix.nix` to your preferred Base16 scheme and review `stylix.polarity` for a light or dark appearance. Fonts, icons, and cursor settings live in the same file. Use `modules/home/theme/tokens.nix` for shared component styling such as spacing, opacity, and blur.
 
-The `apps` set in `binds.nix` defines the terminal, file manager, browser, editor, and system monitor commands. When replacing one, also update its package/module, relevant MIME associations, and desktop entry overrides. The keybind menu reads descriptions from this same file; its workspace summarizer also depends on the `Workspace:` description pattern.
+The `apps` set in `binds.nix` defines the terminal, file manager, browser, editor, and system monitor commands. When replacing one, also update its package/module, relevant MIME associations, and desktop entry overrides. Shortcut descriptions are declared alongside their binds and can be searched with `SUPER + F1`. Launcher settings and extensions are in `vicinae.nix`; the Hyprland workspace rules match application window classes in `rules.nix`.
 
 ## Add packages or modules
 
