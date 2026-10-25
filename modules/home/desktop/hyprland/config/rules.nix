@@ -24,7 +24,7 @@
       {
         name = "float-system-tools";
         match = {
-          class = "^(xdg-desktop-portal-gtk|org.pulseaudio.pavucontrol|org.gnome.FileRoller)$";
+          class = "^(xdg-desktop-portal-gtk|org.pulseaudio.pavucontrol|[Xx]archiver|org.xfce.Xarchiver)$";
         };
         float = true;
       }
@@ -93,15 +93,6 @@
         blur = true;
         ignore_alpha = 0.1;
         animation = "slide left";
-      }
-      {
-        name = "blur-rofi";
-        match = {
-          namespace = "^(rofi)$";
-        };
-        blur = true;
-        ignore_alpha = 0.1;
-        animation = "popin";
       }
     ];
   };

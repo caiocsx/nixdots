@@ -80,17 +80,15 @@ in
     bind = [
       # --- Applications ---
       (bind "SUPER + Return" "Applications: open terminal" (dsp.app apps.terminal))
-      (bind "SUPER + SPACE" "Applications: open application launcher" (dsp.exec "launcher"))
+      (bind "SUPER + SPACE" "Applications: toggle launcher" (dsp.exec "vicinae vicinae://toggle"))
       (bind "SUPER + E" "Applications: open file manager" (dsp.app apps.fileManager))
       (bind "SUPER + B" "Applications: open web browser" (dsp.app apps.browser))
       (bind "SUPER + D" "Applications: open code editor" (dsp.app apps.editor))
 
-      # --- Gaming ---
-      (bind "SUPER + G" "Gaming: open game launcher" (dsp.exec "game-launcher"))
-
       # --- Utilities ---
-      (bind "SUPER + EQUAL" "Utilities: open calculator" (dsp.exec "calculator"))
-      (bind "SUPER + period" "Utilities: open character picker" (dsp.exec "character-picker"))
+      (bind "SUPER + period" "Utilities: search emoji and symbols" (
+        dsp.exec "vicinae vicinae://launch/core/search-emojis"
+      ))
 
       # --- Connectivity ---
       (bind "SUPER + ALT + N" "Connectivity: open Wi-Fi TUI" (dsp.app "${apps.terminal} -e wlctl"))
@@ -100,10 +98,10 @@ in
       (bind "SUPER + X" "System: toggle Waybar visibility" (
         dsp.exec "${pkgs.systemd}/bin/systemctl --user kill --signal=SIGUSR1 --kill-whom=main waybar.service"
       ))
-      (bind "SUPER + ESCAPE" "System: open power menu" (dsp.exec "power-menu"))
+      (bind "SUPER + ESCAPE" "System: open Vicinae power commands" (
+        dsp.exec "vicinae vicinae://launch/power"
+      ))
       (bind "SUPER + ALT + L" "System: lock screen" (dsp.exec "hyprlock"))
-      (bind "SUPER + F1" "System: search keyboard shortcuts and keybinds" (dsp.exec "keybinds"))
-      (bind "SUPER + U" "System: manage systemd user services" (dsp.exec "unit-menu"))
       (bind "SUPER + ALT + M" "System: open system monitor" (
         dsp.app "${apps.terminal} -e ${apps.systemMonitor}"
       ))
@@ -123,17 +121,14 @@ in
       (bind "SUPER + A" "Notifications: toggle SwayNC control center" (dsp.exec "swaync-client -t -sw"))
 
       # --- Wallpaper ---
-      (bind "SUPER + W" "Wallpaper: open wallpaper picker" (dsp.exec "wallpaper-picker"))
-      (bind "SUPER + ALT + bracketleft" "Wallpaper: apply previous wallpaper" (
-        dsp.exec "wallpaper-picker --prev"
-      ))
-      (bind "SUPER + ALT + bracketright" "Wallpaper: apply next wallpaper" (
-        dsp.exec "wallpaper-picker --next"
+      (bind "SUPER + W" "Wallpaper: open wallpaper picker" (
+        dsp.exec "vicinae 'vicinae://launch/@sovereign/vicinae-extension-awww-switcher-0/wpgrid?toggle=true'"
       ))
 
       # --- Clipboard ---
-      (bind "SUPER + V" "Clipboard: search and copy from history" (dsp.exec "clipboard"))
-      (bind "SUPER + SHIFT + V" "Clipboard: clear history" (dsp.exec "clipboard --wipe"))
+      (bind "SUPER + V" "Clipboard: search and copy from history" (
+        dsp.exec "vicinae vicinae://launch/clipboard/history"
+      ))
 
       # --- Screenshot ---
       (bind "SUPER + PRINT" "Screenshot: save and copy selected region to clipboard" (

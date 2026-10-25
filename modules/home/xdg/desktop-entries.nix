@@ -2,18 +2,12 @@
 
 let
   hiddenEntries = {
-    btop = pkgs.btop;
-    kitty = pkgs.kitty;
-    nvim = pkgs.neovim;
     uuctl = pkgs.uwsm;
     mpv = pkgs.mpv;
-    "org.gnome.FileRoller" = pkgs.file-roller;
+    xarchiver = pkgs.xarchiver;
     kvantummanager = pkgs.kdePackages.qtstyleplugin-kvantum;
     qt5ct = pkgs.libsForQt5.qt5ct;
     qt6ct = pkgs.kdePackages.qt6ct;
-    yazi = pkgs.yazi;
-    rofi = pkgs.rofi;
-    rofi-theme-selector = pkgs.rofi;
     thunar-bulk-rename = pkgs.thunar;
     thunar-settings = pkgs.thunar;
     thunar-volman-settings = pkgs.thunar-volman;
@@ -61,11 +55,6 @@ in
       ];
       settings.Keywords = "Discord;Vesktop;Chat;";
     };
-    dataFile = lib.mapAttrs' hideDesktopEntry hiddenEntries // {
-      # Keep Steam visible when Rofi excludes the Game category.
-      "applications/steam.desktop".source = editDesktopFile "steam" pkgs.steam [
-        "--remove-category=Game"
-      ];
-    };
+    dataFile = lib.mapAttrs' hideDesktopEntry hiddenEntries;
   };
 }
