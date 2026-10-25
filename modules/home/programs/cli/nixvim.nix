@@ -1,7 +1,6 @@
 {
   config,
   inputs,
-  pkgs,
   ...
 }:
 {
@@ -10,14 +9,6 @@
   programs.nixvim = {
     enable = true;
     globals.mapleader = " ";
-    # Tools required by Neovim plugins, LSP servers, and formatters.
-    extraPackages = with pkgs; [
-      gcc
-      nixfmt
-      rustfmt
-      shfmt
-      stylua
-    ];
     # Core editor behavior.
     opts = {
       number = true;
@@ -80,10 +71,17 @@
         highlight.enable = true;
         grammarPackages = with config.programs.nixvim.plugins.treesitter.package.builtGrammars; [
           bash
+          css
+          html
+          javascript
+          json
           lua
           nix
           rust
+          tsx
+          typescript
           toml
+          yaml
         ];
       };
       # Completion and snippets.
@@ -133,13 +131,28 @@
           };
         };
         servers = {
-          bashls.enable = true;
-          lua_ls.enable = true;
-          nixd.enable = true;
+          bashls = {
+            enable = true;
+            package = null;
+          };
+          lua_ls = {
+            enable = true;
+            package = null;
+          };
+          nixd = {
+            enable = true;
+            package = null;
+          };
           rust_analyzer = {
             enable = true;
-            installCargo = true;
-            installRustc = true;
+            package = null;
+            installCargo = false;
+            installRustc = false;
+            installRustfmt = false;
+          };
+          ts_ls = {
+            enable = true;
+            package = null;
           };
         };
       };
@@ -156,6 +169,12 @@
             nix = [ "nixfmt" ];
             rust = [ "rustfmt" ];
             sh = [ "shfmt" ];
+            javascript = [ "biome" ];
+            javascriptreact = [ "biome" ];
+            typescript = [ "biome" ];
+            typescriptreact = [ "biome" ];
+            json = [ "biome" ];
+            css = [ "biome" ];
           };
           format_on_save = {
             lsp_fallback = true;
