@@ -1,10 +1,18 @@
 { pkgs, ... }:
+let
+  thunarArchivePlugin = pkgs.thunar-archive-plugin.overrideAttrs (old: {
+    postInstall = (old.postInstall or "") + ''
+      install -Dm755 ${pkgs.xarchiver}/libexec/thunar-archive-plugin/xarchiver.tap \
+        $out/libexec/thunar-archive-plugin/xarchiver.tap
+    '';
+  });
+in
 {
   programs = {
     thunar = {
       enable = true;
       plugins = [
-        pkgs.thunar-archive-plugin
+        thunarArchivePlugin
         pkgs.thunar-volman
       ];
     };
@@ -16,7 +24,7 @@
   };
 
   environment.systemPackages = [
-    pkgs.file-roller
+    pkgs.xarchiver
     pkgs.ffmpegthumbnailer
   ];
 }

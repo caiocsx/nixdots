@@ -6,15 +6,15 @@
       "inode/directory" = "thunar.desktop";
       "application/x-directory" = "thunar.desktop";
 
-      "application/vnd.rar" = "org.gnome.FileRoller.desktop";
-      "application/x-rar" = "org.gnome.FileRoller.desktop";
-      "application/x-rar-compressed" = "org.gnome.FileRoller.desktop";
-      "application/zip" = "org.gnome.FileRoller.desktop";
-      "application/x-zip-compressed" = "org.gnome.FileRoller.desktop";
-      "application/x-7z-compressed" = "org.gnome.FileRoller.desktop";
-      "application/x-tar" = "org.gnome.FileRoller.desktop";
-      "application/x-gzip" = "org.gnome.FileRoller.desktop";
-      "application/x-bzip2" = "org.gnome.FileRoller.desktop";
+      "application/vnd.rar" = "xarchiver.desktop";
+      "application/x-rar" = "xarchiver.desktop";
+      "application/x-rar-compressed" = "xarchiver.desktop";
+      "application/zip" = "xarchiver.desktop";
+      "application/x-zip-compressed" = "xarchiver.desktop";
+      "application/x-7z-compressed" = "xarchiver.desktop";
+      "application/x-tar" = "xarchiver.desktop";
+      "application/x-gzip" = "xarchiver.desktop";
+      "application/x-bzip2" = "xarchiver.desktop";
 
       "application/pdf" = "zen-beta.desktop";
       "application/xhtml+xml" = "zen-beta.desktop";
