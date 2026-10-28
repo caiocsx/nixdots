@@ -26,7 +26,10 @@
       "text/css" = "codium.desktop";
       "text/html" = "codium.desktop";
       "text/markdown" = "codium.desktop";
-      "text/plain" = "codium.desktop";
+
+      "text/csv" = "org.xfce.mousepad.desktop";
+      "text/plain" = "org.xfce.mousepad.desktop";
+      "text/tab-separated-values" = "org.xfce.mousepad.desktop";
 
       "image/bmp" = "imv-dir.desktop";
       "image/gif" = "imv-dir.desktop";
