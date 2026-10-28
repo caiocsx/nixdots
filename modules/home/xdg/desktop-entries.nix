@@ -1,16 +1,41 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   hiddenEntries = {
-    uuctl = pkgs.uwsm;
-    mpv = pkgs.mpv;
-    xarchiver = pkgs.xarchiver;
+    btop = pkgs.btop;
     kvantummanager = pkgs.kdePackages.qtstyleplugin-kvantum;
+    mpv = pkgs.mpv;
     qt5ct = pkgs.libsForQt5.qt5ct;
     qt6ct = pkgs.kdePackages.qt6ct;
     thunar-bulk-rename = pkgs.thunar;
     thunar-settings = pkgs.thunar;
     thunar-volman-settings = pkgs.thunar-volman;
+    uuctl = pkgs.uwsm;
+    vicinae = pkgs.vicinae;
+    xarchiver = pkgs.xarchiver;
+  };
+
+  namedEntries = {
+    nvim = {
+      package = pkgs.neovim;
+      name = "Neovim";
+    };
+    zen-beta = {
+      package = config.programs.zen-browser.package;
+      name = "Zen Browser";
+    };
+    kitty = {
+      package = pkgs.kitty;
+      name = "Kitty";
+    };
+    "com.heroicgameslauncher.hgl" = {
+      package = pkgs.heroic;
+      name = "Heroic Games";
+    };
+    thunar = {
+      package = pkgs.thunar;
+      name = "Thunar";
+    };
   };
 
   editDesktopFile =
@@ -36,6 +61,11 @@ let
       "--set-value=true"
     ];
   };
+
+  renameDesktopEntry = name: entry: {
+    name = "applications/${name}.desktop";
+    value.source = editDesktopFile name entry.package [ "--set-name=${entry.name}" ];
+  };
 in
 {
   xdg = {
@@ -55,6 +85,8 @@ in
       ];
       settings.Keywords = "Discord;Vesktop;Chat;";
     };
-    dataFile = lib.mapAttrs' hideDesktopEntry hiddenEntries;
+    dataFile =
+      (lib.mapAttrs' hideDesktopEntry hiddenEntries)
+      // (lib.mapAttrs' renameDesktopEntry namedEntries);
   };
 }
