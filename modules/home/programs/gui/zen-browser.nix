@@ -12,6 +12,7 @@ let
     (mkExtension "ublock-origin" "uBlock0@raymondhill.net")
     (mkExtension "consent-o-matic" "gdpr@cavi.au.dk")
     (mkExtension "proton-pass" "78272b6fa58f4a1abaac99321d503a20@proton.me")
+    (mkExtension "proton-vpn-firefox-extension" "vpn@proton.ch")
     (mkExtension "darkreader" "addon@darkreader.org")
     (mkExtension "absolute-enable-right-click" "{9350bc42-47fb-4598-ae0f-825e3dd9ceba}")
     (mkExtension "youtube-no-translation" "{9a3104a2-02c2-464c-b069-82344e5ed4ec}")
