@@ -84,9 +84,9 @@
     ];
     layer_rule = [
       {
-        name = "screenshot-selection-no-animation";
+        name = "prevent-overlay-animation-artifacts";
         match = {
-          namespace = "^(selection)$";
+          namespace = "^(hyprpicker|selection)$";
         };
         no_anim = true;
       }
@@ -107,6 +107,14 @@
         blur = true;
         ignore_alpha = 0.1;
         animation = "slide left";
+      }
+      {
+        name = "blur-vicinae";
+        match = {
+          namespace = "vicinae";
+        };
+        blur = true;
+        ignore_alpha = 0.1;
       }
     ];
   };
