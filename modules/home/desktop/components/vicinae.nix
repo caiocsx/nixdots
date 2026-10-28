@@ -38,7 +38,7 @@
       };
       applications = {
         preferences = {
-          defaultAction = "focus";
+          defaultAction = "launch";
           launchPrefix = "uwsm app --";
         };
         entrypoints = {
