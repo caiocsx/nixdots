@@ -1,6 +1,5 @@
 {
   config,
-  lib,
   pkgs,
   ...
 }:
@@ -26,18 +25,15 @@ let
         monitors="$(hyprctl monitors -j)"
         clients="$(hyprctl clients -j)"
 
-        rectangles="$(
-          jq -r --argjson monitors "$monitors" '
-            [$monitors[] | .activeWorkspace.id, .specialWorkspace.id] as $visible
-            | .[]
-            | select(.mapped and (.hidden | not))
-            | select(.workspace.id as $id | $visible | index($id))
-            | "\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"
-          ' <<< "$clients"
-        )"
+        rectangles="$(jq -r --argjson monitors "$monitors" '
+          [$monitors[] | .activeWorkspace.id, .specialWorkspace.id] as $visible
+          | .[]
+          | select(.mapped and (.hidden | not))
+          | select(.workspace.id as $id | $visible | index($id))
+          | "\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"
+        ' <<< "$clients")"
 
         [[ -n "$rectangles" ]] || return 1
-
         slurp -r <<< "$rectangles"
       }
 
@@ -46,33 +42,28 @@ let
       }
 
       main() {
-        local mode="region"
-        local geometry file
-        local directory=${lib.escapeShellArg config.xdg.userDirs.extraConfig.SCREENSHOTS}
+        local mode geometry output_directory output_file
 
-        while (( $# > 0 )); do
-          case "$1" in
-            -r|--region)
-              mode="region"
-              ;;
-            -w|--window)
-              mode="window"
-              ;;
-            -o|--output)
-              mode="output"
-              ;;
-            -h|--help)
-              echo "Usage: ''${0##*/} [-r|--region | -w|--window | -o|--output] [-h|--help]"
-              return 0
-              ;;
-            *)
-              printf 'Unknown option: %s\n' "$1" >&2
-              return 1
-              ;;
-          esac
+        if (( $# > 1 )); then
+          printf 'Expected at most one screenshot mode.\n' >&2
+          return 2
+        fi
 
-          shift
-        done
+        case "''${1:---region}" in
+          -r|--region)
+            mode="region"
+            ;;
+          -w|--window)
+            mode="window"
+            ;;
+          -o|--output)
+            mode="output"
+            ;;
+          *)
+            printf 'Unknown screenshot mode: %s\n' "$1" >&2
+            return 2
+            ;;
+        esac
 
         case "$mode" in
           region)
@@ -88,11 +79,11 @@ let
 
         [[ -n "$geometry" ]] || return 0
 
-        mkdir -p -- "$directory"
-        file="$directory/$(date +%Y-%m-%d_%H-%M-%S).png"
-        grim -g "$geometry" "$file"
-
-        wl-copy --type image/png < "$file"
+        output_directory="${config.xdg.userDirs.extraConfig.SCREENSHOTS}"
+        mkdir -p -- "$output_directory"
+        output_file="$output_directory/$(date +%Y-%m-%d_%H-%M-%S).png"
+        grim -g "$geometry" "$output_file"
+        wl-copy --type image/png < "$output_file"
       }
 
       main "$@"
