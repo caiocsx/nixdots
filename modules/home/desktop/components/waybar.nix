@@ -191,7 +191,6 @@
           "bluetooth"
           "network"
           "battery"
-          "custom/power"
         ];
       };
       bluetooth = {
@@ -322,7 +321,6 @@
         color: @foreground;
       }
 
-      #custom-nixos,
       #custom-notification,
       #clock,
       #privacy,
@@ -349,14 +347,8 @@
       #backlight:hover,
       #bluetooth:hover,
       #network:hover,
-      #battery:hover,
-      #custom-power:hover {
+      #battery:hover {
         color: @accent;
-      }
-
-      #custom-nixos {
-        font-size: 17px;
-        color: @blue;
       }
 
       #clock {
@@ -458,8 +450,7 @@
 
       #bluetooth,
       #network,
-      #battery,
-      #custom-power {
+      #battery {
         min-width: 20px;
         padding: 0 6px;
         transition: color 0.3s ease;
