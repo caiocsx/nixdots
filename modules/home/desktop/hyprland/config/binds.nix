@@ -68,6 +68,9 @@ let
         end
 
         hl.config({
+          general = {
+            border_size = 0,
+          },
           animations = {
             enabled = false,
           },
@@ -139,6 +142,9 @@ in
       (bind "SUPER + F1" "Utilities: search Hyprland keybinds" (
         dsp.exec "vicinae 'vicinae://launch/@sovereign/vicinae-extension-hypr-keybinds-0/hyprland-keybinds'"
       ))
+      (bind "SUPER + SHIFT + C" "Utilities: pick screen color and copy to clipboard" (
+        dsp.exec "hyprpicker --autocopy"
+      ))
 
       # --- Connectivity ---
       (bind "SUPER + ALT + N" "Connectivity: open Wi-Fi TUI" (dsp.app "${apps.terminal} -e wlctl"))
@@ -148,9 +154,7 @@ in
       (bind "SUPER + X" "System: toggle Waybar visibility" (
         dsp.exec "${pkgs.systemd}/bin/systemctl --user kill --signal=SIGUSR1 --kill-whom=main waybar.service"
       ))
-      (bind "SUPER + ESCAPE" "System: open power commands" (
-        dsp.exec "vicinae vicinae://launch/power"
-      ))
+      (bind "SUPER + ESCAPE" "System: open power commands" (dsp.exec "vicinae vicinae://launch/power"))
       (bind "SUPER + ALT + L" "System: lock screen" (dsp.exec "hyprlock"))
       (bind "SUPER + ALT + M" "System: open system monitor" (
         dsp.app "${apps.terminal} -e ${apps.systemMonitor}"
@@ -264,6 +268,7 @@ in
       ))
 
       # --- Audio ---
+      (bind "SUPER + ALT + A" "Audio: open audio mixer" (dsp.app "${apps.terminal} -e wiremix"))
       (bindOpts "XF86AudioRaiseVolume" "Audio: increase output volume by 5%"
         (dsp.exec "${pkgs.wireplumber}/bin/wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+")
         {

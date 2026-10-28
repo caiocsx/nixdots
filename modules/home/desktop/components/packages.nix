@@ -3,8 +3,10 @@
   home.packages =
     (with pkgs; [
       bluetui
-      wiremix
+      hyprpicker
       speedtest-cli
+      wiremix
+      wl-clipboard
     ])
     ++ [ inputs.wlctl.packages.${pkgs.stdenv.hostPlatform.system}.default ];
 }
