@@ -89,7 +89,7 @@ sudo nixos-rebuild build --flake .#myhost
 
 Stylix supplies the base palette and fonts; the custom desktop components consume the shared theme tokens. To choose another theme, change `stylix.base16Scheme` in `modules/nixos/theme/stylix.nix` to your preferred Base16 scheme and review `stylix.polarity` for a light or dark appearance. Fonts, icons, and cursor settings live in the same file. Use `modules/home/theme/tokens.nix` for shared component styling such as spacing, opacity, and blur.
 
-The `apps` set in `binds.nix` defines the terminal, file manager, browser, editor, and system monitor commands. When replacing one, also update its package/module, relevant MIME associations, and desktop entry overrides. Shortcut descriptions are declared alongside their binds and can be searched with `SUPER + F1`. Launcher settings and extensions are in `vicinae.nix`; the Hyprland workspace rules match application window classes in `rules.nix`.
+The `apps` set in `binds.nix` defines the terminal, file manager, browser, editor, and system monitor commands. When replacing one, also update its package/module, relevant MIME associations, and desktop entry overrides. Shortcut descriptions are declared alongside their binds and can be searched with `SUPER + Alt + K`. Launcher settings and extensions are in `vicinae.nix`; the Hyprland workspace rules match application window classes in `rules.nix`.
 
 ## Add packages or modules
 

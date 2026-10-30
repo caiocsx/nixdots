@@ -25,18 +25,20 @@ The shared configuration installs and configures the following desktop component
 
 | Area | Installed and configured |
 | --- | --- |
-| Compositor and session | Hyprland window management, UWSM session management, and Ly login manager |
-| Desktop shell | Waybar status bar, SwayNotificationCenter notifications, Vicinae launcher and utilities, Hyprlock screen lock, and Hypridle idle actions |
-| Desktop utilities | Clipboard history, power menu, emoji and wallpaper pickers, Vicinae extensions, and a screenshot script using grim and slurp |
-| Wallpaper and display | awww wallpaper management and Hyprsunset color temperature control |
-| Theme, icons, and fonts | Stylix with a configurable palette, Papirus icons, Bibata cursor, Inter, Noto fonts, and JetBrains Mono Nerd Font |
-| Terminal and shell | Kitty, Zsh, Starship prompt, fzf search, and zoxide navigation |
-| Editors and development | VSCodium, Neovim through Nixvim, Mousepad text editor, Git, and direnv |
-| Files and browsing | Thunar with Xarchiver archive integration, and Zen Browser |
-| Media and communication | mpv, imv, Spotify, and Discord |
-| System inspection and maintenance | btop, Fastfetch, and nh rebuild and cleanup commands |
-| Audio and connectivity | PipeWire, NetworkManager, and Bluetooth |
-| Containers and application distribution | Docker and Flatpak |
+| Compositor and session | Hyprland, UWSM, Ly |
+| Desktop shell | Waybar, SwayNotificationCenter, Vicinae, Hyprlock, Hypridle |
+| Desktop utilities | Clipboard, power, emoji, wallpaper, and screenshot tools |
+| Wallpaper and display | awww, Hyprsunset |
+| Theme, icons, and fonts | Stylix, Papirus, Bibata, Inter, Noto, JetBrains Mono Nerd Font |
+| Terminal and shell | Kitty, Zsh, Starship, fzf, Fastfetch, zoxide |
+| Editors and development | VSCodium, Neovim, Mousepad, Git, direnv |
+| Files and browsing | Thunar, Xarchiver, Zen Browser |
+| Media and communication | mpv, imv, Spotify, Discord |
+| System monitoring | btop |
+| NixOS maintenance | nh rebuild and cleanup |
+| Backups | Scheduled Restic backups |
+| Audio and connectivity | PipeWire, NetworkManager, Bluetooth |
+| Containers and application distribution | Docker, Flatpak |
 
 ## Hosts
 
@@ -99,12 +101,14 @@ Each host contains `configuration.nix`, `hardware-configuration.nix`, and `home.
 | `SUPER + E` / `SUPER + B` / `SUPER + D` | Open Thunar / Zen Browser / VSCodium |
 | `SUPER + W` | Choose a wallpaper |
 | `SUPER + V` | Open clipboard history |
-| `SUPER + F1` | Search Hyprland keybinds |
+| `SUPER + Alt + K` | Search Hyprland keybinds |
 | `SUPER + Escape` | Open power menu |
 | `SUPER + Print` | capture selected region |
 | `SUPER + 1`–`9` | Switch workspace |
 | `SUPER + Q` | Close the active window |
-| `SUPER + Alt + L` | Lock the screen |
+| `SUPER + H` / `J` / `K` / `L` | Focus left / down / up / right |
+| `SUPER + Shift + H` / `J` / `K` / `L` | Move window left / down / up / right |
+| `SUPER + Ctrl + L` | Lock the screen |
 
 The [usage guide](docs/usage.md) covers shell aliases, updates, wallpapers, and more.
 
