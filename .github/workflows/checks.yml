@@ -1,0 +1,39 @@
+name: Nix checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  nix-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: DeterminateSystems/nix-installer-action@main
+      - name: Run nix flake check
+        run: nix flake check
+      - name: Check Nix formatting
+        run: |
+          NIXPKGS_REV="$(nix flake metadata --json | jq -r '.locks.nodes.nixpkgs.locked.rev')"
+          nix shell "github:NixOS/nixpkgs/${NIXPKGS_REV}#nixfmt" --command bash -euc '
+            find . -type f -name "*.nix" \
+              ! -path "./hosts/*/hardware-configuration.nix" \
+              -print0 | xargs -0 nixfmt --check
+          '
+      - name: Check for unused Nix code
+        run: |
+          NIXPKGS_REV="$(nix flake metadata --json | jq -r '.locks.nodes.nixpkgs.locked.rev')"
+          nix shell "github:NixOS/nixpkgs/${NIXPKGS_REV}#deadnix" \
+            --command bash -euc '
+              find . -type f -name "*.nix" \
+                ! -path "./hosts/*/hardware-configuration.nix" \
+                -print0 | xargs -0 deadnix --fail
+            '
