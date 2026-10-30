@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   hiddenEntries = {
@@ -86,7 +91,6 @@ in
       settings.Keywords = "Discord;Vesktop;Chat;";
     };
     dataFile =
-      (lib.mapAttrs' hideDesktopEntry hiddenEntries)
-      // (lib.mapAttrs' renameDesktopEntry namedEntries);
+      (lib.mapAttrs' hideDesktopEntry hiddenEntries) // (lib.mapAttrs' renameDesktopEntry namedEntries);
   };
 }

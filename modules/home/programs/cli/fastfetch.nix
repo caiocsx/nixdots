@@ -1,4 +1,4 @@
-{ inputs, theme, ... }:
+{ inputs, ... }:
 {
   programs.fastfetch = {
     enable = true;

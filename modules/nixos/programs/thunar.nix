@@ -23,8 +23,8 @@ in
     tumbler.enable = true;
   };
 
-  environment.systemPackages = [
-    pkgs.xarchiver
-    pkgs.ffmpegthumbnailer
+  environment.systemPackages = with pkgs; [
+    xarchiver
+    ffmpegthumbnailer
   ];
 }
