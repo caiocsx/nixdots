@@ -89,6 +89,16 @@ let
     moveToSpecial = name: lua ''hl.dsp.window.move({ workspace = "special:${name}" })'';
     moveToSpecialSilent =
       name: lua ''hl.dsp.window.move({ workspace = "special:${name}", follow = false })'';
+    moveFromSpecial = lua ''
+      function()
+        local workspace = hl.get_active_workspace()
+        if not workspace then
+          return
+        end
+
+        hl.dispatch(hl.dsp.window.move({ workspace = workspace.id }))
+      end
+    '';
     focusWorkspace = ws: lua ''hl.dsp.focus({ workspace = "${toString ws}" })'';
     moveToWorkspace = ws: lua ''hl.dsp.window.move({ workspace = "${toString ws}" })'';
     moveToWorkspaceSilent =
@@ -115,12 +125,15 @@ let
   };
 
   workspaceBinds = lib.concatMap (i: [
-    (bind "SUPER + ${toString i}" "Workspace: switch to workspace ${toString i}" (dsp.focusWorkspace i))
-    (bind "SUPER + SHIFT + ${toString i}" "Workspace: move window to workspace ${toString i} and follow"
+    (bind "SUPER + ${toString i}" "Workspaces: Switch to workspace ${toString i}" (
+      dsp.focusWorkspace i
+    ))
+    (bind "SUPER + SHIFT + ${toString i}"
+      "Workspaces: Move window to workspace ${toString i} and follow"
       (dsp.moveToWorkspace i)
     )
     (bind "SUPER + ALT + ${toString i}"
-      "Workspace: move window to workspace ${toString i} without following"
+      "Workspaces: Move window to workspace ${toString i} without following"
       (dsp.moveToWorkspaceSilent i)
     )
   ]) (lib.range 1 9);
@@ -129,201 +142,217 @@ in
   wayland.windowManager.hyprland.settings = {
     bind = [
       # --- Applications ---
-      (bind "SUPER + Return" "Applications: open terminal" (dsp.app apps.terminal))
-      (bind "SUPER + SPACE" "Applications: toggle launcher" (dsp.exec "vicinae vicinae://toggle"))
-      (bind "SUPER + E" "Applications: open file manager" (dsp.app apps.fileManager))
-      (bind "SUPER + B" "Applications: open web browser" (dsp.app apps.browser))
-      (bind "SUPER + D" "Applications: open code editor" (dsp.app apps.editor))
+      (bind "SUPER + Return" "Applications: Launch terminal" (dsp.app apps.terminal))
+      (bind "SUPER + SPACE" "Applications: Toggle app launcher" (dsp.exec "vicinae vicinae://toggle"))
+      (bind "SUPER + E" "Applications: Launch file manager" (dsp.app apps.fileManager))
+      (bind "SUPER + B" "Applications: Launch web browser" (dsp.app apps.browser))
+      (bind "SUPER + D" "Applications: Launch code editor" (dsp.app apps.editor))
 
       # --- Utilities ---
-      (bind "SUPER + period" "Utilities: search emoji and symbols" (
+      (bind "SUPER + period" "Utilities: Search emoji and symbols" (
         dsp.exec "vicinae vicinae://launch/core/search-emojis"
       ))
-      (bind "SUPER + F1" "Utilities: search Hyprland keybinds" (
+      (bind "SUPER + ALT + K" "Utilities: Search Hyprland keybinds" (
         dsp.exec "vicinae 'vicinae://launch/@sovereign/vicinae-extension-hypr-keybinds-0/hyprland-keybinds'"
       ))
-      (bind "SUPER + SHIFT + C" "Utilities: pick screen color and copy to clipboard" (
+      (bind "SUPER + SHIFT + C" "Utilities: Pick screen color and copy it" (
         dsp.exec "hyprpicker --autocopy"
       ))
 
       # --- Connectivity ---
-      (bind "SUPER + ALT + N" "Connectivity: open Wi-Fi TUI" (dsp.app "${apps.terminal} -e wlctl"))
-      (bind "SUPER + ALT + B" "Connectivity: open Bluetooth TUI" (dsp.app "${apps.terminal} -e bluetui"))
+      (bind "SUPER + ALT + N" "Connectivity: Open Wi-Fi controls" (dsp.app "${apps.terminal} -e wlctl"))
+      (bind "SUPER + ALT + B" "Connectivity: Open Bluetooth controls" (
+        dsp.app "${apps.terminal} -e bluetui"
+      ))
 
       # --- System ---
-      (bind "SUPER + X" "System: toggle Waybar visibility" (
+      (bind "SUPER + X" "System: Toggle Waybar visibility" (
         dsp.exec "${pkgs.systemd}/bin/systemctl --user kill --signal=SIGUSR1 --kill-whom=main waybar.service"
       ))
-      (bind "SUPER + ESCAPE" "System: open power commands" (dsp.exec "vicinae vicinae://launch/power"))
-      (bind "SUPER + ALT + L" "System: lock screen" (dsp.exec "hyprlock"))
-      (bind "SUPER + ALT + M" "System: open system monitor" (
+      (bind "SUPER + ESCAPE" "System: Open power menu" (dsp.exec "vicinae vicinae://launch/power"))
+      (bind "SUPER + CTRL + L" "System: Lock screen" (dsp.exec "hyprlock"))
+      (bindOpts "XF86Sleep" "System: Suspend computer" (dsp.exec "${pkgs.systemd}/bin/systemctl suspend")
+        { locked = true; }
+      )
+      (bind "SUPER + ALT + M" "System: Open system monitor" (
         dsp.app "${apps.terminal} -e ${apps.systemMonitor}"
       ))
 
-      # --- Session ---
-      (bind "SUPER + Delete" "Session: log out of Hyprland session" (
-        dsp.exec "${pkgs.hyprshutdown}/bin/hyprshutdown"
-      ))
-      (bind "SUPER + ALT + Delete" "Session: reboot computer" (
-        dsp.exec "${pkgs.hyprshutdown}/bin/hyprshutdown -t 'Restarting...' --post-cmd reboot"
-      ))
-      (bind "SUPER + SHIFT + Delete" "Session: shut down computer" (
-        dsp.exec "${pkgs.hyprshutdown}/bin/hyprshutdown -t 'Shutting down...' --post-cmd 'shutdown -P 0'"
-      ))
-
       # --- Notifications ---
-      (bind "SUPER + A" "Notifications: toggle SwayNC control center" (dsp.exec "swaync-client -t -sw"))
+      (bind "SUPER + A" "Notifications: Toggle notification center" (
+        dsp.exec "swaync-client --toggle-panel --skip-wait"
+      ))
+      (bind "SUPER + SHIFT + A" "Notifications: Dismiss all notifications" (
+        dsp.exec "swaync-client --close-all --skip-wait"
+      ))
+      (bind "SUPER + CTRL + A" "Notifications: Toggle do not disturb" (
+        dsp.exec "swaync-client --toggle-dnd --skip-wait"
+      ))
 
       # --- Wallpaper ---
-      (bind "SUPER + W" "Wallpaper: open wallpaper picker" (
+      (bind "SUPER + W" "Wallpaper: Open wallpaper picker" (
         dsp.exec "vicinae 'vicinae://launch/@sovereign/vicinae-extension-awww-switcher-0/wpgrid?toggle=true'"
       ))
 
       # --- Clipboard ---
-      (bind "SUPER + V" "Clipboard: search and copy from history" (
+      (bind "SUPER + V" "Clipboard: Search and copy from history" (
         dsp.exec "vicinae vicinae://launch/clipboard/history"
       ))
 
       # --- Screenshot ---
-      (bind "SUPER + PRINT" "Screenshot: save and copy selected region to clipboard" (
+      (bind "SUPER + PRINT" "Screenshots: Save region and copy to clipboard" (
         dsp.exec "screenshot --region"
       ))
-      (bind "SUPER + SHIFT + PRINT" "Screenshot: save and copy selected window to clipboard" (
+      (bind "SUPER + SHIFT + PRINT" "Screenshots: Save window and copy to clipboard" (
         dsp.exec "screenshot --window"
       ))
-      (bind "SUPER + CTRL + PRINT" "Screenshot: save and copy selected monitor to clipboard" (
+      (bind "SUPER + CTRL + PRINT" "Screenshots: Save monitor and copy to clipboard" (
         dsp.exec "screenshot --output"
       ))
+      (bind "SUPER + SHIFT + F12" "Screenshots: Save region after 5 seconds" (
+        dsp.exec "screenshot --region --delay 5"
+      ))
 
-      # --- Visuals / Performance ---
-      (bind "SUPER + F2" "Visuals: toggle low-distraction mode" dsp.toggleLowDistractionMode)
+      # --- Visuals ---
+      (bind "SUPER + ALT + T" "Visuals: Toggle low-distraction mode" dsp.toggleLowDistractionMode)
 
       # --- Window ---
-      (bind "SUPER + M" "Window: toggle maximized state" dsp.maximize)
-      (bind "SUPER + Q" "Window: close active window" dsp.close)
-      (bind "SUPER + SHIFT + Q" "Window: force kill a window" dsp.kill)
-      (bind "SUPER + F" "Window: toggle floating mode" dsp.float)
-      (bind "SUPER + SHIFT + F" "Window: toggle floating mode and center at 1000x660" (
+      (bind "SUPER + M" "Windows: Toggle maximized state" dsp.maximize)
+      (bind "SUPER + Q" "Windows: Close active window" dsp.close)
+      (bind "SUPER + SHIFT + Q" "Windows: Force close active window" dsp.kill)
+      (bind "SUPER + F" "Windows: Toggle floating mode" dsp.float)
+      (bind "SUPER + SHIFT + F" "Windows: Toggle floating mode and center at 760x440" (
         dsp.floatSized 760 440
       ))
 
       # --- Layout ---
-      (bind "SUPER + tab" "Layout: cycle workspace layout" dsp.cycleLayout)
-      (bind "SUPER + P" "Layout: toggle pseudo tiling" dsp.pseudo)
-      (bind "SUPER + T" "Layout: toggle window split orientation" (dsp.layout "togglesplit"))
-      (bind "SUPER + bracketleft" "Layout: decrease window split ratio" (dsp.layout "splitratio -0.05"))
-      (bind "SUPER + bracketright" "Layout: increase window split ratio" (dsp.layout "splitratio +0.05"))
+      (bind "SUPER + ALT + L" "Layouts: Cycle workspace layout" dsp.cycleLayout)
+      (bind "SUPER + P" "Layouts: Toggle pseudo tiling" dsp.pseudo)
+      (bind "SUPER + T" "Layouts: Toggle split orientation" (dsp.layout "togglesplit"))
+      (bind "SUPER + bracketleft" "Layouts: Decrease split ratio" (dsp.layout "splitratio -0.05"))
+      (bind "SUPER + bracketright" "Layouts: Increase split ratio" (dsp.layout "splitratio +0.05"))
 
       # --- Window / Focus ---
-      (bind "SUPER + H" "Window / Focus: focus window on the left" (dsp.focus "left"))
-      (bind "SUPER + L" "Window / Focus: focus window on the right" (dsp.focus "right"))
-      (bind "SUPER + K" "Window / Focus: focus window above" (dsp.focus "up"))
-      (bind "SUPER + J" "Window / Focus: focus window below" (dsp.focus "down"))
+      (bind "SUPER + L" "Windows: Focus window to the right" (dsp.focus "right"))
+      (bind "SUPER + H" "Windows: Focus window to the left" (dsp.focus "left"))
+      (bind "SUPER + K" "Windows: Focus window above" (dsp.focus "up"))
+      (bind "SUPER + J" "Windows: Focus window below" (dsp.focus "down"))
 
       # --- Window / Move ---
-      (bind "SUPER + SHIFT + H" "Window / Move: swap position with window on the left" (dsp.swap "left"))
-      (bind "SUPER + SHIFT + L" "Window / Move: swap position with window on the right" (
-        dsp.swap "right"
-      ))
-      (bind "SUPER + SHIFT + K" "Window / Move: swap position with window above" (dsp.swap "up"))
-      (bind "SUPER + SHIFT + J" "Window / Move: swap position with window below" (dsp.swap "down"))
-      (bindOpts "SUPER + mouse:272" "Window / Move: move window by dragging with mouse" dsp.drag {
+      (bind "SUPER + SHIFT + L" "Windows: Swap with window to the right" (dsp.swap "right"))
+      (bind "SUPER + SHIFT + H" "Windows: Swap with window to the left" (dsp.swap "left"))
+      (bind "SUPER + SHIFT + K" "Windows: Swap with window above" (dsp.swap "up"))
+      (bind "SUPER + SHIFT + J" "Windows: Swap with window below" (dsp.swap "down"))
+      (bindOpts "SUPER + mouse:272" "Windows: Move window with mouse" dsp.drag {
         mouse = true;
       })
 
       # --- Window / Resize ---
-      (bindOpts "SUPER + SHIFT + Right" "Window / Resize: increase width" (dsp.resizeActive 30 0) {
+      (bindOpts "SUPER + ALT + Right" "Windows: Increase width" (dsp.resizeActive 30 0) {
         repeating = true;
       })
-      (bindOpts "SUPER + SHIFT + Left" "Window / Resize: decrease width" (dsp.resizeActive (-30) 0) {
+      (bindOpts "SUPER + ALT + Left" "Windows: Decrease width" (dsp.resizeActive (-30) 0) {
         repeating = true;
       })
-      (bindOpts "SUPER + SHIFT + Up" "Window / Resize: decrease height" (dsp.resizeActive 0 (-30)) {
+      (bindOpts "SUPER + ALT + Up" "Windows: Decrease height" (dsp.resizeActive 0 (-30)) {
         repeating = true;
       })
-      (bindOpts "SUPER + SHIFT + Down" "Window / Resize: increase height" (dsp.resizeActive 0 30) {
+      (bindOpts "SUPER + ALT + Down" "Windows: Increase height" (dsp.resizeActive 0 30) {
         repeating = true;
       })
-      (bindOpts "SUPER + mouse:273" "Window / Resize: resize window by dragging with mouse" dsp.resize {
+      (bindOpts "SUPER + mouse:273" "Windows: Resize window with mouse" dsp.resize {
         mouse = true;
       })
 
       # --- Workspace ---
-      (bind "SUPER + CTRL + Right" "Workspace: switch to next workspace" (dsp.focusWorkspace "r+1"))
-      (bind "SUPER + CTRL + Left" "Workspace: switch to previous workspace" (dsp.focusWorkspace "r-1"))
-      (bind "SUPER + mouse_down" "Workspace: switch to next existing workspace" (
+      (bind "SUPER + G" "Workspaces: Toggle overview" (lua ''
+        function()
+          hl.plugin.hyprexpo.expo("toggle")
+        end
+      ''))
+      (bind "SUPER + tab" "Workspaces: Switch to next existing workspace" (dsp.focusWorkspace "e+1"))
+      (bind "SUPER + SHIFT + tab" "Workspaces: Switch to previous existing workspace" (
+        dsp.focusWorkspace "e-1"
+      ))
+      (bind "SUPER + CTRL + Right" "Workspaces: Switch to next workspace" (dsp.focusWorkspace "r+1"))
+      (bind "SUPER + CTRL + Left" "Workspaces: Switch to previous workspace" (dsp.focusWorkspace "r-1"))
+      (bind "SUPER + mouse_down" "Workspaces: Switch to next existing workspace" (
         dsp.focusWorkspace "e+1"
       ))
-      (bind "SUPER + mouse_up" "Workspace: switch to previous existing workspace" (
+      (bind "SUPER + mouse_up" "Workspaces: Switch to previous existing workspace" (
         dsp.focusWorkspace "e-1"
       ))
 
       # --- Scratchpad ---
-      (bind "SUPER + S" "Scratchpad: show or hide special workspace" (dsp.toggleSpecial "special"))
-      (bind "SUPER + SHIFT + S" "Scratchpad: move window to scratchpad and follow" (
+      (bind "SUPER + S" "Scratchpad: Toggle visibility" (dsp.toggleSpecial "special"))
+      (bind "SUPER + SHIFT + S" "Scratchpad: Send focused window to scratchpad and show it" (
         dsp.moveToSpecial "special"
       ))
-      (bind "SUPER + ALT + S" "Scratchpad: move window to scratchpad without following" (
+      (bind "SUPER + ALT + S" "Scratchpad: Send focused window here without switching workspaces" (
         dsp.moveToSpecialSilent "special"
+      ))
+      (bind "SUPER + CTRL + S" "Scratchpad: Return window to current workspace" (dsp.moveFromSpecial))
+
+      # --- Zoom ---
+      (bind "SUPER + ALT + mouse_up" "Zoom: Set screen zoom to 150%" (
+        lua "function() hl.config({ cursor = { zoom_factor = 1.5 } }) end"
+      ))
+      (bind "SUPER + ALT + mouse_down" "Zoom: Reset screen zoom to 100%" (
+        lua "function() hl.config({ cursor = { zoom_factor = 1.0 } }) end"
       ))
 
       # --- Audio ---
-      (bind "SUPER + ALT + A" "Audio: open audio mixer" (dsp.app "${apps.terminal} -e wiremix"))
-      (bindOpts "XF86AudioRaiseVolume" "Audio: increase output volume by 5%"
+      (bind "SUPER + ALT + A" "Audio: Open audio mixer" (dsp.app "${apps.terminal} -e wiremix"))
+      (bindOpts "XF86AudioRaiseVolume" "Audio: Increase output volume by 5%"
         (dsp.exec "${pkgs.wireplumber}/bin/wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+")
         {
           locked = true;
           repeating = true;
         }
       )
-      (bindOpts "XF86AudioLowerVolume" "Audio: decrease output volume by 5%"
+      (bindOpts "XF86AudioLowerVolume" "Audio: Decrease output volume by 5%"
         (dsp.exec "${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-")
         {
           locked = true;
           repeating = true;
         }
       )
-      (bindOpts "XF86AudioMute" "Audio: toggle output mute"
+      (bindOpts "XF86AudioMute" "Audio: Toggle output mute"
         (dsp.exec "${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")
+        { locked = true; }
+      )
+      (bindOpts "XF86AudioMicMute" "Audio: Toggle microphone mute"
+        (dsp.exec "${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle")
         { locked = true; }
       )
 
       # --- Media ---
-      (bindOpts "XF86AudioPlay" "Media: play or pause playback"
+      (bindOpts "XF86AudioPlay" "Media: Toggle playback"
         (dsp.exec "${pkgs.playerctl}/bin/playerctl play-pause")
         { locked = true; }
       )
-      (bindOpts "XF86AudioNext" "Media: skip to next track"
-        (dsp.exec "${pkgs.playerctl}/bin/playerctl next")
+      (bindOpts "XF86AudioNext" "Media: Play next track" (dsp.exec "${pkgs.playerctl}/bin/playerctl next")
         {
           locked = true;
         }
       )
-      (bindOpts "XF86AudioPrev" "Media: return to previous track"
+      (bindOpts "XF86AudioPrev" "Media: Play previous track"
         (dsp.exec "${pkgs.playerctl}/bin/playerctl previous")
         { locked = true; }
       )
-      (bindOpts "XF86AudioStop" "Media: stop playback" (dsp.exec "${pkgs.playerctl}/bin/playerctl stop") {
+      (bindOpts "XF86AudioStop" "Media: Stop playback" (dsp.exec "${pkgs.playerctl}/bin/playerctl stop") {
         locked = true;
       })
 
-      # --- Zoom ---
-      (bind "SUPER + ALT + mouse_up" "Zoom: increase screen zoom to 150%" (
-        lua "function() hl.config({ cursor = { zoom_factor = 1.5 } }) end"
-      ))
-      (bind "SUPER + ALT + mouse_down" "Zoom: reset screen zoom to 100%" (
-        lua "function() hl.config({ cursor = { zoom_factor = 1.0 } }) end"
-      ))
-
       # --- Display ---
-      (bindOpts "XF86MonBrightnessUp" "Display: increase screen brightness by 10%"
+      (bindOpts "XF86MonBrightnessUp" "Display: Increase brightness by 10%"
         (dsp.exec "${pkgs.brightnessctl}/bin/brightnessctl set +10%")
         {
           locked = true;
           repeating = true;
         }
       )
-      (bindOpts "XF86MonBrightnessDown" "Display: decrease screen brightness by 10%"
+      (bindOpts "XF86MonBrightnessDown" "Display: Decrease brightness by 10%"
         (dsp.exec "${pkgs.brightnessctl}/bin/brightnessctl set 10%-")
         {
           locked = true;

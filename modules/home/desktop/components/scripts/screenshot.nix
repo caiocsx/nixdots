@@ -42,28 +42,42 @@ let
       }
 
       main() {
-        local mode geometry output_directory output_file
+        local mode="region" mode_set="" delay="0" geometry output_directory output_file
 
-        if (( $# > 1 )); then
-          printf 'Expected at most one screenshot mode.\n' >&2
-          return 2
-        fi
+        while (( $# > 0 )); do
+          case "$1" in
+            -r|--region)
+              [[ -z "$mode_set" ]] || { printf 'Expected at most one screenshot mode.\n' >&2; return 2; }
+              mode="region"
+              mode_set=1
+              ;;
+            -w|--window)
+              [[ -z "$mode_set" ]] || { printf 'Expected at most one screenshot mode.\n' >&2; return 2; }
+              mode="window"
+              mode_set=1
+              ;;
+            -o|--output)
+              [[ -z "$mode_set" ]] || { printf 'Expected at most one screenshot mode.\n' >&2; return 2; }
+              mode="output"
+              mode_set=1
+              ;;
+            -d|--delay)
+              if (( $# < 2 )) || [[ ! "$2" =~ ^[0-9]+$ ]]; then
+                printf 'Delay must be a non-negative number of seconds.\n' >&2
+                return 2
+              fi
+              delay="$2"
+              shift
+              ;;
+            *)
+              printf 'Unknown screenshot option: %s\n' "$1" >&2
+              return 2
+              ;;
+          esac
+          shift
+        done
 
-        case "''${1:---region}" in
-          -r|--region)
-            mode="region"
-            ;;
-          -w|--window)
-            mode="window"
-            ;;
-          -o|--output)
-            mode="output"
-            ;;
-          *)
-            printf 'Unknown screenshot mode: %s\n' "$1" >&2
-            return 2
-            ;;
-        esac
+        sleep "$delay"
 
         case "$mode" in
           region)

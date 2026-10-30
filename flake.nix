@@ -25,6 +25,10 @@
       url = "github:4evy/nixcord";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hyprexpo = {
+      url = "github:sandwichfarm/hyprexpo";
+      flake = false;
+    };
     nix-vscode-extensions = {
       url = "github:nix-community/nix-vscode-extensions";
       inputs.nixpkgs.follows = "nixpkgs";
